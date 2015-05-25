@@ -126,6 +126,7 @@
         </div>
         
         <div class="aqua-container">
+            <?php echo $this->Session->flash(); ?>
             <?php echo $this->fetch("content"); ?>
         </div>
         <div class="clear"></div>
