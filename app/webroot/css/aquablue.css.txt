@@ -1,0 +1,524 @@
+
+body { background:#eeeeee url('../images/aqua-body-bg.png'); }
+#aqua-header {
+  height:79px;
+  background:#0b242f url('../images/aqua-header-bg.png');
+  border-bottom:1px solid #001119;
+}
+.aqua-container {
+  width:980px;
+  margin:auto;
+}
+.clear { clear:both; }
+.fl { float:left; }
+hr {
+  border-bottom:1px solid #247296;
+  border-top:1px solid #eeeeee;
+}
+.gl-icons { list-style-type:none; }
+.gl-icons li {
+  float:left;
+  line-height:25px;
+  width:25%;
+}
+#breadcrumbs {
+  width:980px;
+  height:30px;
+  margin:auto;
+  margin-bottom:14px;
+  margin-top:10px;
+}
+.breadcrumbs {
+  display:block;
+  border:1px solid #bebebe;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  background:url("../images/panel-header-bg-blue.png") center bottom;
+  padding:5px;
+  margin-left:10px;
+}
+.error-page {
+  text-align:center;
+  padding:50px 20px;
+  font-size:25px;
+  margin-bottom:0px;
+  line-height:30px;
+}
+.error-page .error-code { font-size:60px; }
+.tab-pane.fade.active.in { position:static; }
+.tab-pane.fade {
+  position:absolute;
+  left:-10000px;
+  display:block;
+}
+#brush-fix .syntaxhighlighter { display:none !important; }
+[class^="aqua-well-mini"], [class*=" aqua-well-mini"] {
+  background-color:rgba(38,120,162,0.08);
+  background-image:url('../images/aqua-well-mini.png'), url('../images/aqua-well-mini.png'), url('../images/aqua-well-mini.png');
+  background-position:left 0px, right -70px, right -140px;
+  background-repeat:no-repeat, no-repeat, repeat-x;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  height:60px;
+  display:inline-block;
+  color:#eeeeee;
+  min-width:70px;
+  margin-left:8px;
+  padding:5px 10px;
+  font-size:10px;
+}
+[class^="aqua-well-mini"]:hover, [class*=" aqua-well-mini"]:hover {
+  background-color:rgba(38,120,162,0.2);
+  color:#eeeeee;
+  text-decoration:none;
+}
+.aqua-well-mini-blue { background-color:rgba(12,56,121,0.4); }
+.aqua-well-mini-blue:hover { background-color:rgba(12,56,121,0.6); }
+.aqua-well-mini-red { background-color:rgba(150,0,0,0.4); }
+.aqua-well-mini-red:hover { background-color:rgba(150,0,0,0.6); }
+.aqua-well-mini-green { background-color:rgba(0,100,0,0.4); }
+.aqua-well-mini-green:hover { background-color:rgba(0,100,0,0.6); }
+.nav { margin-bottom:0px; }
+.view.users tr th { width:150px; }
+.sort-link .caret {
+  vertical-align:middle;
+  margin:0px 5px;
+}
+.filters input { width:85%; }
+.pagination ul { float:right; }
+.summary {
+  float:left;
+  line-height:38px;
+  font-size:11px;
+}
+header {
+  height:129px;
+  color:#eeeeee;
+}
+#aqua-header .aqua-container { padding:5px 0px; }
+h1.aqua-slogan {
+  font-size:22px;
+  line-height:28px;
+  margin:2px 10px;
+  width:auto;
+  display:block;
+}
+h2.aqua-slogan {
+  font-size:18px;
+  line-height:20px;
+  font-weight:normal;
+  margin:5px 10px;
+  width:auto;
+  display:block;
+}
+#aqua-menu {
+  height:48px;
+  margin-bottom:0px;
+  background-color:#0b242f;
+  border-top:1px solid #1e4555;
+}
+#aqua-menu .nav li.dropdown > .dropdown-toggle .caret {
+  border-bottom-color:#eeeeee;
+  border-top-color:#eeeeee;
+}
+#aqua-menu .nav {
+  margin-top:5px;
+  padding:0px 10px;
+}
+#aqua-menu .nav > li > a {
+  text-shadow:none;
+  color:#eeeeee;
+  height:19px;
+  padding:8px 15px;
+  margin:0 5px 0px 0px;
+}
+#aqua-menu .nav > li.active > a, #aqua-menu .nav > li.open > a, #aqua-menu .nav > li > a:hover {
+  background-color:#0b242f;
+  background-image:url('../images/aqua-menu.png'), url('../images/aqua-menu.png'), url('../images/aqua-menu.png');
+  background-position:left 0px, right -35px, right -70px;
+  background-repeat:no-repeat, no-repeat, repeat-x;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  color:#eeeeee;
+}
+.affix {
+  position:fixed;
+  top:0px;
+  left:0px;
+  width:100%;
+  z-index:1030;
+}
+#aqua-header .label {
+  font-weight:normal;
+  font-size:10px;
+}
+#aqua-menu .navbar-form { margin-top:0px; }
+#aqua-menu .navbar-form input {
+  background-color:#0b242f;
+  background-image:url('../images/aqua-menu.png'), url('../images/aqua-menu.png'), url('../images/aqua-menu.png');
+  background-position:left 0px, right -35px, right -70px;
+  background-repeat:no-repeat, no-repeat, repeat-x;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  color:#eeeeee;
+  border:none;
+  height:27px;
+  width:180px;
+}
+#aqua-menu .navbar-form input:focus { box-shadow:none; }
+.aqua-search-button {
+  background:none;
+  border:none;
+  position:relative;
+  top:2px;
+  left:194px;
+}
+.quick-info { 
+    color:#0b242f; 
+    width: 325px;
+}
+.info-dropdown {
+  float:left;
+  margin:10px 10px 0px 10px;
+  text-align:right;
+  width:300px;
+  border-bottom:1px solid #999999;
+}
+.info-dropdown:last-child { border-bottom:none; }
+.info-dropdown .aqua-avatar-quick-list {
+  padding:0;
+  margin:0;
+  text-align:left;
+}
+.info-dropdown .aqua-avatar-quick-list img {
+  height:70px;
+  margin-bottom:5px;
+}
+.quick-info a {
+  display:inherit;
+  padding:0px;
+  float:right;
+  font-weight:bold;
+}
+@font-face {
+  font-family:'modern-pictograms';
+  src:url('../fonts/modernpics-webfont.eot');
+  src:url('../fonts/modernpics-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/modernpics-webfont.woff') format('woff'), url('../fonts/modernpics-webfont.ttf') format('truetype'), url('../fonts/modernpics-webfont.svg#webfont') format('svg');
+}
+.modernpics {
+  font:64px / 64px "modern-pictograms", sans-serif;
+  color:#154458;
+}
+a.modernpics:hover {
+  text-decoration:none;
+  cursor:pointer;
+}
+.letter {
+  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:14px;
+}
+.aqua-panel-header .modernpics {
+  float:left;
+  line-height:46px;
+  padding:0px 3px;
+  color:#154458;
+}
+.alert .modernpics { vertical-align:middle; }
+.alert .panel-divider {
+  display:inline-block;
+  float:none;
+  vertical-align:middle;
+}
+.modernpics.newline {
+  display:block;
+  margin-top:2px;
+  line-height:50px;
+}
+.aqua-header-shortcuts .modernpics.newline {
+  display:block;
+  margin-top:0px;
+  line-height:48px;
+}
+.nav-tabs .modernpics {
+  font-size:20px;
+  line-height:16px;
+}
+.icons16 {
+  font-size:16px;
+  line-height:16px;
+}
+.icons24 {
+  font-size:24px;
+  line-height:22px;
+  width:24px;
+}
+.icons32 {
+  font-size:32px;
+  line-height:32px;
+}
+.icons48 {
+  font-size:48px;
+  line-height:48px;
+}
+.icons64 {
+  font-size:64px;
+  line-height:64px;
+}
+.icons72 {
+  font-size:72px;
+  line-height:72px;
+}
+.icons90 {
+  font-size:90px;
+  line-height:90px;
+}
+.icons-white { color:#ffffff; }
+.icons-black { color:#000000; }
+.icons-blue { color:#049cdb; }
+.icons-blue-dark { color:#154458; }
+.icons-black { color:#000000; }
+.icons-red { color:#9d261d; }
+.icons-green { color:#46a546; }
+.icons-yellow { color:#ffc40d; }
+.icons-orange { color:#f89406; }
+.icons-green { color:#46a546; }
+.icons-pink { color:#c3325f; }
+.icons-purple { color:#7a43b6; }
+.icon-margin { margin-right:5px; }
+.icon-pie-chart { background-position:0 -168px; }
+.icon-bullhorn1 { background-position:-24px -168px; }
+.icon-bell1 { background-position:-48px -168px; }
+.icon-certificate1 { background-position:-72px -168px; }
+.icon-thumbs-up1 { background-position:-96px -168px; }
+.icon-thumbs-down1 { background-position:-120px -168px; }
+.icon-hand-right1 { background-position:-144px -168px; }
+.icon-hand-left1 { background-position:-168px -168px; }
+.icon-hand-up1 { background-position:-192px -168px; }
+.icon-hand-down1 { background-position:-216px -168px; }
+.icon-circle-arrow-right1 { background-position:-240px -168px; }
+.icon-circle-arrow-left1 { background-position:-264px -168px; }
+.icon-circle-arrow-up1 { background-position:-288px -168px; }
+.icon-circle-arrow-down1 { background-position:-312px -168px; }
+.icon-globe1 { background-position:-336px -168px; }
+.icon-wrench1 { background-position:-360px -168px; }
+.icon-tasks1 { background-position:-384px -168px; }
+.icon-filter1 { background-position:-408px -168px; }
+.icon-briefcase1 { background-position:-432px -168px; }
+.icon-fullscreen1 { background-position:-456px -168px; }
+.align-center {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+.text-align-center { text-align:center; }
+h2 span {
+  font-size:10px;
+  color:#999999;
+  padding:0px 6px;
+  line-height:15px;
+}
+.aqua-panel { margin-bottom:10px; }
+.aqua-panel-content {
+  border:1px solid #bebebe;
+  border-top:none;
+  padding:10px;
+  background:#ffffff;
+  display:block;
+}
+.aqua-panel-header {
+  background-color:#efefef;
+  background-image:url('../images/panel-header-bg-blue.png'), url('../images/panel-header-bg-blue.png'), url('../images/panel-header-bg-blue.png');
+  background-position:left 0px, right -45px, right -90px;
+  background-repeat:no-repeat, no-repeat, repeat-x;
+  -webkit-border-top-right-radius:5px;
+  -moz-border-radius-topright:5px;
+  border-top-right-radius:5px;
+  -webkit-border-top-left-radius:5px;
+  -moz-border-radius-topleft:5px;
+  border-top-left-radius:5px;
+  height:45px;
+  padding:0px 10px;
+  line-height:45px;
+  border:1px solid #bebebe;
+}
+.panel-divider {
+  background:url("../images/panel-header-divider.png");
+  margin:2px 12px;
+  width:2px;
+  height:40px;
+  display:inline;
+  float:left;
+}
+.aqua-panel-header h2 {
+  font-size:17px;
+  color:#133f53;
+  padding:0;
+  margin:0;
+  line-height:45px;
+  font-weight:normal;
+  display:inline;
+  float:left;
+}
+.aqua-panel-tabs-icons .modernpics, .aqua-panel-tabs-icons a {
+  font-size:22px;
+  line-height:44px;
+  color:#103444;
+  float:left;
+  font-weight:bold;
+  margin-left:3px;
+  outline:none;
+}
+.aqua-panel-tabs-icons a {
+  letter-spacing:-2px;
+  font-size:22px;
+  line-height:40px;
+  outline:none;
+}
+.aqua-panel-tabs-icons .modernpics:hover, .aqua-panel-tabs-icons a:hover {
+  color:#247296;
+  text-decoration:none;
+}
+.aqua-shortcut {
+  background-color:rgba(220,220,220,0.4);
+  margin-bottom:20px;
+  text-align:center;
+  width:120px;
+  height:80px;
+  display:block;
+  border:1px solid #bebebe;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  background:url("../images/aqua-shortcut-bg.png") center bottom;
+  padding-top:5px;
+}
+.aqua-shortcut:hover {
+  background-color:rgba(210,210,210,0.4);
+  text-decoration:none;
+}
+.aqua-shortcut.disabled {
+  background-color:#ffffff;
+  text-decoration:none;
+  cursor:not-allowed;
+}
+.info-panel .span1 { margin:0px; }
+.info-panel {
+  margin-left:6px;
+  margin-top:10px;
+}
+.inpanel.tabs-above ul {
+  margin-top:-48px;
+  border-bottom:none;
+  margin-right:30px;
+}
+.inpanel .active > a > [class^="icon-"] { background-image:url("../img/glyphicons-halflings-blue.png"); }
+.inpanel li > a > [class^="icon-"] { background-image:url("../img/glyphicons-halflings-blue.png"); }
+.inpanel .tab-content { overflow:hidden; }
+.inpanel .nav-tabs > li, .nav-pills > li { float:right; }
+.fullscreen {
+  position:fixed;
+  top:0;
+  left:0%;
+  width:100%;
+  height:100%;
+  z-index:1030;
+  margin:0;
+  padding:0;
+  background-color:#333333;
+  background-color:rgba(0,0,0,0.9);
+}
+.fullscreen .inpanel.tabs-above ul { margin-top:0px; }
+.aqua-well-new-users {
+  border-color:#000000;
+  border:1px solid #999999;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  height:68px;
+  display:inherit;
+  min-width:70px;
+  margin-left:8px;
+  padding:5px 10px;
+  font-size:11px;
+  margin-bottom:10px;
+  line-height:18px;
+}
+.aqua-well-new-users table {
+  margin-left:20px;
+  float:left;
+}
+.aqua-avatar {
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  line-height:55px;
+  border:1px solid #eeeeee;
+  background-color:#eeeeee;
+  width:55px;
+  height:55px;
+  display:block;
+  float:left;
+  text-align:center;
+  margin-right:0px;
+  margin-left:20px;
+}
+.aqua-well-new-users .aqua-avatar {
+  margin-right:20px;
+  margin-left:0px;
+}
+.aqua-user {
+  float:left;
+  display:block;
+  padding:0px 0px 0px 0px;
+}
+.aqua-user-name {
+  height:31px;
+  display:block;
+  text-align:right;
+  font-weight:bold;
+  font-size:12px;
+}
+#footer {
+  color:#eeeeee;
+  margin-top:20px;
+  background:#0b242f url('../images/aqua-header-bg.png');
+  padding:1px 0px;
+}
+#aqua-footer {
+  padding:30px 20px;
+  border-top:1px solid #1e4555;
+  -webkit-box-shadow:inset 0px 2px 2px 1px #000000;
+  -moz-box-shadow:inset 0px 2px 2px 1px #000000;
+  box-shadow:inset 0px 2px 2px 1px #000000;
+}
+#aqua-footer .nav > li {
+  color:#bbbbbb;
+  text-shadow:1px 1px 0px #000000;
+  font-size:16px;
+}
+#aqua-footer .nav > li > a {
+  color:#bbbbbb;
+  display:block;
+  padding:4px 5px 4px 5px;
+  margin-top:0px;
+  width:100px;
+  font-size:12px;
+}
+#aqua-footer .nav > li {
+  border-bottom:1px solid #001119;
+  border-top:1px solid #1e4555;
+}
+#aqua-footer .nav > li.first { border-top:none; }
+#aqua-footer .nav > li.last { border-bottom:none; }
+#aqua-footer .nav > li > a:hover {
+  background:none;
+  text-decoration:none;
+  color:#ffffff;
+}
+.form-search .input-append, .form-inline .input-append, .form-search .input-prepend, .form-inline .input-prepend { margin-bottom:10px; }
+.button-column { width:50px; }
