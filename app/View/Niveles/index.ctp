@@ -3,6 +3,9 @@
     $this->extend("/Common/index");
     $this->assign("titulo", "Administrar Niveles");
     $this->assign("accion", "Crear Nivel");
+    
+    $this->Html->addCrumb('Niveles', '/Niveles');
+    $this->Html->addCrumb('Adiministrar', '/Niveles/index');
 ?>
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
@@ -18,9 +21,9 @@
             array(
                 $nivel["Nivel"]["idnivel"],
                 $nivel["Nivel"]["descripcion"],
-                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view"), array("escape" => false, "title" => "Ver", "rel" => "tooltip")) . " " .
-                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit"), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
-                $this->Html->link("<i class='icon-trash'></i>", array("action" => "delete"), array("escape" => false, "title" => "Eliminar", "rel" => "tooltip")) 
+                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $nivel["Nivel"]["idnivel"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
+                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $nivel["Nivel"]["idnivel"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $nivel["Nivel"]["idnivel"]), array("confirm" => "¿Estás seguro?", "escape" => false))
             ), array(
                 "class" => "odd"
             ), array(

@@ -1,21 +1,27 @@
-<div class="aniolectivos form">
-<?php echo $this->Form->create('Aniolectivo'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Aniolectivo'); ?></legend>
-	<?php
-		echo $this->Form->input('idaniolectivo');
-		echo $this->Form->input('descripcion');
-		echo $this->Form->input('fechainicio');
-		echo $this->Form->input('fechafin');
-		echo $this->Form->input('estado');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Aniolectivos'), array('action' => 'index')); ?></li>
-	</ul>
-</div>
+<!-- File: /app/View/Aniolectivos/add.ctp -->
+<?php 
+    $this->extend("/Common/add");
+    $this->assign("titulo", "Crear Año Lectivo");
+    $this->assign("accion", "Administrar Años Lectivos");
+    
+    $this->Html->addCrumb('Años Lectivos', '/Aniolectivos');
+    $this->Html->addCrumb('Crear', '/Aniolectivos/add');
+    
+?>
+<?php 
+    echo $this->Form->create("Aniolectivo", array("class" => "form-vertical"));
+    $this->Form->inputDefaults(array("class" => "span4"));
+    echo $this->Html->para("help-block", "Los campos con <span class='required'>*</span> son requeridos");
+    echo $this->Form->input("descripcion", array(
+        "label" => "Descripción",
+        "autofocus" => "autofocus"
+    ));
+    echo $this->Form->input("fechainicio", array(
+        "label" => "Fecha de Inicio"
+    ));
+    echo $this->Form->input("fechafin", array(
+        "label" => "Fecha Final"
+    ));  
+    echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
+    echo $this->Form->end();
+?>

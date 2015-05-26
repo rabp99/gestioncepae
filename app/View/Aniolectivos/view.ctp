@@ -1,39 +1,24 @@
-<div class="aniolectivos view">
-<h2><?php echo __('Aniolectivo'); ?></h2>
-	<dl>
-		<dt><?php echo __('Idaniolectivo'); ?></dt>
-		<dd>
-			<?php echo h($aniolectivo['Aniolectivo']['idaniolectivo']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Descripcion'); ?></dt>
-		<dd>
-			<?php echo h($aniolectivo['Aniolectivo']['descripcion']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Fechainicio'); ?></dt>
-		<dd>
-			<?php echo h($aniolectivo['Aniolectivo']['fechainicio']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Fechafin'); ?></dt>
-		<dd>
-			<?php echo h($aniolectivo['Aniolectivo']['fechafin']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Estado'); ?></dt>
-		<dd>
-			<?php echo h($aniolectivo['Aniolectivo']['estado']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Aniolectivo'), array('action' => 'edit', $aniolectivo['Aniolectivo']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Aniolectivo'), array('action' => 'delete', $aniolectivo['Aniolectivo']['id']), array(), __('Are you sure you want to delete # %s?', $aniolectivo['Aniolectivo']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Aniolectivos'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Aniolectivo'), array('action' => 'add')); ?> </li>
-	</ul>
-</div>
+<!-- File: /app/View/Aniolectivos/view.ctp -->
+<?php 
+    $this->extend("/Common/view");
+    $this->assign("titulo", "Detalle de Año Lectivo");
+    $this->assign("accion1", "Crear Año Lectivo");
+    $this->assign("accion2", "Editar Año Lectivo");
+    $this->assign("accion3", "Administar Años Lectivos");
+    $this->assign("accion4", "Eliminar Año Lectivo");
+    $this->assign("id", $aniolectivo["Aniolectivo"]["idaniolectivo"]);    
+    
+    $this->Html->addCrumb('Años Lectivos', '/Aniolectivos');
+    $this->Html->addCrumb('Detalle', '/Aniolectivos/view');
+?>
+
+<dl class="dl-horizontal">
+    <dt>Código</dt>
+    <dd><?php echo $aniolectivo["Aniolectivo"]["idnivel"]; ?></dd>
+    <dt>Descripción</dt>
+    <dd><?php echo $aniolectivo["Aniolectivo"]["descripcion"]; ?></dd>
+    <dt>Fecha de Inicio</dt>
+    <dd><?php echo $aniolectivo["Aniolectivo"]["fechainicio"]; ?></dd>
+    <dt>Fecha Final</dt>
+    <dd><?php echo $aniolectivo["Aniolectivo"]["fechafin"]; ?></dd>
+</dl>

@@ -7,6 +7,7 @@
             echo $this->Html->css("style.css");
             echo $this->Html->css("guiders-1.2.8.css");
             echo $this->Html->css("themes/prettify.css");
+            echo $this->Html->css("default.css");
         ?>
         <?php
             // js
@@ -15,7 +16,7 @@
             echo $this->Html->script("guiders-1.2.8.js");
             echo $this->Html->script("prettify.js");
         ?>
-        <title>Sistema de Gestión Académica - Colegio Cepae</title>
+        <title>Sistema de Gestión Académica - <?php echo $this->fetch("titulo"); ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -122,7 +123,15 @@
         <!-- mensajes alert -->
         
         <div id="breadcrumbs">
-            <!-- breadcrumbs -->
+            <?php echo $this->Html->getCrumbList(
+                array(
+                    "class" => "breadcrumbs breadcrumb",
+                    "firstClass" => false,
+                    "lastClass" => "active",
+                    "separator" => "<span class='divider'>/</span>"
+                ),
+                array('text' => 'Home')
+            ); ?>
         </div>
         
         <div class="aqua-container">
@@ -162,6 +171,9 @@
                 return false;
             });
         </script>
-        <?php echo $this->Js->writeBuffer(); ?>
+        <?php
+            echo $this->Js->writeBuffer();
+            echo $this->Html->script("default");
+        ?>
     </body>
 </html>

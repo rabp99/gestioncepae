@@ -1067,12 +1067,12 @@ table .span24 {
   *margin-right:.3em;
   line-height:14px;
   vertical-align:text-top;
-  background-image:url("../img/glyphicons-halflings-blue.png");
+  background-image:url("../app/webroot/img/glyphicons-halflings-blue.png");
   background-position:14px 14px;
   background-repeat:no-repeat;
   margin-top:1px;
 }
-.icon-white, .nav > .active > a > [class^="icon-"], .nav > .active > a > [class*=" icon-"], .dropdown-menu > li > a:hover > [class^="icon-"], .dropdown-menu > li > a:hover > [class*=" icon-"], .dropdown-menu > .active > a > [class^="icon-"], .dropdown-menu > .active > a > [class*=" icon-"] { background-image:url("../img/glyphicons-halflings-white.png"); }
+.icon-white, .nav > .active > a > [class^="icon-"], .nav > .active > a > [class*=" icon-"], .dropdown-menu > li > a:hover > [class^="icon-"], .dropdown-menu > li > a:hover > [class*=" icon-"], .dropdown-menu > .active > a > [class^="icon-"], .dropdown-menu > .active > a > [class*=" icon-"] { background-image:url("../app/webroot/img/glyphicons-halflings-white.png"); }
 .icon-glass { background-position:0 0; }
 .icon-music { background-position:-24px 0; }
 .icon-search { background-position:-48px 0; }
@@ -3283,10 +3283,10 @@ a.label:hover, a.badge:hover {
 .show { display:block; }
 .invisible { visibility:hidden; }
 .affix { position:fixed; }
-body { background:#eeeeee url('../images/aqua-body-bg.png'); }
+body { background:#eeeeee url('../app/webroot/img/images/aqua-body-bg.png'); }
 #aqua-header {
   height:79px;
-  background:#0b242f url('../images/aqua-header-bg.png');
+  background:#0b242f url('../app/webroot/img/images/aqua-header-bg.png');
   border-bottom:1px solid #001119;
 }
 .aqua-container {
@@ -3318,7 +3318,7 @@ hr {
   -webkit-border-radius:5px;
   -moz-border-radius:5px;
   border-radius:5px;
-  background:url("../images/panel-header-bg-blue.png") center bottom;
+  background:url("../app/webroot/img/images/panel-header-bg-blue.png") center bottom;
   padding:5px;
   margin-left:10px;
 }
@@ -3339,7 +3339,7 @@ hr {
 #brush-fix .syntaxhighlighter { display:none !important; }
 [class^="aqua-well-mini"], [class*=" aqua-well-mini"] {
   background-color:rgba(38,120,162,0.08);
-  background-image:url('../images/aqua-well-mini.png'), url('../images/aqua-well-mini.png'), url('../images/aqua-well-mini.png');
+  background-image:url('../app/webroot/img/images/aqua-well-mini.png'), url('../app/webroot/img/images/aqua-well-mini.png'), url('../app/webroot/img/images/aqua-well-mini.png');
   background-position:left 0px, right -70px, right -140px;
   background-repeat:no-repeat, no-repeat, repeat-x;
   -webkit-border-radius:5px;
@@ -3420,7 +3420,7 @@ h2.aqua-slogan {
 }
 #aqua-menu .nav > li.active > a, #aqua-menu .nav > li.open > a, #aqua-menu .nav > li > a:hover {
   background-color:#0b242f;
-  background-image:url('../images/aqua-menu.png'), url('../images/aqua-menu.png'), url('../images/aqua-menu.png');
+  background-image:url('../app/webroot/img/images/aqua-menu.png'), url('../app/webroot/img/images/aqua-menu.png'), url('../app/webroot/img/images/aqua-menu.png');
   background-position:left 0px, right -35px, right -70px;
   background-repeat:no-repeat, no-repeat, repeat-x;
   -webkit-border-radius:5px;
@@ -3442,7 +3442,7 @@ h2.aqua-slogan {
 #aqua-menu .navbar-form { margin-top:0px; }
 #aqua-menu .navbar-form input {
   background-color:#0b242f;
-  background-image:url('../images/aqua-menu.png'), url('../images/aqua-menu.png'), url('../images/aqua-menu.png');
+  background-image:url('../app/webroot/img/images/aqua-menu.png'), url('../app/webroot/img/images/aqua-menu.png'), url('../app/webroot/img/images/aqua-menu.png');
   background-position:left 0px, right -35px, right -70px;
   background-repeat:no-repeat, no-repeat, repeat-x;
   -webkit-border-radius:5px;
@@ -3613,7 +3613,7 @@ h2 span {
 }
 .aqua-panel-header {
   background-color:#efefef;
-  background-image:url('../images/panel-header-bg-blue.png'), url('../images/panel-header-bg-blue.png'), url('../images/panel-header-bg-blue.png');
+  background-image:url('../app/webroot/img/images/panel-header-bg-blue.png'), url('../app/webroot/img/images/panel-header-bg-blue.png'), url('../app/webroot/img/images/panel-header-bg-blue.png');
   background-position:left 0px, right -45px, right -90px;
   background-repeat:no-repeat, no-repeat, repeat-x;
   -webkit-border-top-right-radius:5px;
@@ -3628,7 +3628,7 @@ h2 span {
   border:1px solid #bebebe;
 }
 .panel-divider {
-  background:url("../images/panel-header-divider.png");
+  background:url("../app/webroot/img/images/panel-header-divider.png");
   margin:2px 12px;
   width:2px;
   height:40px;
@@ -3675,7 +3675,7 @@ h2 span {
   -webkit-border-radius:5px;
   -moz-border-radius:5px;
   border-radius:5px;
-  background:url("../images/aqua-shortcut-bg.png") center bottom;
+  background:url("../app/webroot/img/images/aqua-shortcut-bg.png") center bottom;
   padding-top:5px;
 }
 .aqua-shortcut:hover {
@@ -3697,8 +3697,8 @@ h2 span {
   border-bottom:none;
   margin-right:30px;
 }
-.inpanel .active > a > [class^="icon-"] { background-image:url("../img/glyphicons-halflings-blue.png"); }
-.inpanel li > a > [class^="icon-"] { background-image:url("../img/glyphicons-halflings-blue.png"); }
+.inpanel .active > a > [class^="icon-"] { background-image:url("../app/webroot/img/glyphicons-halflings-blue.png"); }
+.inpanel li > a > [class^="icon-"] { background-image:url("../app/webroot/img/glyphicons-halflings-blue.png"); }
 .inpanel .tab-content { overflow:hidden; }
 .inpanel .nav-tabs > li, .nav-pills > li { float:right; }
 .fullscreen {
@@ -3770,7 +3770,7 @@ h2 span {
   margin-top:20px;
   margin-bottom:0px;
   padding-bottom: 0px;
-  background:#0b242f url('../images/aqua-header-bg.png');
+  background:#0b242f url('../app/webroot/img/images/aqua-header-bg.png');
   padding:1px 0px;
   
 }
@@ -3817,6 +3817,6 @@ h2 span {
         color:#eeeeee;
 	width: 100%;
 	margin: 0px;
-        background:#0b242f url('../images/aqua-header-bg.png');
+        background:#0b242f url('../app/webroot/img/images/aqua-header-bg.png');
 }
 

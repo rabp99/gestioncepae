@@ -1,0 +1,4 @@
+div.input.text.required label:after {
+    content: " *";
+    
+}

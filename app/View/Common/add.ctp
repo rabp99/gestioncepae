@@ -7,9 +7,9 @@
         </a>
     </div>
     <div class="clear"></div>
-        <div class="span7">
-            <div class="aqua-panel">
-                <div class="aqua-panel-header">
+    <div class="span7">
+        <div class="aqua-panel">
+            <div class="aqua-panel-header">
                 <i class="modernpics icons32">r</i><span class="panel-divider"></span>
                 <h2><?php echo $this->fetch("titulo"); ?><span></span></h2>
                 <div class="aqua-panel-tabs-icons pull-right">
