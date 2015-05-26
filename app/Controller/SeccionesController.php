@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * CakePHP SeccionesController
+ * @author Roberto
+ */
+class SeccionesController extends AppController {
+    public $uses = array("Seccion");
+    
+    public $components = array("Paginator");
+
+    public $paginate = array(
+        "limit" => 10,
+        "order" => array(
+            "Seccion.descripcion" => "asc"
+        ),
+        "conditions" => array(
+            "Seccion.estado" => 1
+        )
+    );
+    
+    public function index() {
+        $this->layout = "main";
+        
+        $this->Paginator->settings = $this->paginate;
+        $secciones = $this->Paginator->paginate();
+        $this->set(compact("secciones"));
+        
+        // Calcular Año Lectivo actual
+        $this->set("aniolectivo", $this->Seccion->Grado->Aniolectivo->findByEstado("1"));
+    }
+    
+    public function add() {
+        $this->layout = "main";
+                
+        // Calcular Año Lectivo actual
+        $this->set("aniolectivo", $this->Seccion->Grado->Aniolectivo->findByEstado("1"));
+        
+        $this->set("niveles", $this->Seccion->Grado->Nivel->find("list", array(
+            "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
+            "conditions" => array("Nivel.estado" => 1)
+        )));
+        
+        if ($this->request->is(array("post", "put"))) {
+            $this->Seccion->create();
+            if ($this->Seccion->save($this->request->data)) {
+                $this->Session->setFlash(__("La sección ha sido registrada correctamente."), "flash_bootstrap");
+                return $this->redirect(array("action" => "index"));
+            }
+            $this->Session->setFlash(__("No fue posible registrar la sección."), "flash_bootstrap");
+        }
+    }
+
+    public function view($id = null) {
+        $this->layout = "main";
+                
+        if (!$id) {
+            throw new NotFoundException(__("Sección inválida"));
+        }
+        $seccion = $this->Seccion->findByIdseccion($id);
+        if (!$seccion) {
+            throw new NotFoundException(__("Sección inválida"));
+        } 
+        $this->set(compact("seccion"));
+    }
+    
+    public function edit($id = null) {
+        $this->layout = "main";
+
+        if (!$id) {
+            throw new NotFoundException(__("Sección inválida"));
+        }
+        $seccion = $this->Seccion->findByIdseccion($id);
+        if (!$seccion) {
+            throw new NotFoundException(__("Sección inválida"));
+        }
+        
+        $this->set("niveles", $this->Seccion->Grado->Nivel->find("list", array(
+            "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
+            "conditions" => array("Nivel.estado" => 1)
+        )));
+        if ($this->request->is(array("post", "put"))) {      
+            $this->Seccion->id = $id;
+            if ($this->Seccion->save($this->request->data)) {     
+                $this->Session->setFlash(__("La Sección ha sido actualizada."), "flash_bootstrap");
+                return $this->redirect(array("action" => "index"));
+            }
+            $this->Session->setFlash(__("No es posible actualizar la Sección."), "flash_bootstrap");
+        }
+        if (!$this->request->data) {
+            $this->request->data = $seccion;
+        }
+    }
+    
+    public function delete($id) {
+        if ($this->request->is("get")) {
+            throw new MethodNotAllowedException();
+        }
+        $this->Seccion->id = $id;
+        if ($this->Seccion->saveField("estado", 2)) {
+            $this->Session->setFlash(__("La sección de código: %s ha sido eliminada.", h($id)), "flash_bootstrap");
+            return $this->redirect(array("action" => "index"));
+        }
+    }
+}
