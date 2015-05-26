@@ -57,6 +57,7 @@ class SeccionesController extends AppController {
         if (!$id) {
             throw new NotFoundException(__("Sección inválida"));
         }
+        $this->Seccion->recursive = 2;
         $seccion = $this->Seccion->findByIdseccion($id);
         if (!$seccion) {
             throw new NotFoundException(__("Sección inválida"));
@@ -70,15 +71,23 @@ class SeccionesController extends AppController {
         if (!$id) {
             throw new NotFoundException(__("Sección inválida"));
         }
-        $seccion = $this->Seccion->findByIdseccion($id);
-        if (!$seccion) {
-            throw new NotFoundException(__("Sección inválida"));
-        }
-        
         $this->set("niveles", $this->Seccion->Grado->Nivel->find("list", array(
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
             "conditions" => array("Nivel.estado" => 1)
         )));
+        
+        $this->Seccion->recursive = 2;
+        $seccion = $this->Seccion->findByIdseccion($id);
+        $grado = $this->Seccion->Grado->findByIdgrado($seccion["Seccion"]["idgrado"]);
+        $this->set("grados", $this->Seccion->Grado->find("list", array(
+            "fields" => array("Grado.idgrado", "Grado.descripcion"),
+            "conditions" => array("Grado.idnivel" => $grado["Nivel"]["idnivel"])
+        )));
+        
+        if (!$seccion) {
+            throw new NotFoundException(__("Sección inválida"));
+        }
+        
         if ($this->request->is(array("post", "put"))) {      
             $this->Seccion->id = $id;
             if ($this->Seccion->save($this->request->data)) {     
@@ -89,6 +98,7 @@ class SeccionesController extends AppController {
         }
         if (!$this->request->data) {
             $this->request->data = $seccion;
+            $this->request->data["Seccion"]["idnivel"] = $grado["Grado"]["idnivel"];
         }
     }
     

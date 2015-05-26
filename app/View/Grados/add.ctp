@@ -32,7 +32,7 @@
         "div" => "form-group",
         "options" => $niveles,
         "class" => "form-control",
-        "empty" => "Selecciona Uno"
+        "empty" => "Selecciona uno"
     ));
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();

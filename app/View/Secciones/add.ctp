@@ -22,12 +22,11 @@
     ));
     echo $this->Form->input("idnivel", array(
         "label" => "Nivel",
-        "div" => "form-group",
         "options" => $niveles,
-        "class" => "form-control",
-        "empty" => "Selecciona Uno"
+        "empty" => "Selecciona uno"
     ));
     echo $this->Form->input('idgrado', array(
+        "label" => "Grado",
         "type" => "select",
         "disabled" => true
     ));
@@ -36,20 +35,20 @@
 ?>
 
 <?php
-    $this->Js->get('#SeccionIdNivel')->event('change', 
+    $this->Js->get('#SeccionIdnivel')->event('change', 
         $this->Js->request(array(
-            'controller'=>"Niveles",
-            'action'=>'getByIdNivel'
+            "controller" => "Grados",
+            "action" => "getByIdnivel"
         ), array(
-            'update'=>'#SeccionIdGrado',
-            'async' => true,
-            'method' => 'post',
-            'dataExpression'=>true,
-            'data'=> $this->Js->serializeForm(array(
-                'isForm' => true,
-                'inline' => true
+            "update" => "#SeccionIdgrado",
+            "async" => true,
+            "method" => 'post',
+            "dataExpression" => true,
+            "data" => $this->Js->serializeForm(array(
+                "isForm" => true,
+                "inline" => true
             )),
-            "success" => "$('#SeccionIdGrado').attr({disabled: false});"
+            "success" => "$('#SeccionIdgrado').attr({disabled: false});"
         ))
     );
 ?>
