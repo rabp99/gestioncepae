@@ -7,11 +7,11 @@
     $this->Html->addCrumb('Alumnos', '/Alumnos');
     $this->Html->addCrumb('Crear', '/Alumnos/add');
     
-?>                   
+?>
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
         <li>
-            <a data-toggle="tab" href="#yw0_tab_1"><span class="modernpics">8</span> Padres y Apoderado</a>
+            <a data-toggle="tab" href="#yw0_tab_1"><span class="modernpics">8</span> Padres de Familia</a>
         </li>
         <li>
             <a data-toggle="tab" href="#yw0_tab_2"><span class="modernpics">8</span> Otros</a>
@@ -111,14 +111,14 @@
                     echo $this->Form->input("colegioProc", array(
                         "label" => "Colegio de Procedencia"
                     ));
+                    echo $this->Form->input("recomendado", array(
+                        "label" => "Recomendado"
+                    ));
                     echo $this->Form->label("motivos", "Motivos");
                     echo $this->Form->textarea("motivos", array(
                         "rows" => 10,
                         "cols" => 30,
                     ));    
-                    echo $this->Form->input("recomendado", array(
-                        "label" => "Recomendado"
-                    ));
                 ?>
                 </div>
             </div> 
@@ -143,11 +143,26 @@
                             echo $this->Form->input("Padre.0.dni", array(
                                 "label" => "DNI"
                             ));
-                            echo $this->Form->input("Padre.0.sexo", array(
-                                "label" => "Sexo"
+                            echo $this->Form->input("Padre.0.telefono1", array(
+                                "label" => "Teléfono 1"
+                            ));
+                            echo $this->Form->input("Padre.0.telefono2", array(
+                                "label" => "Teléfono 2"
                             ));
                             echo $this->Form->input("Padre.0.fechaNac", array(
                                 "label" => "Fecha de Nacimiento"
+                            ));
+                            echo $this->Form->input("Padre.0.email", array(
+                                "label" => "Email"
+                            ));
+                            echo $this->Form->input("Padre.0.profesion", array(
+                                "label" => "Profesión"
+                            ));
+                            echo $this->Form->input("Padre.0.nivelestudio", array(
+                                "label" => "Nivel de Estudio"
+                            ));
+                            echo $this->Form->input("Padre.0.ocupacion", array(
+                                "label" => "Ocupación"
                             ));
                         ?>
                     </fieldset>
@@ -170,11 +185,26 @@
                             echo $this->Form->input("Padre.1.dni", array(
                                 "label" => "DNI"
                             ));
-                            echo $this->Form->input("Padre.1.sexo", array(
-                                "label" => "Sexo"
+                            echo $this->Form->input("Padre.1.telefono1", array(
+                                "label" => "Teléfono 1"
+                            ));
+                            echo $this->Form->input("Padre.1.telefono2", array(
+                                "label" => "Teléfono 2"
                             ));
                             echo $this->Form->input("Padre.1.fechaNac", array(
                                 "label" => "Fecha de Nacimiento"
+                            ));
+                            echo $this->Form->input("Padre.1.email", array(
+                                "label" => "Email"
+                            ));
+                            echo $this->Form->input("Padre.1.profesion", array(
+                                "label" => "Profesión"
+                            ));
+                            echo $this->Form->input("Padre.1.nivelestudio", array(
+                                "label" => "Nivel de Estudio"
+                            ));
+                            echo $this->Form->input("Padre.1.ocupacion", array(
+                                "label" => "Ocupación"
                             ));
                         ?>
                     </fieldset>
@@ -197,11 +227,26 @@
                             echo $this->Form->input("Padre.2.dni", array(
                                 "label" => "DNI"
                             ));
-                            echo $this->Form->input("Padre.2.sexo", array(
-                                "label" => "Sexo"
+                            echo $this->Form->input("Padre.2.telefono1", array(
+                                "label" => "Teléfono 1"
+                            ));
+                            echo $this->Form->input("Padre.2.telefono2", array(
+                                "label" => "Teléfono 2"
                             ));
                             echo $this->Form->input("Padre.2.fechaNac", array(
                                 "label" => "Fecha de Nacimiento"
+                            ));
+                            echo $this->Form->input("Padre.2.email", array(
+                                "label" => "Email"
+                            ));
+                            echo $this->Form->input("Padre.2.profesion", array(
+                                "label" => "Profesión"
+                            ));
+                            echo $this->Form->input("Padre.2.nivelestudio", array(
+                                "label" => "Nivel de Estudio"
+                            ));
+                            echo $this->Form->input("Padre.2.ocupacion", array(
+                                "label" => "Ocupación"
                             ));
                         ?>
                     </fieldset>
@@ -212,4 +257,4 @@
             echo $this->Form->end();
         ?>
     </div>
-</div> 
+</div>

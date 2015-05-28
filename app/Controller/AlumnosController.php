@@ -29,7 +29,6 @@ class AlumnosController extends AppController {
         $this->layout = "main";
                 
         if ($this->request->is(array("post", "put"))) {
-            debug($this->request->data);
             $this->Alumno->create();
             if($this->Alumno->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
@@ -64,7 +63,7 @@ class AlumnosController extends AppController {
         }
         if ($this->request->is(array("post", "put"))) {      
             $this->Alumno->id = $id;
-            if ($this->Alumno->save($this->request->data)) {     
+            if ($this->Alumno->saveAssociated($this->request->data)) {     
                 $this->Session->setFlash(__("El Alumno ha sido actualizado."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
@@ -81,8 +80,12 @@ class AlumnosController extends AppController {
         }
         $this->Alumno->id = $id;
         if ($this->Alumno->saveField("estado", 2)) {
-            $this->Session->setFlash(__("El Alumno de código: %s ha sido eliminado.", h($id)), "flash_bootstrap");
-            return $this->redirect(array("action" => "index"));
+            $fields = array("Padre.estado" => 2);
+            $conditions = array("Padre.idalumno" => $id);
+            if($this->Alumno->Padre->updateAll($fields, $conditions)) {
+                $this->Session->setFlash(__("El Alumno de código: %s ha sido eliminado.", h($id)), "flash_bootstrap");
+                return $this->redirect(array("action" => "index"));
+            }
         }
     }
 }

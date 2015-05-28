@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="aqua-panel-content">
-
+                <?php echo $this->fetch("antes"); ?>
                 <div id="user-grid" class="grid-view">
 
                     <div class="summary">        
@@ -101,6 +101,7 @@
                         </ul>
                     </div>
                 </div>
+                <?php echo $this->fetch("despues"); ?>
             </div>
         </div>
     </div>
