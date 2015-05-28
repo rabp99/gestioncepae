@@ -11,12 +11,9 @@ class Alumno extends AppModel {
         "nombreCompleto" => "CONCAT(Alumno.apellidoPaterno, ' ', Alumno.apellidoMaterno, ', ', Alumno.nombres )"
     );
     
-    public $validate = array(
-        "descripcion" => array(
-            "notEmpty" => array(
-                "rule" => "notEmpty",
-                "message" => "No puede estar vacio"
-            )
+    public $hasMany = array(
+        "Padre" => array(
+            "foreignKey" => "idalumno"
         )
     );
 }

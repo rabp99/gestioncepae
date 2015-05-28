@@ -76,18 +76,26 @@
             </div>
             <div id="yw0_tab_3" class="tab-pane fade">
                 <div class="info-panel">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <?php echo $this->Form->label("seguro", 
+                                    $this->Form->input("seguro", array(
+                                        "type" => "checkbox",
+                                        "div" => false,
+                                        "class" => false,
+                                        "label" => false
+                                    )) . "Seguro"); 
+                                ?>
+                            </div>
+                        </div>
+                    </div>
                 <?php 
-                    echo $this->Form->input("seguro", array(
-                        "label" => "Seguro"
-                    ));
                     echo $this->Form->input("aseguradora", array(
                         "label" => "Aseguradora"
                     ));
                     echo $this->Form->input("lugarAten", array(
                         "label" => "Lugar de Atención"
-                    ));
-                    echo $this->Form->input("alergias", array(
-                        "label" => "Alergias"
                     ));
                     echo $this->Form->label("alergias", "Alergias");
                     echo $this->Form->textarea("alergias", array(
@@ -104,7 +112,7 @@
                         "label" => "Colegio de Procedencia"
                     ));
                     echo $this->Form->label("motivos", "Motivos");
-                    echo $this->Form->textarea("notivos", array(
+                    echo $this->Form->textarea("motivos", array(
                         "rows" => 10,
                         "cols" => 30,
                     ));    
@@ -119,20 +127,26 @@
                     <fieldset>
                         <legend>Padre</legend>
                         <?php 
-                            echo $this->Form->input("Padre.nombres", array(
-                                "label" => "Nombres",
-                                "autofocus" => "autofocus"
+                            echo $this->Form->input("Padre.0.parentesco", array(
+                                "type" => "hidden",
+                                "value" => "Padre"
                             ));  
-                            echo $this->Form->input("Padre.apellidoPaterno", array(
+                            echo $this->Form->input("Padre.0.nombres", array(
+                                "label" => "Nombres"
+                            ));  
+                            echo $this->Form->input("Padre.0.apellidoPaterno", array(
                                 "label" => "Apellido Paterno"
                             ));  
-                            echo $this->Form->input("Padre.apellidoMaterno", array(
+                            echo $this->Form->input("Padre.0.apellidoMaterno", array(
                                 "label" => "Apellido Materno"
                             ));
-                            echo $this->Form->input("Padre.sexo", array(
+                            echo $this->Form->input("Padre.0.dni", array(
+                                "label" => "DNI"
+                            ));
+                            echo $this->Form->input("Padre.0.sexo", array(
                                 "label" => "Sexo"
                             ));
-                            echo $this->Form->input("Padre.fechaNac", array(
+                            echo $this->Form->input("Padre.0.fechaNac", array(
                                 "label" => "Fecha de Nacimiento"
                             ));
                         ?>
@@ -140,20 +154,26 @@
                     <fieldset>
                         <legend>Madre</legend>
                         <?php 
-                            echo $this->Form->input("Padre.nombres", array(
-                                "label" => "Nombres",
-                                "autofocus" => "autofocus"
+                            echo $this->Form->input("Padre.1.parentesco", array(
+                                "type" => "hidden",
+                                "value" => "Madre"
                             ));  
-                            echo $this->Form->input("Padre.apellidoPaterno", array(
+                            echo $this->Form->input("Padre.1.nombres", array(
+                                "label" => "Nombres"
+                            ));  
+                            echo $this->Form->input("Padre.1.apellidoPaterno", array(
                                 "label" => "Apellido Paterno"
                             ));  
-                            echo $this->Form->input("Padre.apellidoMaterno", array(
+                            echo $this->Form->input("Padre.1.apellidoMaterno", array(
                                 "label" => "Apellido Materno"
                             ));
-                            echo $this->Form->input("Padre.sexo", array(
+                            echo $this->Form->input("Padre.1.dni", array(
+                                "label" => "DNI"
+                            ));
+                            echo $this->Form->input("Padre.1.sexo", array(
                                 "label" => "Sexo"
                             ));
-                            echo $this->Form->input("Padre.fechaNac", array(
+                            echo $this->Form->input("Padre.1.fechaNac", array(
                                 "label" => "Fecha de Nacimiento"
                             ));
                         ?>
@@ -161,20 +181,26 @@
                     <fieldset>
                         <legend>Apoderado</legend>
                         <?php 
-                            echo $this->Form->input("Padre.nombres", array(
-                                "label" => "Nombres",
-                                "autofocus" => "autofocus"
+                            echo $this->Form->input("Padre.2.parentesco", array(
+                                "type" => "hidden",
+                                "value" => "Apoderado"
                             ));  
-                            echo $this->Form->input("Padre.apellidoPaterno", array(
+                            echo $this->Form->input("Padre.2.nombres", array(
+                                "label" => "Nombres"
+                            ));  
+                            echo $this->Form->input("Padre.2.apellidoPaterno", array(
                                 "label" => "Apellido Paterno"
                             ));  
-                            echo $this->Form->input("Padre.apellidoMaterno", array(
+                            echo $this->Form->input("Padre.2.apellidoMaterno", array(
                                 "label" => "Apellido Materno"
                             ));
-                            echo $this->Form->input("Padre.sexo", array(
+                            echo $this->Form->input("Padre.2.dni", array(
+                                "label" => "DNI"
+                            ));
+                            echo $this->Form->input("Padre.2.sexo", array(
                                 "label" => "Sexo"
                             ));
-                            echo $this->Form->input("Padre.fechaNac", array(
+                            echo $this->Form->input("Padre.2.fechaNac", array(
                                 "label" => "Fecha de Nacimiento"
                             ));
                         ?>

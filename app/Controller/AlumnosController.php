@@ -29,8 +29,9 @@ class AlumnosController extends AppController {
         $this->layout = "main";
                 
         if ($this->request->is(array("post", "put"))) {
+            debug($this->request->data);
             $this->Alumno->create();
-            if ($this->Alumno->save($this->request->data)) {
+            if($this->Alumno->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
