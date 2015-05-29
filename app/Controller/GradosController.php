@@ -10,7 +10,7 @@ class GradosController extends AppController {
     public $paginate = array(
         "limit" => 10,
         "order" => array(
-            "Grado.descripcion" => "asc"
+            "Nivel.descripcion" => "asc"
         ),
         "conditions" => array(
             "Grado.estado" => 1

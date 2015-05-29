@@ -28,9 +28,7 @@
     ));
     echo $this->Form->input("idnivel", array(
         "label" => "Nivel",
-        "div" => "form-group",
         "options" => $niveles,
-        "class" => "form-control",
         "empty" => "Selecciona Uno"
     ));
     echo $this->Form->button("Editar", array("class" => "btn btn-primary btn-large"));

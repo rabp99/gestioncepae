@@ -16,8 +16,9 @@
         <tr>
             <th id="user-grid_c0"><?php echo $this->Paginator->sort("idseccion", "ID Sección <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c1"><?php echo $this->Paginator->sort("descripcion", "Descripción <span class='caret'></span>", array("escape" => false)); ?></th>
-            <th id="user-grid_c2"><?php echo $this->Paginator->sort("grado", "Grado <span class='caret'></span>", array("escape" => false)); ?></th>
-            <th id="user-grid_c3">Acciones</th>
+            <th id="user-grid_c2"><?php echo $this->Paginator->sort("Grado.descripcion", "Grado <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c3"><?php echo $this->Paginator->sort("Grado.idnivel", "Nivel <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c4">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,7 @@
                 $seccion["Seccion"]["idseccion"],
                 $seccion["Seccion"]["descripcion"],
                 $seccion["Grado"]["descripcion"],
+                $seccion["Grado"]["Nivel"]["descripcion"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $seccion["Seccion"]["idseccion"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $seccion["Seccion"]["idseccion"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
                 $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $seccion["Seccion"]["idseccion"]), array("confirm" => "¿Estás seguro?", "escape" => false))

@@ -12,11 +12,12 @@ class SeccionesController extends AppController {
     public $paginate = array(
         "limit" => 10,
         "order" => array(
-            "Seccion.descripcion" => "asc"
+            "Grado.idnivel" => "asc"
         ),
         "conditions" => array(
             "Seccion.estado" => 1
-        )
+        ),
+        "recursive" => 2
     );
     
     public function index() {

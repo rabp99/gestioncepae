@@ -19,14 +19,22 @@ class MatriculasController extends AppController {
         )
     );
 
-    public function index($grado = null, $seccion = null) {
+    public function index($idgrado = null, $idseccion = null) {
         $this->layout = "main";
-        if($grado == null) {
-            
+        
+        $this->set("niveles", $this->Matricula->Seccion->Grado->Nivel->find("list", array(
+            "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
+            "conditions" => array("Nivel.estado" => 1)
+        )));
+        
+        if($idgrado != null) {
+            $this->paginate["conditions"]["Seccion.idgrado"] = $idgrado;
         }
-        /*$this->Paginator->settings = $this->paginate;
+        if($idseccion != null) {
+            $this->paginate["conditions"]["Matricula.idseccion"] = $idseccion;
+        }
+        $this->Paginator->settings = $this->paginate;
         $matriculas = $this->Paginator->paginate();
         $this->set(compact("matriculas"));
-        */
     }
 }
