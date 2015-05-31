@@ -20,7 +20,7 @@
         "label" => "Descripción",
         "autofocus" => "autofocus"
     ));
-    echo $this->Form->input("idnivel", array(
+    echo $this->Form->input("Nivel.idnivel", array(
         "label" => "Nivel",
         "options" => $niveles,
         "empty" => "Selecciona uno"
@@ -35,7 +35,7 @@
 ?>
 
 <?php
-    $this->Js->get('#SeccionIdnivel')->event('change', 
+    $this->Js->get('#NivelIdnivel')->event('change', 
         $this->Js->request(array(
             "controller" => "Grados",
             "action" => "getByIdnivel"

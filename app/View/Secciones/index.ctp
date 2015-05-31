@@ -31,7 +31,7 @@
                 $seccion["Grado"]["Nivel"]["descripcion"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $seccion["Seccion"]["idseccion"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $seccion["Seccion"]["idseccion"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
-                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $seccion["Seccion"]["idseccion"]), array("confirm" => "¿Estás seguro?", "escape" => false))
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $seccion["Seccion"]["idseccion"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Eliminar"))
             ), array(
                 "class" => "odd"
             ), array(

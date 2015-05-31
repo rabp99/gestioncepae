@@ -103,7 +103,7 @@ class GradosController extends AppController {
     
     public function getByIdnivel() {
         $this->layout = "ajax";
-        $idnivel = $this->request->data["Seccion"]["idnivel"];
+        $idnivel = $this->request->data["Nivel"]["idnivel"];
         $this->set("grados", $this->Grado->find("list", array(
             "fields" => array("Grado.idgrado", "Grado.descripcion"),
             "conditions" => array("Grado.idnivel" => $idnivel)

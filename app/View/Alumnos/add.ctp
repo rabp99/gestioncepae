@@ -101,6 +101,7 @@
                     echo $this->Form->textarea("alergias", array(
                         "rows" => 10,
                         "cols" => 30,
+                        "class" => "span4"
                     ));    
                 ?>
                 </div>
@@ -118,6 +119,7 @@
                     echo $this->Form->textarea("motivos", array(
                         "rows" => 10,
                         "cols" => 30,
+                        "class" => "span4"
                     ));    
                 ?>
                 </div>

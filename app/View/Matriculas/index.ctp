@@ -2,7 +2,7 @@
 <?php 
     $this->extend("/Common/index");
     $this->assign("titulo", "Administrar Matriculas");
-    $this->assign("accion", "Crear Matricula");
+    $this->assign("accion", "Matricular Alumno");
     
     $this->Html->addCrumb('Matriculas', '/Matriculas');
     $this->Html->addCrumb('Adiministrar', '/Matriculas/index');
@@ -38,12 +38,11 @@
         echo $this->Html->tableCells(
             array(
                 $matricula["Matricula"]["idmatricula"],
-                $matricula["Matricula"]["Alumno"]["nombreCompleto"],
-                $matricula["Matricula"]["Seccion"]["descripcion"],
+                $matricula["Alumno"]["nombreCompleto"],
+                $matricula["Seccion"]["descripcion"],
                 $matricula["Matricula"]["fecha"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $matricula["Matricula"]["idmatricula"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
-                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $matricula["Matricula"]["idmatricula"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
-                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $matricula["Matricula"]["idmatricula"]), array("confirm" => "¿Estás seguro?", "escape" => false))
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $matricula["Matricula"]["idmatricula"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Eliminar"))
             ), array(
                 "class" => "odd"
             ), array(

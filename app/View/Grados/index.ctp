@@ -31,7 +31,7 @@
                 $grado["Grado"]["capacidad"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $grado["Grado"]["idgrado"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $grado["Grado"]["idgrado"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
-                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $grado["Grado"]["idgrado"]), array("confirm" => "¿Estás seguro?", "escape" => false))
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $grado["Grado"]["idgrado"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Eliminar"))
             ), array(
                 "class" => "odd"
             ), array(

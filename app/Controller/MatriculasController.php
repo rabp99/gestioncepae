@@ -37,4 +37,32 @@ class MatriculasController extends AppController {
         $matriculas = $this->Paginator->paginate();
         $this->set(compact("matriculas"));
     }
+    
+    public function add($idnivel = null, $idgrado = null, $idseccion = null) {
+        $this->layout = "main";
+        
+        $this->set("niveles", $this->Matricula->Seccion->Grado->Nivel->find("list", array(
+            "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
+            "conditions" => array("Nivel.estado" => 1)
+        )));
+        if ($this->request->is(array("post", "put"))) {
+            $this->Matricula->create();
+            if ($this->Matricula->save($this->request->data)) {
+                $this->Session->setFlash(__("El Alumno ha ha sido Matriculado correctamente."), "flash_bootstrap");
+                return $this->redirect(array("action" => "index"));
+            }
+            $this->Session->setFlash(__("No fue posible matricular al Alumno."), "flash_bootstrap");
+        }
+    }
+    
+    public function delete($id = null) {
+        if ($this->request->is("get")) {
+            throw new MethodNotAllowedException();
+        }
+        $this->Matricula->id = $id;
+        if ($this->Matricula->saveField("estado", 2)) {
+            $this->Session->setFlash(__("La Matrícula de código: %s ha sido eliminado.", h($id)), "flash_bootstrap");
+            return $this->redirect(array("action" => "index"));
+        }
+    }
 }

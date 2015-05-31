@@ -172,8 +172,9 @@
             });
         </script>
         <?php
-            echo $this->Js->writeBuffer();
             echo $this->Html->script("default");
+            echo $this->Js->writeBuffer();
+            echo $this->fetch('script'); 
         ?>
     </body>
 </html>

@@ -113,4 +113,13 @@ class SeccionesController extends AppController {
             return $this->redirect(array("action" => "index"));
         }
     }
+    
+    public function getByIdgrado() {
+        $this->layout = "ajax";
+        $idgrado = $this->request->data["Grado"]["idgrado"];
+        $this->set("secciones", $this->Seccion->find("list", array(
+            "fields" => array("Seccion.idseccion", "Seccion.descripcion"),
+            "conditions" => array("Seccion.idgrado" => $idgrado)
+        )));
+    }
 }

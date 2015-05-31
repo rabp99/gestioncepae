@@ -88,4 +88,23 @@ class AlumnosController extends AppController {
             }
         }
     }
+    
+    // Funciones secundarias
+    public function getAlumnos() {
+        $this->layout = "ajax";            
+        if(isset($this->request->data["Alumno"]["busqueda"])) {
+            $busqueda = $this->request->data["Alumno"]["busqueda"];
+            $this->set("alumnos", $this->Alumno->find("all", array(
+                "conditions" => array(
+                    "OR" => array(
+                        "Alumno.nombres LIKE" => "%" . $busqueda . "%",
+                        "Alumno.apellidoPaterno LIKE" => "%" . $busqueda . "%",
+                        "Alumno.apellidoMaterno LIKE" => "%" . $busqueda . "%"
+                    )
+                )
+            )));
+        }
+        else $this->set("alumnos", $this->Alumno->find("all"));
+        $this->render();
+    }
 }
