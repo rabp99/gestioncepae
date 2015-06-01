@@ -7,6 +7,10 @@
     $this->Html->addCrumb('Cursos', '/Cursos');
     $this->Html->addCrumb('Adiministrar', '/Cursos/index');
 ?>
+<dl class="dl-horizontal">
+    <dt>Año Lectivo</dt>
+    <dd><?php echo isset($aniolectivo["Aniolectivo"]["descripcion"]) ? $aniolectivo["Aniolectivo"]["descripcion"] : "Ningún Año Lectivo habilitado"; ?></dd>
+</dl>
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>

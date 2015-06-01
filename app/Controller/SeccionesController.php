@@ -44,7 +44,6 @@ class SeccionesController extends AppController {
         
         if ($this->request->is(array("post", "put"))) {
             $this->Seccion->create();
-            debug($this->request->data);
             if ($this->Seccion->save($this->request->data)) {
                 $this->Session->setFlash(__("La sección ha sido registrada correctamente."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
@@ -100,7 +99,7 @@ class SeccionesController extends AppController {
         }
         if (!$this->request->data) {
             $this->request->data = $seccion;
-            $this->request->data["Seccion"]["idnivel"] = $grado["Grado"]["idnivel"];
+            $this->request->data["Nivel"]["idnivel"] = $grado["Grado"]["idnivel"];
         }
     }
     
