@@ -27,7 +27,8 @@
     ));
     echo $this->Form->button("Filtrar", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();
-    $this->end(); 
+    $this->end();
+    echo isset($filtro) ? $filtro : "";
 ?>
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
@@ -58,17 +59,7 @@
     } ?>
     </tbody>
 </table>
-<?php $this->start("despues"); ?>
-<?php echo $this->element('sql_dump'); ?>
-<?php $this->end(); ?>
-<?php 
-    if(isset($this->request->data["Matricula"]["idseccion"])) {
-        $this->Js->buffer("
-            $('#GradoIdgrado').attr({disabled: false});
-            $('#MatriculaIdseccion').attr({disabled: false});"
-        );
-    } 
-?>
+
 <?php
     $this->Js->get('#NivelIdnivel')->event('change', 
         $this->Js->request(array(

@@ -15,4 +15,25 @@ class Matricula extends AppModel {
             "foreignKey" => "idalumno"
         )
     );
+     
+    public $validate = array(
+        "idmatricula" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "idseccion" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "idalumno" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        )
+    );
 }

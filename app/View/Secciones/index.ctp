@@ -2,14 +2,14 @@
 <?php 
     $this->extend("/Common/index");
     $this->assign("titulo", "Administrar Secciones");
-    $this->assign("accion", "Crear Seccion");
+    $this->assign("accion", isset($aniolectivo["Aniolectivo"]["descripcion"]) ? "Crear Seccion" : "");
     
     $this->Html->addCrumb('Secciones', '/Secciones');
     $this->Html->addCrumb('Adiministrar', '/Secciones/index');
 ?>
 <dl class="dl-horizontal">
     <dt>Año Lectivo</dt>
-    <dd><?php echo $aniolectivo["Aniolectivo"]["descripcion"]; ?></dd>
+    <dd><?php echo isset($aniolectivo["Aniolectivo"]["descripcion"]) ? $aniolectivo["Aniolectivo"]["descripcion"] : "Ningún Año Lectivo habilitado"; ?></dd>
 </dl>
 <table class="items table table-striped table-bordered table-condensed">
     <thead>

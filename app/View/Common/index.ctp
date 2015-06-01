@@ -1,11 +1,13 @@
 <!-- File: /app/View/Common/index.ctp -->
 <div class="aqua-container">
+    <?php if(!empty($this->fetch("accion"))) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "add")) ?>" class="aqua-shortcut text-align-center">
             <span class="modernpics newline">V</span>
             <span class="label label-info"><?php echo $this->fetch("accion"); ?></span>
         </a>
     </div>
+    <?php } ?>
     <div class="clear"></div>
     <div class="span7">
         <div class="aqua-panel">

@@ -21,4 +21,35 @@ class Grado extends AppModel {
             "foreignKey" => "idseccion"
         )
     );
+    
+    public $validate = array(
+        "descripcion" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "capacidad" => array(
+            "mayor" => array(
+                "rule" => array("comparison", ">", 0),
+                "message" => "Debe ser un número positivo"
+            ),       
+            "menor" => array(
+                "rule" => array("comparison", "<", 40),
+                "message" => "Debe ser un menor a 40"
+            ),
+        ),    
+        "idgrado" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "idnivel" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        )
+    );
 }

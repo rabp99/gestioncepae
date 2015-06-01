@@ -9,6 +9,12 @@ class Nivel extends AppModel {
     public $primaryKey = "idnivel";
     
     public $validate = array(
+        "idnivel" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
         "descripcion" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",

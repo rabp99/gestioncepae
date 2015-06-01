@@ -5,7 +5,7 @@
     $this->assign("accion1", "Crear Grado");
     $this->assign("accion2", "Detalle de Grado");
     $this->assign("accion3", "Administar Grados");
-    $this->assign("id", $this->request->data["Grado"]["idgrado"]);
+    $this->assign("id", $grado["Grado"]["idgrado"]);
         
     $this->Html->addCrumb('Grados', '/Grados');
     $this->Html->addCrumb('Editar', '/Grados/edit');
@@ -13,7 +13,7 @@
 ?>
 <dl class="dl-horizontal">
     <dt>Año Lectivo</dt>
-    <dd><?php echo $this->request->data["Aniolectivo"]["descripcion"]; ?></dd>
+    <dd><?php echo $aniolectivo["Aniolectivo"]["descripcion"]; ?></dd>
 </dl>
 <?php 
     echo $this->Form->create("Grado", array("class" => "form-vertical"));

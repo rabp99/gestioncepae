@@ -14,7 +14,7 @@
 
 <dl class="dl-horizontal">
     <dt>Código</dt>
-    <dd><?php echo $aniolectivo["Aniolectivo"]["idnivel"]; ?></dd>
+    <dd><?php echo $aniolectivo["Aniolectivo"]["idaniolectivo"]; ?></dd>
     <dt>Descripción</dt>
     <dd><?php echo $aniolectivo["Aniolectivo"]["descripcion"]; ?></dd>
     <dt>Fecha de Inicio</dt>

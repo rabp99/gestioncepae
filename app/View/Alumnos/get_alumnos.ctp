@@ -12,7 +12,7 @@
             <tr>
                 <td class="tdIdalumno"><?php echo $alumno["Alumno"]["idalumno"]; ?></td>
                 <td class="tdNombreCompleto"><?php echo $alumno["Alumno"]["nombreCompleto"]; ?></td>
-                <td><?php echo $this->Form->button($this->Html->tag("span", "", array("class" => "glyphicon glyphicon-ok")) . "", array("class" => "btn btn-default seleccionarAlumno", "type" => "button")); ?></td>
+                <td><?php echo $this->Form->button($this->Html->tag("i", "", array("class" => "icon-ok")) . "", array("class" => "btn btn-default seleccionarAlumno", "type" => "button")); ?></td>
             </tr>
             <?php } ?>
         </tbody>

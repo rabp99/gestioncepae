@@ -16,4 +16,11 @@ class Alumno extends AppModel {
             "foreignKey" => "idalumno"
         )
     );
+    
+    public $hasOne = array(
+        "Matricula" => array(
+            "foreignKey" => "idAlumno",
+            "conditions" => array("Matricula.estado" => 1)
+        )
+    );
 }

@@ -12,4 +12,13 @@ class Aniolectivo extends AppModel {
             "foreignKey" => "idaniolectivo"
         )
     );
+    
+    public $validate = array(
+        "descripcion" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        )
+    );
 }

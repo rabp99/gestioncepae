@@ -100,11 +100,14 @@ class AlumnosController extends AppController {
                         "Alumno.nombres LIKE" => "%" . $busqueda . "%",
                         "Alumno.apellidoPaterno LIKE" => "%" . $busqueda . "%",
                         "Alumno.apellidoMaterno LIKE" => "%" . $busqueda . "%"
-                    )
+                    ),
+                    "AND" => array("Matricula.estado" => null)
                 )
             )));
         }
-        else $this->set("alumnos", $this->Alumno->find("all"));
+        else $this->set("alumnos", $this->Alumno->find("all", array(
+            "conditions" => array("Matricula.estado" => null)
+        )));
         $this->render();
     }
 }

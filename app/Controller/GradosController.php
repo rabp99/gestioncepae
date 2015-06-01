@@ -64,7 +64,7 @@ class GradosController extends AppController {
     
     public function edit($id = null) {
         $this->layout = "main";
-
+        
         if (!$id) {
             throw new NotFoundException(__("Grado inválido"));
         }
@@ -77,7 +77,11 @@ class GradosController extends AppController {
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
             "conditions" => array("Nivel.estado" => 1)
         )));
-        if ($this->request->is(array("post", "put"))) {      
+        
+        $this->set("grado", $grado);
+        $this->set("aniolectivo", $this->Grado->Aniolectivo->findByEstado("1"));
+        
+        if ($this->request->is(array("post", "put"))) {
             $this->Grado->id = $id;
             if ($this->Grado->save($this->request->data)) {     
                 $this->Session->setFlash(__("El Grado ha sido actualizado."), "flash_bootstrap");
@@ -106,7 +110,7 @@ class GradosController extends AppController {
         $idnivel = $this->request->data["Nivel"]["idnivel"];
         $this->set("grados", $this->Grado->find("list", array(
             "fields" => array("Grado.idgrado", "Grado.descripcion"),
-            "conditions" => array("Grado.idnivel" => $idnivel)
+            "conditions" => array("Grado.idnivel" => $idnivel, "Grado.estado" => 1)
         )));
     }
 }

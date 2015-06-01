@@ -2,14 +2,14 @@
 <?php 
     $this->extend("/Common/index");
     $this->assign("titulo", "Administrar Grados");
-    $this->assign("accion", "Crear Grado");
+    $this->assign("accion", isset($aniolectivo["Aniolectivo"]["descripcion"]) ? "Crear Grado" : "");
     
     $this->Html->addCrumb('Grados', '/Grados');
     $this->Html->addCrumb('Adiministrar', '/Grados/index');
 ?>
 <dl class="dl-horizontal">
     <dt>Año Lectivo</dt>
-    <dd><?php echo $aniolectivo["Aniolectivo"]["descripcion"]; ?></dd>
+    <dd><?php echo isset($aniolectivo["Aniolectivo"]["descripcion"]) ? $aniolectivo["Aniolectivo"]["descripcion"] : "Ningún Año Lectivo habilitado"; ?></dd>
 </dl>
 <table class="items table table-striped table-bordered table-condensed">
     <thead>

@@ -27,8 +27,15 @@ class MatriculasController extends AppController {
             "conditions" => array("Nivel.estado" => 1)
         )));
         if($this->request->is("POST")) {
-            $idseccion = $this->request->data["Matricula"]["idseccion"];
-            $this->paginate["conditions"]["Matricula.idseccion"] = $idseccion;
+            if(isset($this->request->data["Grado"]["idgrado"])) {
+                $idgrado = $this->request->data["Grado"]["idgrado"];
+                $this->paginate["conditions"]["Seccion.idgrado"] = $idgrado;
+            }
+            if(isset($this->request->data["Matricula"]["idseccion"])) {
+                $idseccion = $this->request->data["Matricula"]["idseccion"];
+                $this->paginate["conditions"]["Matricula.idseccion"] = $idseccion;
+            }
+            unset($this->request->data["Nivel"]["idnivel"]);
         }
         $this->Paginator->settings = $this->paginate;
         $matriculas = $this->Paginator->paginate();
@@ -50,6 +57,20 @@ class MatriculasController extends AppController {
             }
             $this->Session->setFlash(__("No fue posible matricular al Alumno."), "flash_bootstrap");
         }
+    }
+    
+    public function view($id = null) {
+        $this->layout = "main";
+                
+        if (!$id) {
+            throw new NotFoundException(__("Matricula inválida"));
+        }
+        $this->Matricula->recursive = 3;
+        $matricula = $this->Matricula->findByIdmatricula($id);
+        if (!$matricula) {
+            throw new NotFoundException(__("Matricula inválida"));
+        } 
+        $this->set(compact("matricula"));
     }
     
     public function delete($id = null) {

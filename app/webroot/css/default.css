@@ -1,4 +1,4 @@
-div.input.text.required label:after {
+div.input.required label:after {
     content: " *";
     
 }

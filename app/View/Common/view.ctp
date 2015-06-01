@@ -6,12 +6,14 @@
             <span class="label label-info"><?php echo $this->fetch("accion1"); ?></span>
         </a>
     </div>
+    <?php if(!empty($this->fetch("accion2"))) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "edit", $this->fetch("id"))); ?>" class="aqua-shortcut text-align-center">
             <span class="modernpics newline">r</span>
             <span class="label label-info"><?php echo $this->fetch("accion2"); ?></span>
         </a>
     </div>
+    <?php } ?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "index")); ?>" class="aqua-shortcut text-align-center">
             <span class="modernpics newline">(</span>
