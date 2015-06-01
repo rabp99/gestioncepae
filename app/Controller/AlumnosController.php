@@ -30,7 +30,8 @@ class AlumnosController extends AppController {
                 
         if ($this->request->is(array("post", "put"))) {
             $this->Alumno->create();
-            if($this->Alumno->saveAssociated($this->request->data)) {
+            if($this->request->data["Padre"]["2"]["dni"] == "") unset($this->request->data["Padre"][2]);
+            if($this->Alumno->saveAssociated($this->request->data, array("validate" => "only"))) {
                 $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }

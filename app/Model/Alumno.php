@@ -23,4 +23,37 @@ class Alumno extends AppModel {
             "conditions" => array("Matricula.estado" => 1)
         )
     );
+        
+    public $validate = array(
+        "nombres" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "apellidoPaterno" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "apellidoMaterno" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "sexo" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "fechaNac" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+    );
 }
