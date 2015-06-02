@@ -20,6 +20,11 @@
         "label" => "Descripción",
         "autofocus" => "autofocus"
     ));
+    echo $this->Form->input("idarea", array(
+        "label" => "Área",
+        "options" => $areas,
+        "empty" => "Selecciona uno"
+    ));
     echo $this->Form->input("Nivel.idnivel", array(
         "label" => "Nivel",
         "options" => $niveles,

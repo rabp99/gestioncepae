@@ -15,7 +15,8 @@ class CursosController extends AppController {
         ),
         "conditions" => array(
             "Curso.estado" => 1
-        )
+        ),
+        "recursive" => 2
     );
 
     public function index() {
@@ -38,6 +39,11 @@ class CursosController extends AppController {
         $this->set("niveles", $this->Curso->Grado->Nivel->find("list", array(
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
             "conditions" => array("Nivel.estado" => 1)
+        )));
+        
+        $this->set("areas", $this->Curso->Area->find("list", array(
+            "fields" => array("Area.idarea", "Area.descripcion"),
+            "conditions" => array("Area.estado" => 1)
         )));
         
         if ($this->request->is(array("post", "put"))) {
@@ -73,6 +79,11 @@ class CursosController extends AppController {
         $this->set("niveles", $this->Curso->Grado->Nivel->find("list", array(
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
             "conditions" => array("Nivel.estado" => 1)
+        )));
+        
+        $this->set("areas", $this->Curso->Area->find("list", array(
+            "fields" => array("Area.idarea", "Area.descripcion"),
+            "conditions" => array("Area.estado" => 1)
         )));
         
         $this->Curso->recursive = 2;

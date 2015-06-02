@@ -1,44 +1,49 @@
 <?php
 
 /**
- * CakePHP Curso
+ * CakePHP Docente
  * @author admin
  */
-class Curso extends AppModel {
-    public $primaryKey = "idcurso";
+class Docente extends AppModel {
+    public $primaryKey = "iddocente";
     
-    public $belongsTo = array(
-        "Grado" => array(
-            'foreignKey' => 'idgrado'
-        ),
-        "Area" => array(
-            'foreignKey' => 'idarea'
+    public $virtualFields = array(
+        "nombreCompleto" => "CONCAT(Docente.apellidoPaterno, ' ', Docente.apellidoMaterno, ', ', Docente.nombres )"
+    );
+    
+    public $hasMany = array(
+        "Asignacion" => array(
+            "foreignKey" => "iddocente"
         )
     );
-        
+    
     public $validate = array(
-        "descripcion" => array(
+        "nombres" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
                 "message" => "No puede estar vacio"
             )
         ),
-        "idgrado" => array(
+        "apellidoPaterno" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
                 "message" => "No puede estar vacio"
             )
         ),
-        "idarea" => array(
+        "apellidoMaterno" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
                 "message" => "No puede estar vacio"
             )
         ),
-        "idcurso" => array(
+        "dni" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
                 "message" => "No puede estar vacio"
+            ),
+            "numeric" => array(
+                "rule" => "numeric",
+                "message" => "Sólo permitido números"
             )
         )
     );

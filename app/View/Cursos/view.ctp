@@ -17,6 +17,8 @@
     <dd><?php echo $curso["Curso"]["idcurso"]; ?></dd>
     <dt>Descripción</dt>
     <dd><?php echo $curso["Curso"]["descripcion"]; ?></dd>
+    <dt>Área</dt>
+    <dd><?php echo $curso["Area"]["descripcion"]; ?></dd>
     <dt>Grado</dt>
     <dd><?php echo $curso["Grado"]["descripcion"]; ?></dd>
     <dt>Nivel</dt>
