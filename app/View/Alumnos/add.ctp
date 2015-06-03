@@ -6,7 +6,6 @@
     
     $this->Html->addCrumb('Alumnos', '/Alumnos');
     $this->Html->addCrumb('Crear', '/Alumnos/add');
-    
 ?>
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
@@ -102,7 +101,7 @@
                         "rows" => 10,
                         "cols" => 30,
                         "class" => "span4"
-                    ));    
+                    ));
                 ?>
                 </div>
             </div> 
@@ -120,12 +119,21 @@
                         "rows" => 10,
                         "cols" => 30,
                         "class" => "span4"
-                    ));    
+                    ));
                 ?>
                 </div>
             </div> 
             <div id="yw0_tab_1" class="tab-pane fade">
                 <div class="info-panel">
+                    <?php
+                        echo $this->Form->label("Auxiliar.aux", "En caso de Emergencia remitir a ");
+                        echo $this->Form->select("Auxiliar.aux", array(
+                            "0" => "Padre", "1" => "Madre", "2" => "Apoderado"
+                        ), array(
+                            "empty" => "Selecciona Uno",
+                            "required" => true
+                        ));
+                    ?>
                     <fieldset>
                         <legend>Padre</legend>
                         <?php 

@@ -9,7 +9,7 @@
         
     $this->Html->addCrumb('Alumnos', '/Alumnos');
     $this->Html->addCrumb('Editar', '/Alumnos/edit');
-    
+    debug($this->request->data);
 ?>
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
@@ -134,7 +134,16 @@
                 </div>
             </div> 
             <div id="yw0_tab_1" class="tab-pane fade">
-                <div class="info-panel">
+                <div class="info-panel">        
+                    <?php
+                        echo $this->Form->label("Auxiliar.aux", "En caso de Emergencia remitir a ");
+                        echo $this->Form->select("Auxiliar.aux", array(
+                            "0" => "Padre", "1" => "Madre", "2" => "Apoderado"
+                        ), array(
+                            "empty" => "Selecciona Uno",
+                            "required" => true
+                        ));
+                    ?>
                     <fieldset>
                         <legend>Padre</legend>
                         <?php 
@@ -242,16 +251,20 @@
                                 "type" => "hidden"
                             ));  
                             echo $this->Form->input("Padre.2.nombres", array(
-                                "label" => "Nombres"
+                                "label" => "Nombres",
+                                "required" => false
                             ));  
                             echo $this->Form->input("Padre.2.apellidoPaterno", array(
-                                "label" => "Apellido Paterno"
+                                "label" => "Apellido Paterno",
+                                "required" => false
                             ));  
                             echo $this->Form->input("Padre.2.apellidoMaterno", array(
-                                "label" => "Apellido Materno"
+                                "label" => "Apellido Materno",
+                                "required" => false
                             ));
                             echo $this->Form->input("Padre.2.dni", array(
-                                "label" => "DNI"
+                                "label" => "DNI",
+                                "required" => false
                             ));
                             echo $this->Form->input("Padre.2.telefono1", array(
                                 "label" => "Teléfono 1"
@@ -260,7 +273,8 @@
                                 "label" => "Teléfono 2"
                             ));
                             echo $this->Form->input("Padre.2.fechaNac", array(
-                                "label" => "Fecha de Nacimiento"
+                                "label" => "Fecha de Nacimiento",
+                                "required" => false
                             ));
                             echo $this->Form->input("Padre.2.email", array(
                                 "label" => "Email"

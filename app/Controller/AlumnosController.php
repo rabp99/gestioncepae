@@ -29,8 +29,24 @@ class AlumnosController extends AppController {
         $this->layout = "main";
                 
         if ($this->request->is(array("post", "put"))) {
+            
+            if($this->request->data["Padre"]["2"]["dni"] == "") {
+                unset($this->request->data["Padre"][2]);
+                if($this->request->data["Auxiliar"]["aux"] == 2) {
+                    $this->Session->setFlash(__("Seleccione un Remitente válido."), "flash_bootstrap");
+                    return;
+                }
+            } else {
+                $this->request->data["Padre"]["2"]["condicion"] = 0;
+            }
+            
+            // Condicion
+            $this->request->data["Padre"]["0"]["condicion"] = 0;
+            $this->request->data["Padre"]["1"]["condicion"] = 0;
+            $this->request->data["Padre"][$this->request->data["Auxiliar"]["aux"]]["condicion"] = 1;
+            unset($this->request->data["Auxiliar"]);
+            
             $this->Alumno->create();
-            if($this->request->data["Padre"]["2"]["dni"] == "") unset($this->request->data["Padre"][2]);
             if($this->Alumno->saveAssociated($this->request->data, array("validate" => "only"))) {
                 $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
@@ -62,7 +78,24 @@ class AlumnosController extends AppController {
         if (!$alumno) {
             throw new NotFoundException(__("Alumno inválido"));
         }
+        
         if ($this->request->is(array("post", "put"))) {      
+            if($this->request->data["Padre"]["2"]["dni"] == "") {
+                unset($this->request->data["Padre"][2]);
+                if($this->request->data["Auxiliar"]["aux"] == 2) {
+                    $this->Session->setFlash(__("Seleccione un Remitente válido."), "flash_bootstrap");
+                    return;
+                }
+            } else {
+                $this->request->data["Padre"]["2"]["condicion"] = 0;
+            }
+            
+            // Condicion
+            $this->request->data["Padre"]["0"]["condicion"] = 0;
+            $this->request->data["Padre"]["1"]["condicion"] = 0;
+            $this->request->data["Padre"][$this->request->data["Auxiliar"]["aux"]]["condicion"] = 1;
+            unset($this->request->data["Auxiliar"]);
+            
             $this->Alumno->id = $id;
             if ($this->Alumno->saveAssociated($this->request->data)) {     
                 $this->Session->setFlash(__("El Alumno ha sido actualizado."), "flash_bootstrap");
@@ -72,6 +105,11 @@ class AlumnosController extends AppController {
         }
         if (!$this->request->data) {
             $this->request->data = $alumno;
+            // Remitente
+            for($i = 0; $i < sizeof($alumno["Padre"]); $i++) {
+                $padre = $alumno["Padre"][$i];
+                if($padre["condicion"]) $this->request->data["Auxiliar"]["aux"] = $i;
+            }
         }
     }
     
