@@ -5,7 +5,7 @@
     $this->assign("accion1", "Crear Sección");
     $this->assign("accion2", "Editar Sección");
     $this->assign("accion3", "Administar Secciones");
-    $this->assign("accion4", "Eliminar Sección");
+    $this->assign("accion4", "Deshabilitar Sección");
     $this->assign("id", $seccion["Seccion"]["idseccion"]);    
     
     $this->Html->addCrumb('Secciones', '/Seccoiones');

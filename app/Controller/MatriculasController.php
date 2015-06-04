@@ -79,7 +79,7 @@ class MatriculasController extends AppController {
         }
         $this->Matricula->id = $id;
         if ($this->Matricula->saveField("estado", 2)) {
-            $this->Session->setFlash(__("La Matrícula de código: %s ha sido eliminado.", h($id)), "flash_bootstrap");
+            $this->Session->setFlash(__("La Matrícula de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
             return $this->redirect(array("action" => "index"));
         }
     }

@@ -5,7 +5,7 @@
     $this->assign("accion1", "Matricular Alumno");
     $this->assign("accion2", "");
     $this->assign("accion3", "Administar Matriculas");
-    $this->assign("accion4", "Eliminar Matricula");
+    $this->assign("accion4", "Deshabilitar Matricula");
     $this->assign("id", $matricula["Matricula"]["idmatricula"]);    
     
     $this->Html->addCrumb('Matriculas', '/Matriculas');

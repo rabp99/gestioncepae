@@ -5,7 +5,7 @@
     $this->assign("accion1", "Crear Grado");
     $this->assign("accion2", "Editar Grado");
     $this->assign("accion3", "Administar Grados");
-    $this->assign("accion4", "Eliminar Grado");
+    $this->assign("accion4", "Deshabilitar Grado");
     $this->assign("id", $grado["Grado"]["idgrado"]);    
     
     $this->Html->addCrumb('Grados', '/Grados');

@@ -49,7 +49,7 @@
                 $matricula["Seccion"]["descripcion"],
                 $matricula["Matricula"]["fecha"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $matricula["Matricula"]["idmatricula"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
-                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $matricula["Matricula"]["idmatricula"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Eliminar"))
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $matricula["Matricula"]["idmatricula"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))
             ), array(
                 "class" => "odd"
             ), array(

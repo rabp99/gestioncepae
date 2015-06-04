@@ -122,7 +122,7 @@ class AlumnosController extends AppController {
             $fields = array("Padre.estado" => 2);
             $conditions = array("Padre.idalumno" => $id);
             if($this->Alumno->Padre->updateAll($fields, $conditions)) {
-                $this->Session->setFlash(__("El Alumno de código: %s ha sido eliminado.", h($id)), "flash_bootstrap");
+                $this->Session->setFlash(__("El Alumno de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
         }

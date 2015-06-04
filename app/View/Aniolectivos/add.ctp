@@ -12,7 +12,6 @@
     echo $this->Form->create("Aniolectivo", array("class" => "form-vertical"));
     $this->Form->inputDefaults(array("class" => "span4"));
     echo $this->Html->para("help-block", "Los campos con <span class='required'>*</span> son requeridos");
-    echo $this->Html->para("alert-danger", "Antes de crear un Año Lectivo, debe haber eliminado el Año Lectivo actual");
     echo $this->Form->input("descripcion", array(
         "label" => "Descripción",
         "autofocus" => "autofocus"

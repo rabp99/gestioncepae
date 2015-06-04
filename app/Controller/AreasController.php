@@ -81,7 +81,7 @@ class AreasController extends AppController {
         }
         $this->Area->id = $id;
         if ($this->Area->saveField("estado", 2)) {
-            $this->Session->setFlash(__("El Área de código: %s ha sido eliminado.", h($id)), "flash_bootstrap");
+            $this->Session->setFlash(__("El Área de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
             return $this->redirect(array("action" => "index"));
         }
     }

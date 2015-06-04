@@ -33,7 +33,7 @@
                 $curso["Grado"]["Nivel"]["descripcion"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $curso["Curso"]["idcurso"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $curso["Curso"]["idcurso"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
-                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $curso["Curso"]["idcurso"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Eliminar"))
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $curso["Curso"]["idcurso"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))
             ), array(
                 "class" => "odd"
             ), array(

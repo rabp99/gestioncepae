@@ -11,6 +11,9 @@ class Seccion extends AppModel {
     public $belongsTo = array(
         "Grado" => array(
             'foreignKey' => 'idgrado'
+        ),
+        "Aniolectivo" => array(
+            'foreignKey' => 'idaniolectivo'
         )
     );    
     
@@ -33,6 +36,12 @@ class Seccion extends AppModel {
                 "message" => "No puede estar vacio"
             )
         ),
+        "idaniolectivo" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
         "idseccion" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
@@ -40,4 +49,10 @@ class Seccion extends AppModel {
             )
         )
     );
+    
+    public function nextSeccion($idaniolectivo, $idgrado) {
+        $cantidad = $this->query("SELECT count(*) 'cantidad' FROM Alumnos");
+        $cantidad = $cantidad[0][0]["cantidad"];
+        return parent::getCodigo(6, $cantidad + 1, "A");
+    }
 }

@@ -8,7 +8,7 @@ class Aniolectivo extends AppModel {
     public $primaryKey = "idaniolectivo";
     
     public $hasMany = array(
-        "Grado" => array(
+        "Seccion" => array(
             "foreignKey" => "idaniolectivo"
         )
     );

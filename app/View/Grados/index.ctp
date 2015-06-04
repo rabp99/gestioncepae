@@ -2,15 +2,11 @@
 <?php 
     $this->extend("/Common/index");
     $this->assign("titulo", "Administrar Grados");
-    $this->assign("accion", isset($aniolectivo["Aniolectivo"]["descripcion"]) ? "Crear Grado" : "");
+    $this->assign("accion", "Crear Grado");
     
     $this->Html->addCrumb('Grados', '/Grados');
     $this->Html->addCrumb('Adiministrar', '/Grados/index');
 ?>
-<dl class="dl-horizontal">
-    <dt>Año Lectivo</dt>
-    <dd><?php echo isset($aniolectivo["Aniolectivo"]["descripcion"]) ? $aniolectivo["Aniolectivo"]["descripcion"] : "Ningún Año Lectivo habilitado"; ?></dd>
-</dl>
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>
@@ -31,7 +27,7 @@
                 $grado["Grado"]["capacidad"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $grado["Grado"]["idgrado"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $grado["Grado"]["idgrado"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
-                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $grado["Grado"]["idgrado"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Eliminar"))
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $grado["Grado"]["idgrado"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))
             ), array(
                 "class" => "odd"
             ), array(

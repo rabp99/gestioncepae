@@ -26,10 +26,6 @@ class AniolectivosController extends AppController {
         $this->layout = "main";
                 
         if ($this->request->is(array("post", "put"))) {
-            if($this->Aniolectivo->find("count", array("conditions" => array("Aniolectivo.estado" => 1)))) {
-                $this->Session->setFlash(__("Existe un Año Lectivo habilitado."), "flash_bootstrap");
-                return;
-            }
             $this->Aniolectivo->create();
             if ($this->Aniolectivo->save($this->request->data)) {
                 $this->Session->setFlash(__("El Año Lectivo ha sido registrado correctamente."), "flash_bootstrap");
@@ -87,7 +83,7 @@ class AniolectivosController extends AppController {
                 if($this->Aniolectivo->Grado->Seccion->updateAll(array("Seccion.estado" => 2))) {
                     if($this->Aniolectivo->Grado->Seccion->Matricula->updateAll(array("Matricula.estado" => 2))) {
                         $ds->commit();
-                        $this->Session->setFlash(__("El Año Lectivo de código: %s ha sido eliminado.", h($id)), "flash_bootstrap");
+                        $this->Session->setFlash(__("El Año Lectivo de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
                         return $this->redirect(array("action" => "index"));
                     }
                 }

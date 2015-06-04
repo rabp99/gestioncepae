@@ -80,7 +80,7 @@ class DocentesController extends AppController {
         }
         $this->Docente->id = $id;
         if ($this->Docente->saveField("estado", 2)) {
-            $this->Session->setFlash(__("El Docente de código: %s ha sido eliminado.", h($id)), "flash_bootstrap");
+            $this->Session->setFlash(__("El Docente de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
             return $this->redirect(array("action" => "index"));
         }
     }

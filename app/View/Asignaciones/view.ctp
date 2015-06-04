@@ -5,7 +5,7 @@
     $this->assign("accion1", "Crear Nivel");
     $this->assign("accion2", "Editar Nivel");
     $this->assign("accion3", "Administar Niveles");
-    $this->assign("accion4", "Eliminar Nivel");
+    $this->assign("accion4", "Deshabilitar Nivel");
     $this->assign("id", $nivel["Nivel"]["idnivel"]);    
     
     $this->Html->addCrumb('Niveles', '/Niveles');

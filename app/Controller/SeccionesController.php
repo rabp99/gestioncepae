@@ -23,19 +23,27 @@ class SeccionesController extends AppController {
     public function index() {
         $this->layout = "main";
         
+        $this->set("aniolectivos", $this->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
+        if($this->request->is(array("post", "put"))) {
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"]))
+                $this->paginate["conditions"]["Seccion.idaniolectivo"] = $this->request->data["Aniolectivo"]["idaniolectivo"];
+        }
         $this->Paginator->settings = $this->paginate;
         $secciones = $this->Paginator->paginate();
         $this->set(compact("secciones"));
-        
-        // Calcular Año Lectivo actual
-        $this->set("aniolectivo", $this->Seccion->Grado->Aniolectivo->findByEstado("1"));
     }
     
     public function add() {
         $this->layout = "main";
-                
-        // Calcular Año Lectivo actual
-        $this->set("aniolectivo", $this->Seccion->Grado->Aniolectivo->findByEstado("1"));
+   
+        $this->set("aniolectivos", $this->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
         
         $this->set("niveles", $this->Seccion->Grado->Nivel->find("list", array(
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
@@ -121,5 +129,18 @@ class SeccionesController extends AppController {
             "fields" => array("Seccion.idseccion", "Seccion.descripcion"),
             "conditions" => array("Seccion.idgrado" => $idgrado, "Seccion.estado" => 1)
         )));
+    }
+    
+    public function getNextSeccion() {
+        $this->layout = "ajax";
+        
+        if(isset($this->request->data["Seccion"]["idaniolectivo"]))
+            $idaniolectivo = $this->request->data["Seccion"]["idaniolectivo"];
+        if(isset($this->request->data["Seccion"]["idgrado"]))
+            $idgrado = $this->request->data["Seccion"]["idgrado"];
+        
+        if(isset($idaniolectivo) && isset($idgrado))
+            echo $this->Seccion->nextSeccion($idaniolectivo, $idgrado);
+        die();
     }
 }

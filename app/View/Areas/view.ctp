@@ -5,7 +5,7 @@
     $this->assign("accion1", "Crear Área");
     $this->assign("accion2", "Editar Área");
     $this->assign("accion3", "Administar Áreas");
-    $this->assign("accion4", "Eliminar Área");
+    $this->assign("accion4", "Deshabilitar Área");
     $this->assign("id", $area["Area"]["idarea"]);    
     
     $this->Html->addCrumb('Areas', '/Areas');

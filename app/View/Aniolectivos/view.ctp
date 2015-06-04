@@ -5,7 +5,7 @@
     $this->assign("accion1", "Crear Año Lectivo");
     $this->assign("accion2", "Editar Año Lectivo");
     $this->assign("accion3", "Administar Años Lectivos");
-    $this->assign("accion4", "Eliminar Año Lectivo");
+    $this->assign("accion4", "Deshabilitar Año Lectivo");
     $this->assign("id", $aniolectivo["Aniolectivo"]["idaniolectivo"]);    
     
     $this->Html->addCrumb('Años Lectivos', '/Aniolectivos');

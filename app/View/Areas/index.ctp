@@ -25,7 +25,7 @@
                 $area["Area"]["importancia"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $area["Area"]["idarea"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $area["Area"]["idarea"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
-                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $area["Area"]["idarea"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Eliminar"))
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $area["Area"]["idarea"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))
             ), array(
                 "class" => "odd"
             ), array(

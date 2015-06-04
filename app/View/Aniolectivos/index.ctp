@@ -26,8 +26,8 @@
                 $aniolectivo["Aniolectivo"]["fechainicio"],
                 $aniolectivo["Aniolectivo"]["fechafin"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $aniolectivo["Aniolectivo"]["idaniolectivo"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
-                ($aniolectivo["Aniolectivo"]["estado"] == 1 ? $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $aniolectivo["Aniolectivo"]["idaniolectivo"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) : "") . " " .
-                ($aniolectivo["Aniolectivo"]["estado"] == 1 ? $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $aniolectivo["Aniolectivo"]["idaniolectivo"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Eliminar")) : "")
+                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $aniolectivo["Aniolectivo"]["idaniolectivo"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $aniolectivo["Aniolectivo"]["idaniolectivo"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))
             ), array(
                 "class" => "odd"
             ), array(

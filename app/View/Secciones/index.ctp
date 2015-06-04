@@ -1,16 +1,23 @@
 <!-- File: /app/View/Secciones/index.ctp -->
 <?php 
     $this->extend("/Common/index");
-    $this->assign("titulo", "Administrar Secciones");
-    $this->assign("accion", isset($aniolectivo["Aniolectivo"]["descripcion"]) ? "Crear Seccion" : "");
+    $this->assign("titulo", "Apertura de Grados");
+    $this->assign("accion", "Crear Seccion");
     
     $this->Html->addCrumb('Secciones', '/Secciones');
     $this->Html->addCrumb('Adiministrar', '/Secciones/index');
 ?>
-<dl class="dl-horizontal">
-    <dt>Año Lectivo</dt>
-    <dd><?php echo isset($aniolectivo["Aniolectivo"]["descripcion"]) ? $aniolectivo["Aniolectivo"]["descripcion"] : "Ningún Año Lectivo habilitado"; ?></dd>
-</dl>
+<?php 
+    $this->start("antes");
+    echo $this->Form->create("Aniolectivo", array("class" => "form-horizontal"));
+    echo $this->Form->input("idaniolectivo", array(
+        "label" => "Año Lectivo",
+        "options" => $aniolectivos,
+        "empty" => "Selecciona uno"
+    ));
+    echo $this->Form->end();
+    $this->end();
+?>
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>
@@ -31,7 +38,7 @@
                 $seccion["Grado"]["Nivel"]["descripcion"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $seccion["Seccion"]["idseccion"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $seccion["Seccion"]["idseccion"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
-                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $seccion["Seccion"]["idseccion"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Eliminar"))
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $seccion["Seccion"]["idseccion"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))
             ), array(
                 "class" => "odd"
             ), array(
@@ -41,3 +48,9 @@
     } ?>
     </tbody>
 </table>
+
+<?php
+    $this->Js->get('#AniolectivoIdaniolectivo')->event('change', 
+        "$('#AniolectivoIndexForm').submit();"
+    );
+?>

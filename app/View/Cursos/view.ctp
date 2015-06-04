@@ -5,7 +5,7 @@
     $this->assign("accion1", "Crear Curso");
     $this->assign("accion2", "Editar Curso");
     $this->assign("accion3", "Administar Cursos");
-    $this->assign("accion4", "Eliminar Curso");
+    $this->assign("accion4", "Deshabilitar Curso");
     $this->assign("id", $curso["Curso"]["idcurso"]);    
     
     $this->Html->addCrumb('Cursos', '/Cursos');
