@@ -22,5 +22,5 @@
     <dt>Nivel</dt>
     <dd><?php echo $seccion["Grado"]["Nivel"]["descripcion"]; ?></dd>
     <dt>Año Lectivo</dt>
-    <dd><?php echo $seccion["Grado"]["Aniolectivo"]["descripcion"]; ?></dd>
+    <dd><?php echo $seccion["Aniolectivo"]["descripcion"]; ?></dd>
 </dl>
