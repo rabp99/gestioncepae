@@ -12,11 +12,18 @@ class Padre extends AppModel {
     );
     
     public $belongsTo = array(
-        "Alumno" => array(
-            'foreignKey' => 'idalumno'
+        "User" => array(
+            'foreignKey' => 'iduser'
         )
     );
         
+    public $hasAndBelongsToMany = array(
+        "Alumno" => array(
+            "foreignKey" => "idpadre",
+            "associationForeignKey" => "idalumno"
+        )
+    );
+    
     public $validate = array(
         "nombres" => array(
             "notEmpty" => array(

@@ -18,7 +18,7 @@
     <dt>Descripción</dt>
     <dd><?php echo $concepto["Concepto"]["descripcion"]; ?></dd>
     <dt>Valor</dt>
-    <dd><?php echo $concepto["Concepto"]["valor"]; ?></dd>
+    <dd><?php echo $concepto["Concepto"]["monto"]; ?></dd>
     <dt>Año Lectivo</dt>
     <dd><?php echo $concepto["Aniolectivo"]["descripcion"]; ?></dd>
 </dl>

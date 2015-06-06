@@ -11,16 +11,26 @@ class Alumno extends AppModel {
         "nombreCompleto" => "CONCAT(Alumno.apellidoPaterno, ' ', Alumno.apellidoMaterno, ', ', Alumno.nombres )"
     );
     
+    public $belongsTo = array(
+        "User" => array(
+            "foreignKey" => "iduser"
+        )
+    );
+    
     public $hasMany = array(
-        "Padre" => array(
-            "foreignKey" => "idalumno"
-        ),
         "Matricula" => array(
             "foreignKey" => "idAlumno",
             "conditions" => array("Matricula.estado" => 1)
         )
     );
-        
+    
+    public $hasAndBelongsToMany = array(
+        "Padre" => array(
+            "foreignKey" => "idalumno",
+            "associationForeignKey" => "idpadre"
+        )
+    );
+    
     public $validate = array(
         "nombres" => array(
             "notEmpty" => array(

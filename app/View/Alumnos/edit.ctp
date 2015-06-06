@@ -125,7 +125,8 @@
                     echo $this->Form->input("recomendado", array(
                         "label" => "Recomendado"
                     ));
-                    echo $this->Form->textarea("motivos", array(
+                    echo $this->Form->label("observaciones", "Observaciones");
+                    echo $this->Form->textarea("observaciones", array(
                         "rows" => 10,
                         "cols" => 30,
                         "class" => "span4"

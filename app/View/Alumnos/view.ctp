@@ -78,8 +78,8 @@
                     <dd><?php echo $alumno["Alumno"]["colegioProc"]; ?></dd>
                     <dt>Recomendado</dt>
                     <dd><?php echo $alumno["Alumno"]["recomendado"]; ?></dd>
-                    <dt>Motivos</dt>
-                    <dd><p><?php echo $alumno["Alumno"]["motivos"]; ?></p></dd>
+                    <dt>Observaciones</dt>
+                    <dd><p><?php echo $alumno["Alumno"]["observaciones"]; ?></p></dd>
                 </dl>
             </div>
         </div> 

@@ -27,7 +27,33 @@ class AlumnosController extends AppController {
     
     public function add() {
         $this->layout = "main";
-                
+        
+        if ($this->request->is(array("post", "put"))) {
+            // Indicar que Padre es Apoderado
+            $i_apoderado = $this->request->data["Auxiliar"]["aux"];
+            $this->request->data["Padre"][$i_apoderado]["condicion"] = 1;
+            
+            // Crear Usuario para Apoderado
+            $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+            $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+            $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
+
+            $ds = $this->Alumno->getDataSource();
+            $ds->begin();
+            $this->Alumno->User->create();
+            if($this->Alumno->User->save($this->request->data["User"])) {
+                $this->request->data["Alumno"]["iduser"] = $this->Alumno->User->id;
+                $this->Alumno->User->create();
+                if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
+                    $this->request->data["Padre"]["iduser"] = $this->Alumno->User->id;
+                    if($this->Alumno->save($this->request->data)) {
+                        $ds->commit();
+                        debug($this->request->data);
+                    }
+                }
+            }
+        }
+        /*
         if ($this->request->is(array("post", "put"))) {
             
             if($this->request->data["Padre"]["2"]["dni"] == "") {
@@ -52,7 +78,8 @@ class AlumnosController extends AppController {
                 return $this->redirect(array("action" => "index"));
             }
             $this->Session->setFlash(__("No fue posible registrar el alumno."), "flash_bootstrap");
-        }
+        }        
+        */
     }
 
     public function view($id = null) {

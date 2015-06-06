@@ -22,8 +22,8 @@
         "label" => "Descripción",
         "autofocus" => "autofocus"
     ));   
-    echo $this->Form->input("valor", array(
-        "label" => "Valor"
+    echo $this->Form->input("monto", array(
+        "label" => "Monto"
     ));
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
     

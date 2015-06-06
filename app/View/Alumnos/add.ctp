@@ -91,7 +91,8 @@
                     </div>
                 <?php 
                     echo $this->Form->input("aseguradora", array(
-                        "label" => "Aseguradora"
+                        "label" => "Aseguradora",
+                        "disabled" => true
                     ));
                     echo $this->Form->input("lugarAten", array(
                         "label" => "Lugar de Atención"
@@ -114,26 +115,29 @@
                     echo $this->Form->input("recomendado", array(
                         "label" => "Recomendado"
                     ));
-                    echo $this->Form->label("motivos", "Motivos");
-                    echo $this->Form->textarea("motivos", array(
+                    echo $this->Form->label("observaciones", "Observaciones");
+                    echo $this->Form->textarea("observaciones", array(
                         "rows" => 10,
                         "cols" => 30,
                         "class" => "span4"
+                    ));
+                    echo $this->Form->input("User.username", array(
+                        "label" => "Nombre de Usuario"
+                    ));
+                    echo $this->Form->input("User.password", array(
+                        "label" => "Password"
+                    ));
+                    echo $this->Form->input("User.idgroup", array(
+                        "label" => "Password",
+                        "div" => "formField",
+                        "type" => "hidden",
+                        "value" => "2"
                     ));
                 ?>
                 </div>
             </div> 
             <div id="yw0_tab_1" class="tab-pane fade">
                 <div class="info-panel">
-                    <?php
-                        echo $this->Form->label("Auxiliar.aux", "En caso de Emergencia remitir a ");
-                        echo $this->Form->select("Auxiliar.aux", array(
-                            "0" => "Padre", "1" => "Madre", "2" => "Apoderado"
-                        ), array(
-                            "empty" => "Selecciona Uno",
-                            "required" => true
-                        ));
-                    ?>
                     <fieldset>
                         <legend>Padre</legend>
                         <?php 
@@ -141,6 +145,9 @@
                                 "type" => "hidden",
                                 "value" => "Padre"
                             ));  
+                            echo $this->Form->input("Padre.0.dni", array(
+                                "label" => "DNI"
+                            ));
                             echo $this->Form->input("Padre.0.nombres", array(
                                 "label" => "Nombres"
                             ));  
@@ -149,9 +156,6 @@
                             ));  
                             echo $this->Form->input("Padre.0.apellidoMaterno", array(
                                 "label" => "Apellido Materno"
-                            ));
-                            echo $this->Form->input("Padre.0.dni", array(
-                                "label" => "DNI"
                             ));
                             echo $this->Form->input("Padre.0.telefono1", array(
                                 "label" => "Teléfono 1"
@@ -183,6 +187,9 @@
                                 "type" => "hidden",
                                 "value" => "Madre"
                             ));  
+                            echo $this->Form->input("Padre.1.dni", array(
+                                "label" => "DNI"
+                            ));
                             echo $this->Form->input("Padre.1.nombres", array(
                                 "label" => "Nombres"
                             ));  
@@ -191,9 +198,6 @@
                             ));  
                             echo $this->Form->input("Padre.1.apellidoMaterno", array(
                                 "label" => "Apellido Materno"
-                            ));
-                            echo $this->Form->input("Padre.1.dni", array(
-                                "label" => "DNI"
                             ));
                             echo $this->Form->input("Padre.1.telefono1", array(
                                 "label" => "Teléfono 1"
@@ -218,52 +222,16 @@
                             ));
                         ?>
                     </fieldset>
-                    <fieldset>
-                        <legend>Apoderado</legend>
-                        <?php 
-                            echo $this->Form->input("Padre.2.parentesco", array(
-                                "type" => "hidden",
-                                "value" => "Apoderado"
-                            ));  
-                            echo $this->Form->input("Padre.2.nombres", array(
-                                "label" => "Nombres",
-                                "required" => false
-                            ));  
-                            echo $this->Form->input("Padre.2.apellidoPaterno", array(
-                                "label" => "Apellido Paterno",
-                                "required" => false
-                            ));  
-                            echo $this->Form->input("Padre.2.apellidoMaterno", array(
-                                "label" => "Apellido Materno",
-                                "required" => false
-                            ));
-                            echo $this->Form->input("Padre.2.dni", array(
-                                "label" => "DNI",
-                                "required" => false
-                            ));
-                            echo $this->Form->input("Padre.2.telefono1", array(
-                                "label" => "Teléfono 1"
-                            ));
-                            echo $this->Form->input("Padre.2.telefono2", array(
-                                "label" => "Teléfono 2"
-                            ));
-                            echo $this->Form->input("Padre.2.fechaNac", array(
-                                "label" => "Fecha de Nacimiento",
-                                "required" => false
-                            ));
-                            echo $this->Form->input("Padre.2.email", array(
-                                "label" => "Email"
-                            ));
-                            echo $this->Form->input("Padre.2.profesion", array(
-                                "label" => "Profesión"
-                            ));
-                            echo $this->Form->input("Padre.2.nivelestudio", array(
-                                "label" => "Nivel de Estudio"
-                            ));
-                            echo $this->Form->input("Padre.2.ocupacion", array(
-                                "label" => "Ocupación"
-                            ));
-                        ?>
+                    <?php
+                        echo $this->Form->label("Auxiliar.aux", "Apoderado");
+                        echo $this->Form->select("Auxiliar.aux", array(
+                            "0" => "Padre", "1" => "Madre", "2" => "Otro"
+                        ), array(
+                            "empty" => "Selecciona Uno",
+                            "required" => true
+                        ));
+                    ?>
+                    <fieldset class="otro">
                     </fieldset>
                 </div>
             </div> 
@@ -273,3 +241,65 @@
         ?>
     </div>
 </div>
+
+<?php 
+    $otro = "<legend>Otro</legend>" .
+        $this->Form->input("Padre.2.parentesco", array(
+            "type" => "hidden",
+            "value" => "Otro"
+        )) .
+        $this->Form->input("Padre.2.dni", array(
+            "label" => "DNI"
+        )) .
+        $this->Form->input("Padre.2.nombres", array(
+            "label" => "Nombres"
+        )) .
+        $this->Form->input("Padre.2.apellidoPaterno", array(
+            "label" => "Apellido Paterno"
+        )).
+        $this->Form->input("Padre.2.apellidoMaterno", array(
+            "label" => "Apellido Materno"
+        )) .
+        $this->Form->input("Padre.2.telefono1", array(
+            "label" => "Teléfono 1"
+        )) .
+        $this->Form->input("Padre.2.telefono2", array(
+            "label" => "Teléfono 2"
+        )) .
+        $this->Form->input("Padre.2.fechaNac", array(
+            "label" => "Fecha de Nacimiento",
+            "type" => "text"
+        )) .
+        $this->Form->input("Padre.2.email", array(
+            "label" => "Email"
+        )) .
+        $this->Form->input("Padre.2.profesion", array(
+            "label" => "Profesión"
+        )) .
+        $this->Form->input("Padre.2.nivelestudio", array(
+            "label" => "Nivel de Estudio"
+        )) .
+        $this->Form->input("Padre.2.ocupacion", array(
+            "label" => "Ocupación"
+        ));
+        
+    $this->Js->get("#AuxiliarAux")->event("change", 
+        "var apoderado = $(this).val();" .
+        "if(apoderado == 2) {" .
+        "   $('fieldset.otro').html('" . $otro . "');" .
+        "}" .
+        "else {" .
+        "   $('fieldset.otro').html('');" .
+        "}"
+    );
+?>
+
+<?php
+    $this->Js->get("#AlumnoSeguro")->event("change", 
+        "if($(this).prop('checked')) $('#AlumnoAseguradora').attr({disabled: false});" .
+        "else {" .
+        "   $('#AlumnoAseguradora').val('');" .
+        "   $('#AlumnoAseguradora').attr({disabled: true});" .
+        "}"
+    );
+?>
