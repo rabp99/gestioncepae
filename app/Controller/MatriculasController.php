@@ -45,14 +45,20 @@ class MatriculasController extends AppController {
     public function add() {
         $this->layout = "main";
         
+        $this->set("aniolectivos", $this->Matricula->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
         $this->set("niveles", $this->Matricula->Seccion->Grado->Nivel->find("list", array(
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
             "conditions" => array("Nivel.estado" => 1)
         )));
+        
         if ($this->request->is(array("post", "put"))) {
             $this->Matricula->create();
             if ($this->Matricula->save($this->request->data)) {
-                $this->Session->setFlash(__("El Alumno ha ha sido Matriculado correctamente."), "flash_bootstrap");
+                $this->Session->setFlash(__("El Alumno ha sido Matriculado correctamente."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
             $this->Session->setFlash(__("No fue posible matricular al Alumno."), "flash_bootstrap");

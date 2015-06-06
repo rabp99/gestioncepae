@@ -14,19 +14,19 @@
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
         <li>
-            <a data-toggle="tab" href="#yw0_tab_1"><span class="modernpics">8</span> Padres de Familia</a>
+            <a data-toggle="tab" href="#yw0_tab_1"><span class="modernpics">g</span> Padres de Familia</a>
         </li>
         <li>
-            <a data-toggle="tab" href="#yw0_tab_2"><span class="modernpics">8</span> Otros</a>
+            <a data-toggle="tab" href="#yw0_tab_2"><span class="modernpics">~</span> Otros</a>
         </li>
         <li>
-            <a data-toggle="tab" href="#yw0_tab_3"><span class="modernpics">6</span> Salud</a>
+            <a data-toggle="tab" href="#yw0_tab_3"><span class="modernpics">j</span> Salud</a>
         </li>
         <li>
-            <a data-toggle="tab" href="#yw0_tab_4"><span class="modernpics">7</span> Dirección y Contacto</a>
+            <a data-toggle="tab" href="#yw0_tab_4"><span class="modernpics">c</span> Dirección y Contacto</a>
         </li>
         <li class="active">
-            <a data-toggle="tab" href="#yw0_tab_5"><span class="modernpics">7</span> Información General</a>
+            <a data-toggle="tab" href="#yw0_tab_5"><span class="modernpics">Z</span> Información General</a>
         </li>
     </ul>
     <div class="tab-content">

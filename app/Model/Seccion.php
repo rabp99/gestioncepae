@@ -51,8 +51,9 @@ class Seccion extends AppModel {
     );
     
     public function nextSeccion($idaniolectivo, $idgrado) {
-        $cantidad = $this->query("SELECT count(*) 'cantidad' FROM Alumnos");
+        $cantidad = $this->query("SELECT count(*) 'cantidad' FROM secciones WHERE idaniolectivo = '" . $idaniolectivo . "' AND idgrado = '" . $idgrado . "'");
         $cantidad = $cantidad[0][0]["cantidad"];
-        return parent::getCodigo(6, $cantidad + 1, "A");
+        $ascii_A = 65;
+        return chr($ascii_A + $cantidad);
     }
 }

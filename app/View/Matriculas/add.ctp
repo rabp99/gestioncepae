@@ -11,6 +11,12 @@
 <?php 
     echo $this->Form->create("Matricula", array("class" => "form-vertical"));
     $this->Form->inputDefaults(array("class" => "span4"));
+    
+    echo $this->Form->input("Aniolectivo.idaniolectivo", array(
+        "label" => "Año Lectivo",
+        "options" => $aniolectivos,
+        "empty" => "Selecciona uno"
+    ));
     echo $this->Form->input("Nivel.idnivel", array(
         "label" => "Nivel",
         "options" => $niveles,
@@ -19,12 +25,12 @@
     echo $this->Form->input('Grado.idgrado', array(
         "label" => "Grado",
         "type" => "select",
-        "disabled" => true
+        "empty" => "Selecciona uno"
     ));
     echo $this->Form->input('idseccion', array(
         "label" => "Sección",
         "type" => "select",
-        "disabled" => true
+        "empty" => "Selecciona uno"
     ));
     echo $this->element("getAlumnos", array("model" => "Matricula"));
     echo $this->Form->label("observacion", "Observación");
@@ -33,13 +39,15 @@
         "cols" => 30,
         "class" => "span4"
     ));
-    echo $this->Form->input("fecha", array(
-        "label" => "Fecha"
-    ));
+    echo "<br>";
     echo $this->Form->button("Matricular", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();
 ?>
 <?php
+    $this->Js->get('#NivelIdnivel')->event('change', 
+        "$('#MatriculaIdseccion').html('<option value>Selecciona uno</option>');"
+    );
+    
     $this->Js->get('#NivelIdnivel')->event('change', 
         $this->Js->request(array(
             "controller" => "Grados",
@@ -52,30 +60,48 @@
             "data" => $this->Js->serializeForm(array(
                 "isForm" => true,
                 "inline" => true
-            )),
-            "success" => 
-                "$('#GradoIdgrado').attr({disabled: false});" .
-                "$('#MatriculaIdseccion').html('<option value>Selecciona uno</option>');" .
-                "$('#MatriculaIdseccion').attr({disabled: true});"
+            ))
         ))
     );
 ?>
 
 <?php
+    $getByIdgrado = $this->Js->request(array(
+        "controller" => "Secciones",
+        "action" => "getByIdgrado"
+    ), array(
+        "update" => "#MatriculaIdseccion",
+        "async" => true,
+        "method" => 'post',
+        "dataExpression" => true,
+        "data" => $this->Js->serializeForm(array(
+            "isForm" => false,
+            "inline" => true
+        ))
+    ));
+    
     $this->Js->get('#GradoIdgrado')->event('change', 
+        $getByIdgrado
+    );
+    $this->Js->get('#AniolectivoIdaniolectivo')->event('change', 
+        $getByIdgrado
+    );
+?>
+
+<?php 
+    $this->Js->get('#AniolectivoIdaniolectivo')->event('change',
         $this->Js->request(array(
-            "controller" => "Secciones",
-            "action" => "getByIdgrado"
+            "controller" => "Alumnos",
+            "action" => "getAlumnos"
         ), array(
-            "update" => "#MatriculaIdseccion",
+            "update" => "#dvBuscarAlumnos",
             "async" => true,
             "method" => 'post',
             "dataExpression" => true,
             "data" => $this->Js->serializeForm(array(
-                "isForm" => true,
+                "isForm" => false,
                 "inline" => true
-            )),
-            "success" => "$('#MatriculaIdseccion').attr({disabled: false});"
+            ))
         ))
     );
 ?>

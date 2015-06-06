@@ -54,7 +54,7 @@
             "method" => 'post',
             "dataExpression" => true,
             "data" => $this->Js->serializeForm(array(
-                "isForm" => true,
+                "isForm" => false,
                 "inline" => true
             ))
         ))

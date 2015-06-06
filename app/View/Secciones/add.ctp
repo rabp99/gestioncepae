@@ -26,7 +26,7 @@
     echo $this->Form->input('idgrado', array(
         "label" => "Grado",
         "type" => "select",
-        "disabled" => true
+        "empty" => "Selecciona uno"
     ));  
     echo $this->Form->input("descripcion", array(
         "label" => "Descripción",
@@ -39,6 +39,10 @@
 
 <?php
     $this->Js->get('#NivelIdnivel')->event('change', 
+        "$('#SeccionIdgrado').val('');"
+    );
+    
+    $this->Js->get('#NivelIdnivel')->event('change', 
         $this->Js->request(array(
             "controller" => "Grados",
             "action" => "getByIdnivel"
@@ -50,43 +54,34 @@
             "data" => $this->Js->serializeForm(array(
                 "isForm" => true,
                 "inline" => true
-            )),
-            "success" => "$('#SeccionIdgrado').attr({disabled: false});"
+            ))
         ))
     );
 ?>
 <?php
-    $this->Js->get('#SeccionIdgrado')->event('change', 
-        $this->Js->request(array(
-            "controller" => "Secciones",
-            "action" => "getNextSeccion"
-        ), array(
-            "async" => true,
-            "method" => 'post',
-            "dataExpression" => true,
-            "data" => $this->Js->serializeForm(array(
-                "isForm" => false,
-                "inline" => true
-            )),
-            "success" => "$('#SeccionDescripcion').val(data);"
-        ))
-    );
-?>
+    $getNextSeccion = $this->Js->request(array(
+        "controller" => "Secciones",
+        "action" => "getNextSeccion"
+    ), array(
+        "async" => true,
+        "method" => 'post',
+        "dataExpression" => true,
+        "data" => $this->Js->serializeForm(array(
+            "isForm" => false,
+            "inline" => true
+        )),
+        "success" => "$('#SeccionDescripcion').val(data);"
+    ));
 
-<?php
+    $this->Js->get('#SeccionIdgrado')->event('change', 
+        $getNextSeccion
+    );
+    
     $this->Js->get('#SeccionIdaniolectivo')->event('change', 
-        $this->Js->request(array(
-            "controller" => "Secciones",
-            "action" => "getNextSeccion"
-        ), array(
-            "async" => true,
-            "method" => 'post',
-            "dataExpression" => true,
-            "data" => $this->Js->serializeForm(array(
-                "isForm" => false,
-                "inline" => true
-            )),
-            "success" => "$('#SeccionDescripcion').val(data);"
-        ))
+        $getNextSeccion
+    );
+    
+    $this->Js->get('#NivelIdnivel')->event('change', 
+        $getNextSeccion
     );
 ?>

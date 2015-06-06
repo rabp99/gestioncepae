@@ -130,23 +130,34 @@ class AlumnosController extends AppController {
     
     // Funciones secundarias
     public function getAlumnos() {
-        $this->layout = "ajax";            
+        $this->layout = "ajax";     
+        $this->Alumno->recursive = 3;
         if(isset($this->request->data["Alumno"]["busqueda"])) {
             $busqueda = $this->request->data["Alumno"]["busqueda"];
-            $this->set("alumnos", $this->Alumno->find("all", array(
+            $alumnos = $this->Alumno->find("all", array(
                 "conditions" => array(
                     "OR" => array(
                         "Alumno.nombres LIKE" => "%" . $busqueda . "%",
                         "Alumno.apellidoPaterno LIKE" => "%" . $busqueda . "%",
                         "Alumno.apellidoMaterno LIKE" => "%" . $busqueda . "%"
-                    ),
-                    "AND" => array("Matricula.estado" => null)
+                    )
                 )
-            )));
+            ));
         }
-        else $this->set("alumnos", $this->Alumno->find("all", array(
-            "conditions" => array("Matricula.estado" => null)
-        )));
+        else $alumnos = $this->Alumno->find("all");
+        
+        if(isset($this->request->data["Aniolectivo"]["idaniolectivo"])) {
+            $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
+            foreach($alumnos as $key => $alumno) {
+                foreach($alumno["Matricula"] as $matricula) {
+                    if($matricula["Seccion"]["Aniolectivo"]["idaniolectivo"] == $idaniolectivo && $matricula["estado"] == 1) {
+                        unset($alumnos[$key]);
+                    }
+                }
+            }
+        }
+        
+        $this->set("alumnos", $alumnos);
         $this->render();
     }
 }
