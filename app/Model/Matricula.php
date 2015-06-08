@@ -15,6 +15,12 @@ class Matricula extends AppModel {
             "foreignKey" => "idalumno"
         )
     );
+    
+    public $hasMany = array(
+        "Pago" => array(
+            "foreignKey" => "idmatricula"
+        )
+    );
      
     public $validate = array(
         "idmatricula" => array(

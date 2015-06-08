@@ -20,7 +20,8 @@ class Padre extends AppModel {
     public $hasAndBelongsToMany = array(
         "Alumno" => array(
             "foreignKey" => "idpadre",
-            "associationForeignKey" => "idalumno"
+            "associationForeignKey" => "idalumno",
+            "joinTable" => "alumnos_padres"
         )
     );
     

@@ -107,4 +107,13 @@ class ConceptosController extends AppController {
             return $this->redirect(array("action" => "index"));
         }
     }
+    
+    public function getFormByAniolectivo() {
+        $this->layout = "ajax";
+        
+        $idaniolelctivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
+        $this->set("conceptos", $this->Concepto->find("all", array(
+            "conditions" => array("Concepto.estado" => 1, "Concepto.idaniolectivo" => $idaniolelctivo)
+        )));
+    }
 }

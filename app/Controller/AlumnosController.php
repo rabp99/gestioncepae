@@ -45,41 +45,41 @@ class AlumnosController extends AppController {
                 $this->request->data["Alumno"]["iduser"] = $this->Alumno->User->id;
                 $this->Alumno->User->create();
                 if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
-                    $this->request->data["Padre"]["iduser"] = $this->Alumno->User->id;
-                    if($this->Alumno->save($this->request->data)) {
-                        $ds->commit();
-                        debug($this->request->data);
+                    $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
+                    $this->Alumno->create();
+                    if($this->Alumno->save($this->request->data["Alumno"])) {
+                        $this->request->data["Alumno"]["idalumno"] = $this->Alumno->id;
+                        $r = true;
+                        $alumnos_padres = array();
+                        foreach($this->request->data["Padre"] as $key => $padre) {
+                            $this->Alumno->Padre->create();
+                            if($this->Alumno->Padre->save($padre)) {
+                                $this->request->data["Padre"][$key]["idpadre"] = $this->Alumno->Padre->id;
+                                $alumnos_padres[] = array(
+                                    "Alumno" => array("idalumno" => $this->request->data["Alumno"]["idalumno"]),
+                                    "Padre" => array("idpadre" => $this->request->data["Padre"][$key]["idpadre"]),
+                                );
+                            } else {
+                                $r = false;
+                            }
+                        }
+                        
+                        unset($this->request->data["Auxiliar"]);
+                        unset($this->request->data["User"]);
+                        unset($this->request->data["Padre"][$i_apoderado]["User"]);
+                        
+                        if($this->Alumno->Padre->saveAll($alumnos_padres)) {
+                            if($r) {
+                                $ds->commit();
+                                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                return $this->redirect(array("action" => "index"));
+                            }
+                        }
                     }
                 }
+                $this->Session->setFlash(__("No fue posible registrar el alumno."), "flash_bootstrap");
             }
         }
-        /*
-        if ($this->request->is(array("post", "put"))) {
-            
-            if($this->request->data["Padre"]["2"]["dni"] == "") {
-                unset($this->request->data["Padre"][2]);
-                if($this->request->data["Auxiliar"]["aux"] == 2) {
-                    $this->Session->setFlash(__("Seleccione un Remitente válido."), "flash_bootstrap");
-                    return;
-                }
-            } else {
-                $this->request->data["Padre"]["2"]["condicion"] = 0;
-            }
-            
-            // Condicion
-            $this->request->data["Padre"]["0"]["condicion"] = 0;
-            $this->request->data["Padre"]["1"]["condicion"] = 0;
-            $this->request->data["Padre"][$this->request->data["Auxiliar"]["aux"]]["condicion"] = 1;
-            unset($this->request->data["Auxiliar"]);
-            
-            $this->Alumno->create();
-            if($this->Alumno->saveAssociated($this->request->data, array("validate" => "only"))) {
-                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
-                return $this->redirect(array("action" => "index"));
-            }
-            $this->Session->setFlash(__("No fue posible registrar el alumno."), "flash_bootstrap");
-        }        
-        */
     }
 
     public function view($id = null) {

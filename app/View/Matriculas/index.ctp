@@ -36,7 +36,7 @@
             <th id="user-grid_c0"><?php echo $this->Paginator->sort("idmatricula", "ID Matrícula <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c1"><?php echo $this->Paginator->sort("Alumno.nombreCompleto", "Alumno <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c2"><?php echo $this->Paginator->sort("Seccion.descripcion", "Sección <span class='caret'></span>", array("escape" => false)); ?></th>
-            <th id="user-grid_c3"><?php echo $this->Paginator->sort("fecha", "Fecha de Matrícula <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c3"><?php echo $this->Paginator->sort("created", "Fecha de Matrícula <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c4">Acciones</th>
         </tr>
     </thead>
@@ -47,7 +47,7 @@
                 $matricula["Matricula"]["idmatricula"],
                 $matricula["Alumno"]["nombreCompleto"],
                 $matricula["Seccion"]["descripcion"],
-                $matricula["Matricula"]["fecha"],
+                $matricula["Matricula"]["created"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $matricula["Matricula"]["idmatricula"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $matricula["Matricula"]["idmatricula"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))
             ), array(

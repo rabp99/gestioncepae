@@ -56,10 +56,19 @@ class MatriculasController extends AppController {
         )));
         
         if ($this->request->is(array("post", "put"))) {
+            $ds = $this->Matricula->getDataSource();
+            $ds->begin();
             $this->Matricula->create();
             if ($this->Matricula->save($this->request->data)) {
-                $this->Session->setFlash(__("El Alumno ha sido Matriculado correctamente."), "flash_bootstrap");
-                return $this->redirect(array("action" => "index"));
+                $idmatricula = $this->Matricula->id;
+                foreach($this->request->data["Pago"] as $key => $pago) {
+                    $this->request->data["Pago"][$key]["idmatricula"] = $idmatricula;
+                }
+                if($this->Matricula->Pago->saveMany($this->request->data["Pago"])) {
+                    $ds->commit();
+                    $this->Session->setFlash(__("El Alumno ha sido Matriculado correctamente."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "index"));
+                }
             }
             $this->Session->setFlash(__("No fue posible matricular al Alumno."), "flash_bootstrap");
         }
