@@ -183,7 +183,9 @@
                                 "label" => "Profesión"
                             ));
                             echo $this->Form->input("Padre.0.nivelestudio", array(
-                                "label" => "Nivel de Estudio"
+                                "label" => "Nivel de Estudio",
+                                "options" => array("Sin estudios" => "Sin estudios", "Primaria" => "Pimaria", "Secundaria" => "Secundaria", "Profesional" => "Profesional"),
+                                "empty" => "Selecciona uno"
                             ));
                             echo $this->Form->input("Padre.0.ocupacion", array(
                                 "label" => "Ocupación"
@@ -231,7 +233,9 @@
                                 "label" => "Profesión"
                             ));
                             echo $this->Form->input("Padre.1.nivelestudio", array(
-                                "label" => "Nivel de Estudio"
+                                "label" => "Nivel de Estudio",
+                                "options" => array("Sin estudios" => "Sin estudios", "Primaria" => "Pimaria", "Secundaria" => "Secundaria", "Profesional" => "Profesional"),
+                                "empty" => "Selecciona uno"
                             ));
                             echo $this->Form->input("Padre.1.ocupacion", array(
                                 "label" => "Ocupación"
@@ -284,7 +288,9 @@
                                 "label" => "Profesión"
                             ));
                             echo $this->Form->input("Padre.2.nivelestudio", array(
-                                "label" => "Nivel de Estudio"
+                                "label" => "Nivel de Estudio",
+                                "options" => array("Sin estudios" => "Sin estudios", "Primaria" => "Pimaria", "Secundaria" => "Secundaria", "Profesional" => "Profesional"),
+                                "empty" => "Selecciona uno"
                             ));
                             echo $this->Form->input("Padre.2.ocupacion", array(
                                 "label" => "Ocupación"

@@ -173,7 +173,9 @@
                                 "label" => "Profesión"
                             ));
                             echo $this->Form->input("Padre.0.nivelestudio", array(
-                                "label" => "Nivel de Estudio"
+                                "label" => "Nivel de Estudio",
+                                "options" => array("Sin estudios" => "Sin estudios", "Primaria" => "Pimaria", "Secundaria" => "Secundaria", "Profesional" => "Profesional"),
+                                "empty" => "Selecciona uno"
                             ));
                             echo $this->Form->input("Padre.0.ocupacion", array(
                                 "label" => "Ocupación"
@@ -215,7 +217,9 @@
                                 "label" => "Profesión"
                             ));
                             echo $this->Form->input("Padre.1.nivelestudio", array(
-                                "label" => "Nivel de Estudio"
+                                "label" => "Nivel de Estudio",
+                                "options" => array("Sin estudios" => "Sin estudios", "Primaria" => "Pimaria", "Secundaria" => "Secundaria", "Profesional" => "Profesional"),
+                                "empty" => "Selecciona uno"
                             ));
                             echo $this->Form->input("Padre.1.ocupacion", array(
                                 "label" => "Ocupación"
@@ -287,6 +291,16 @@
         "var apoderado = $(this).val();" .
         "if(apoderado == 2) {" .
         "   $('fieldset.otro').html('" . $otro . "');" .
+        "   $('#Padre2Nivelestudio').remove();" .
+        "   $('label[for=Padre2Nivelestudio]').parent().append(" .
+        "       \"<select name='data[Padre][2][nivelestudio]' class='span4' id='Padre2Nivelestudio'>" .
+        "           <option value=''>Selecciona uno</option>" .
+        "           <option value='Sin estudios'>Sin estudios</option>" .
+        "           <option value='Primaria'>Pimaria</option>" .
+        "           <option value='Secundaria'>Secundaria</option>" .
+        "           <option value='Profesional'>Profesional</option>" .
+        "       </select>\"" .
+        "   );" .
         "}" .
         "else {" .
         "   $('fieldset.otro').html('');" .
@@ -303,5 +317,3 @@
         "}"
     );
 ?>
-
-<?php echo $this->element("sql_dump"); ?>

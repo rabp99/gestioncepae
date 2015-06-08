@@ -1,43 +1,46 @@
 <?php
 
 /**
- * CakePHP AsignacionesController
+ * CakePHP PagosController
  * @author admin
  */
-class AisgnacionesController extends AppController {   
-    public $uses = array("Asignacion");
-    
+class PagosController extends AppController {
+    public $uses = array("Pago", "Matricula");
+
     public $components = array("Paginator");
 
     public $paginate = array(
         "limit" => 10,
         "order" => array(
-            "Asignacion.descripcion" => "asc"
+            "Matricula.idmatricula" => "asc"
         ),
         "conditions" => array(
-            "Nivel.estado" => 1
-        )
+            "Matricula.estado" => 1
+        ),
+        "recursive" => 3
     );
 
     public function index() {
         $this->layout = "main";
         
         $this->Paginator->settings = $this->paginate;
-        $niveles = $this->Paginator->paginate();
-        $this->set(compact("niveles"));
+        $matriculas = $this->Paginator->paginate("Matricula");
+        $this->set(compact("matriculas"));
     }
     
-    public function add() {
+    public function registrar($idmatricula = null) {
         $this->layout = "main";
-                
-        if ($this->request->is(array("post", "put"))) {
-            $this->Nivel->create();
-            if ($this->Nivel->save($this->request->data)) {
-                $this->Session->setFlash(__("El nivel ha sido registrado correctamente."), "flash_bootstrap");
-                return $this->redirect(array("action" => "index"));
-            }
-            $this->Session->setFlash(__("No fue posible registrar el nivel."), "flash_bootstrap");
+        
+        if (!$idmatricula) {
+            throw new NotFoundException(__("Matricula inválida"));
         }
+        $this->Matricula->recursive = 3;
+        $matricula = $this->Matricula->findByIdmatricula($idmatricula);
+        $this->set("pagos", $this->Pago->find("list", array(
+            "fields" => array("Pago.idpago", "Pago.descripcion"),
+            "conditions" => array("Pago.estado" => 1, "Pago.idmatricula" => $idmatricula)
+        )));
+        $this->set(compact("matricula"));
     }
 
     public function view($id = null) {

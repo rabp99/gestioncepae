@@ -13,6 +13,12 @@ class Concepto extends AppModel {
         )
     );
     
+    public $hasMany = array(
+        "Pago" => array(
+            "foreignKey" => "idconcepto"
+        )
+    );
+    
     public $validate = array(
         "descripcion" => array(
             "notEmpty" => array(

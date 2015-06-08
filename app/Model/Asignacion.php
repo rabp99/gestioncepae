@@ -7,4 +7,10 @@
 class Asignacion extends AppModel {
     public $useTable = "asignaciones";
     public $primaryKey = "idasignacion";
+    
+    public $belongsTo = array(
+        "Seccion" => array(
+            "foreignKey" => "idseccion"
+        )
+    );
 }

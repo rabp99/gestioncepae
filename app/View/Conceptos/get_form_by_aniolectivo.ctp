@@ -16,6 +16,10 @@
                         "type" => "hidden",
                         "value" => $concepto["Concepto"]["idconcepto"]
                     ));
+                    echo $this->Form->input("Pago." . $key . ".descripcion", array(
+                        "type" => "hidden",
+                        "value" => $concepto["Concepto"]["descripcion"]
+                    ));
                     echo $this->Form->input("Pago." . $key . ".monto", array(
                         "label" => false,
                         "value" => $concepto["Concepto"]["monto"]

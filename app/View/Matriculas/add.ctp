@@ -67,7 +67,6 @@
         ?>
     </div>
 </div>
-<?php echo $this->element("sql_dump"); ?>
 
 <?php
     $this->Js->get('#NivelIdnivel')->event('change', 

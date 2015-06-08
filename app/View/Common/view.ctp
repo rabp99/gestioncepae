@@ -1,11 +1,13 @@
 <!-- File: /app/View/Common/view.ctp -->
 <div class="aqua-container">
+    <?php if(!empty($this->fetch("accion1"))) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "add")); ?>" class="aqua-shortcut text-align-center">
             <span class="modernpics newline">V</span>
             <span class="label label-info"><?php echo $this->fetch("accion1"); ?></span>
         </a>
     </div>
+    <?php } ?>
     <?php if(!empty($this->fetch("accion2"))) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "edit", $this->fetch("id"))); ?>" class="aqua-shortcut text-align-center">
@@ -14,18 +16,22 @@
         </a>
     </div>
     <?php } ?>
+    <?php if(!empty($this->fetch("accion3"))) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "index")); ?>" class="aqua-shortcut text-align-center">
             <span class="modernpics newline">(</span>
             <span class="label label-info"><?php echo $this->fetch("accion3"); ?></span>
         </a>
     </div>
+    <?php } ?>
+    <?php if(!empty($this->fetch("accion4"))) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "delete", $this->fetch("id"))); ?>" class="aqua-shortcut text-align-center delete" id="yt0">
             <span class="modernpics newline icons-red">x</span>
             <span class="label label-inverse"><?php echo $this->fetch("accion4"); ?></span>
         </a>
     </div>
+    <?php } ?>
 
     <div class="clear"></div>
     <div class="span7">

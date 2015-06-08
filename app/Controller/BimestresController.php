@@ -11,10 +11,10 @@ class BimestresController extends AppController {
     public $paginate = array(
         "limit" => 10,
         "order" => array(
-            "Nivel.descripcion" => "asc"
+            "Bimestre.descripcion" => "asc"
         ),
         "conditions" => array(
-            "Nivel.estado" => 1
+            "Bimestre.estado" => 1
         )
     );
 
@@ -22,20 +22,20 @@ class BimestresController extends AppController {
         $this->layout = "main";
         
         $this->Paginator->settings = $this->paginate;
-        $niveles = $this->Paginator->paginate();
-        $this->set(compact("niveles"));
+        $bimestres = $this->Paginator->paginate();
+        $this->set(compact("bimestres"));
     }
     
     public function add() {
         $this->layout = "main";
                 
         if ($this->request->is(array("post", "put"))) {
-            $this->Nivel->create();
-            if ($this->Nivel->save($this->request->data)) {
-                $this->Session->setFlash(__("El nivel ha sido registrado correctamente."), "flash_bootstrap");
+            $this->Bimestre->create();
+            if ($this->Bimestre->save($this->request->data)) {
+                $this->Session->setFlash(__("El Bimestre ha sido registrado correctamente."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
-            $this->Session->setFlash(__("No fue posible registrar el nivel."), "flash_bootstrap");
+            $this->Session->setFlash(__("No fue posible registrar el Bimestre."), "flash_bootstrap");
         }
     }
 
@@ -43,35 +43,35 @@ class BimestresController extends AppController {
         $this->layout = "main";
                 
         if (!$id) {
-            throw new NotFoundException(__("Nivel inválido"));
+            throw new NotFoundException(__("Bimestre inválido"));
         }
-        $nivel = $this->Nivel->findByIdnivel($id);
-        if (!$nivel) {
-            throw new NotFoundException(__("Nivel inválido"));
+        $bimestre = $this->Bimestre->findByIdbimestre($id);
+        if (!$bimestre) {
+            throw new NotFoundException(__("Bimestre inválido"));
         } 
-        $this->set(compact("nivel"));
+        $this->set(compact("bimestre"));
     }
     
     public function edit($id = null) {
         $this->layout = "main";
 
         if (!$id) {
-            throw new NotFoundException(__("Nivel inválido"));
+            throw new NotFoundException(__("Bimestre inválido"));
         }
-        $nivel = $this->Nivel->findByIdnivel($id);
-        if (!$nivel) {
-            throw new NotFoundException(__("Nivel inválido"));
+        $bimestre = $this->Bimestre->findByIdbimestre($id);
+        if (!$bimestre) {
+            throw new NotFoundException(__("Bimestre inválido"));
         }
         if ($this->request->is(array("post", "put"))) {      
-            $this->Nivel->id = $id;
-            if ($this->Nivel->save($this->request->data)) {     
-                $this->Session->setFlash(__("El Nivel ha sido actualizado."), "flash_bootstrap");
+            $this->Bimestre->id = $id;
+            if ($this->Bimestre->save($this->request->data)) {     
+                $this->Session->setFlash(__("El Bimestre ha sido actualizado."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
-            $this->Session->setFlash(__("No es posible actualizar el Nivel."), "flash_bootstrap");
+            $this->Session->setFlash(__("No es posible actualizar el Bimestre."), "flash_bootstrap");
         }
         if (!$this->request->data) {
-            $this->request->data = $nivel;
+            $this->request->data = $bimestre;
         }
     }
     
@@ -79,9 +79,9 @@ class BimestresController extends AppController {
         if ($this->request->is("get")) {
             throw new MethodNotAllowedException();
         }
-        $this->Nivel->id = $id;
-        if ($this->Nivel->saveField("estado", 2)) {
-            $this->Session->setFlash(__("El Nivel de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
+        $this->Bimestre->id = $id;
+        if ($this->Bimestre->saveField("estado", 2)) {
+            $this->Session->setFlash(__("El Bimestre de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
             return $this->redirect(array("action" => "index"));
         }
     }

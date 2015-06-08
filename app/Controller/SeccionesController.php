@@ -50,6 +50,11 @@ class SeccionesController extends AppController {
             "conditions" => array("Nivel.estado" => 1)
         )));
         
+        $this->set("turnos", $this->Seccion->Turno->find("list", array(
+            "fields" => array("Turno.idturno", "Turno.descripcion"),
+            "conditions" => array("Turno.estado" => 1)
+        )));
+        
         if ($this->request->is(array("post", "put"))) {
             $this->Seccion->create();
             if ($this->Seccion->save($this->request->data)) {
@@ -74,6 +79,54 @@ class SeccionesController extends AppController {
         $this->set(compact("seccion"));
     }
     
+    public function edit($id = null) {
+        $this->layout = "main";
+
+        if (!$id) {
+            throw new NotFoundException(__("Sección inválida"));
+        }
+        
+        $this->set("aniolectivos", $this->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
+        $this->set("niveles", $this->Seccion->Grado->Nivel->find("list", array(
+            "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
+          "conditions" => array("Nivel.estado" => 1)
+        )));
+      
+        $this->set("turnos", $this->Seccion->Turno->find("list", array(
+            "fields" => array("Turno.idturno", "Turno.descripcion"),
+            "conditions" => array("Turno.estado" => 1)
+        )));
+        
+        $this->Seccion->recursive = 2;
+        $seccion = $this->Seccion->findByIdseccion($id);
+        $grado = $this->Seccion->Grado->findByIdgrado($seccion["Seccion"]["idgrado"]);
+        $this->set("grados", $this->Seccion->Grado->find("list", array(
+            "fields" => array("Grado.idgrado", "Grado.descripcion"),
+            "conditions" => array("Grado.idnivel" => $grado["Nivel"]["idnivel"])
+        )));
+      
+        if (!$seccion) {
+            throw new NotFoundException(__("Sección inválida"));
+        }
+      
+        if ($this->request->is(array("post", "put"))) {
+            $this->Seccion->id = $id;
+            if ($this->Seccion->save($this->request->data)) {     
+                $this->Session->setFlash(__("La Sección ha sido actualizada."), "flash_bootstrap");
+                return $this->redirect(array("action" => "index"));
+            }
+            $this->Session->setFlash(__("No es posible actualizar la Sección."), "flash_bootstrap");
+        }
+        if (!$this->request->data) {
+            $this->request->data = $seccion;
+            $this->request->data["Nivel"]["idnivel"] = $grado["Grado"]["idnivel"];
+        }
+    }
+
     public function delete($id) {
         if ($this->request->is("get")) {
             throw new MethodNotAllowedException();

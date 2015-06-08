@@ -14,6 +14,9 @@ class Seccion extends AppModel {
         ),
         "Aniolectivo" => array(
             'foreignKey' => 'idaniolectivo'
+        ),
+        "Turno" => array(
+            'foreignKey' => 'idturno'
         )
     );    
     
@@ -37,6 +40,12 @@ class Seccion extends AppModel {
             )
         ),
         "idaniolectivo" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "idturno" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
                 "message" => "No puede estar vacio"
