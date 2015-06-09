@@ -29,7 +29,24 @@
         "options" => $pagos,
         "empty" => "Selecciona uno"
     ));
-    echo $this->Form->button("Registrar Pago", array("class" => "btn btn-primary btn-large"));
-
+    echo "<div id='form-pagos'></div>";
+    
     echo $this->Form->end();
+?>  
+<?php
+    $this->Js->get('#PagoIdpago')->event('change', 
+        $this->Js->request(array(
+            "controller" => "Pagos",
+            "action" => "getFormPagos"
+        ), array(
+            "update" => "#form-pagos",
+            "async" => true,
+            "method" => 'post',
+            "dataExpression" => true,
+            "data" => $this->Js->serializeForm(array(
+                "isForm" => true,
+                "inline" => true
+            ))
+        ))
+    );
 ?>

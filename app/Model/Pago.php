@@ -12,6 +12,12 @@ class Pago extends AppModel {
             'foreignKey' => 'idconcepto'
         )
     );
+        
+    public $hasMany = array(
+        "Detallepago" => array(
+            "foreignKey" => "idpago"
+        )
+    );
     
     public $validate = array(
         "idmatricula" => array(

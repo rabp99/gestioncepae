@@ -41,6 +41,23 @@ class PagosController extends AppController {
             "conditions" => array("Pago.estado" => 1, "Pago.idmatricula" => $idmatricula)
         )));
         $this->set(compact("matricula"));
+        
+        if($this->request->is(array("post", "put"))) {
+            $ds = $this->Pago->getDataSource();
+            $ds->begin();
+            $this->Pago->Detallepago->create();
+            $this->request->data["Detallepago"]["idpago"] = $this->request->data["Pago"]["idpago"];
+            if($this->Pago->Detallepago->save($this->request->data)) {
+                $pago = $this->Pago->findByIdpago($this->request->data["Pago"]["idpago"]);
+                $this->Pago->id = $pago["Pago"]["idpago"];
+                if($this->Pago->saveField("deuda", $pago["Pago"]["deuda"]- $this->request->data["Detallepago"]["monto"])) {
+                    $ds->commit();
+                    $this->Session->setFlash(__("El Pago ha sido registrado correctamente."), "flash_bootstrap");
+                    return;
+                }
+            }
+            $this->Session->setFlash(__("El Pago no ha sido registrado correctamente."), "flash_bootstrap");
+        }
     }
 
     public function view($id = null) {
@@ -56,37 +73,9 @@ class PagosController extends AppController {
         $this->set(compact("nivel"));
     }
     
-    public function edit($id = null) {
-        $this->layout = "main";
-
-        if (!$id) {
-            throw new NotFoundException(__("Nivel inválido"));
-        }
-        $nivel = $this->Nivel->findByIdnivel($id);
-        if (!$nivel) {
-            throw new NotFoundException(__("Nivel inválido"));
-        }
-        if ($this->request->is(array("post", "put"))) {      
-            $this->Nivel->id = $id;
-            if ($this->Nivel->save($this->request->data)) {     
-                $this->Session->setFlash(__("El Nivel ha sido actualizado."), "flash_bootstrap");
-                return $this->redirect(array("action" => "index"));
-            }
-            $this->Session->setFlash(__("No es posible actualizar el Nivel."), "flash_bootstrap");
-        }
-        if (!$this->request->data) {
-            $this->request->data = $nivel;
-        }
-    }
-    
-    public function delete($id) {
-        if ($this->request->is("get")) {
-            throw new MethodNotAllowedException();
-        }
-        $this->Nivel->id = $id;
-        if ($this->Nivel->saveField("estado", 2)) {
-            $this->Session->setFlash(__("El Nivel de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
-            return $this->redirect(array("action" => "index"));
-        }
+    public function getFormPagos() {
+        $this->layout = "ajax";
+        
+        $this->set("pago", $this->Pago->findByIdpago($this->request->data["Pago"]["idpago"]));
     }
 }

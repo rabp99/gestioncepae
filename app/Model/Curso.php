@@ -15,6 +15,12 @@ class Curso extends AppModel {
             'foreignKey' => 'idarea'
         )
     );
+    
+    public $hasMany = array(
+        "Asignacion" => array(
+            "foreignKey" => "idcurso"
+        )   
+    );
         
     public $validate = array(
         "descripcion" => array(

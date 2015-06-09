@@ -11,6 +11,9 @@ class AniolectivosController extends AppController {
         "limit" => 10,
         "order" => array(
             "Aniolectivo.descripcion" => "asc"
+        ),
+        "conditions" => array(
+            "Aniolectivo.estado" => 1
         )
     );
     
@@ -87,17 +90,24 @@ class AniolectivosController extends AppController {
                 ));
                 $r = true;
                 foreach($secciones as $seccion) {
-                    if(!$this->Aniolectivo->Seccion->saveField("estado", 2)) {
-                        if($this->Aniolectivo->Seccion-) {
-                            $r = false;
-                        }
-                    }
+                    $this->Aniolectivo->Seccion->id = $seccion["Seccion"]["idseccion"];
+                    if($this->Aniolectivo->Seccion->saveField("estado", 2)) {
+                        $fields = array("Matricula.estado" => 2);
+                        $conditions = array("Matricula.idseccion" => $seccion["Seccion"]["idseccion"]);
+                        if($this->Aniolectivo->Seccion->Matricula->updateAll($fields, $conditions)) {
+                            $fields = array("Asignacion.estado" => 2);
+                            $conditions = array("Asignacion.idseccion" => $seccion["Seccion"]["idseccion"]);
+                            if($this->Aniolectivo->Seccion->Asignacion->updateAll($fields, $conditions)) {
+                                
+                            } else $r = false;
+                        } else $r = false;
+                    } else $r = false;
                 }
                 if($r) {
-                    
+                    $ds->commit();
+                    $this->Session->setFlash(__("El Año Lectivo de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
+                    return $this->redirect(array("action" => "index"));
                 }
-                $this->Session->setFlash(__("El Año Lectivo de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
-                return $this->redirect(array("action" => "index"));
             }
         }
     }
