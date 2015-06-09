@@ -10,10 +10,17 @@ class Docente extends AppModel {
     public $virtualFields = array(
         "nombreCompleto" => "CONCAT(Docente.apellidoPaterno, ' ', Docente.apellidoMaterno, ', ', Docente.nombres )"
     );
+       
+    public $belongsTo = array(
+        "User" => array(
+            "foreignKey" => "iduser"
+        )
+    );
     
     public $hasMany = array(
         "Asignacion" => array(
-            "foreignKey" => "iddocente"
+            "foreignKey" => "iddocente",
+            "conditions" => array("Asignacion.estado" => 1)
         )
     );
     

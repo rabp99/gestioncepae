@@ -75,10 +75,30 @@ class AniolectivosController extends AppController {
         if ($this->request->is("get")) {
             throw new MethodNotAllowedException();
         }
+        $ds = $this->Aniolectivo->getDataSource();
+        $ds->begin();
         $this->Aniolectivo->id = $id;
         if ($this->Aniolectivo->saveField("estado", 2)) {
-            $this->Session->setFlash(__("El Año Lectivo de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
-            return $this->redirect(array("action" => "index"));
+            $fields = array("Concepto.estado" => 2);
+            $conditions = array("Concepto.idaniolectivo" => $id);
+            if($this->Aniolectivo->Concepto->updateAll($fields, $conditions)) {
+                $secciones = $this->Aniolectivo->Seccion->find("all", array(
+                    "conditions" => array("Seccion.idaniolectivo" => $id, "Seccion.estado" => 1)
+                ));
+                $r = true;
+                foreach($secciones as $seccion) {
+                    if(!$this->Aniolectivo->Seccion->saveField("estado", 2)) {
+                        if($this->Aniolectivo->Seccion-) {
+                            $r = false;
+                        }
+                    }
+                }
+                if($r) {
+                    
+                }
+                $this->Session->setFlash(__("El Año Lectivo de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
+                return $this->redirect(array("action" => "index"));
+            }
         }
     }
 

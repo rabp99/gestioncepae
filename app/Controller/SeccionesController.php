@@ -131,10 +131,21 @@ class SeccionesController extends AppController {
         if ($this->request->is("get")) {
             throw new MethodNotAllowedException();
         }
+        $ds = $this->Seccion->getDataSource();
+        $ds->begin();
         $this->Seccion->id = $id;
         if ($this->Seccion->saveField("estado", 2)) {
-            $this->Session->setFlash(__("La sección de código: %s ha sido eliminada.", h($id)), "flash_bootstrap");
-            return $this->redirect(array("action" => "index"));
+            $fields = array("Matricula.estado" => 2);
+            $conditions = array("Matricula.idseccion" => $id);
+            if($this->Seccion->Matricula->updateAll($fields, $conditions)) {
+                $fields = array("Asignacion.estado" => 2);
+                $conditions = array("Asignacion.idseccion" => $id);
+                if($this->Seccion->Asignacion->updateAll($fields, $conditions)) {
+                    $ds->commit();
+                    $this->Session->setFlash(__("La sección de código: %s ha sido eliminada.", h($id)), "flash_bootstrap");
+                    return $this->redirect(array("action" => "index"));
+                }
+            }
         }
     }
     

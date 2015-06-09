@@ -8,10 +8,6 @@
     $this->Html->addCrumb('Crear', '/Cursos/add');
     
 ?>
-<dl class="dl-horizontal">
-    <dt>Año Lectivo</dt>
-    <dd><?php echo $aniolectivo["Aniolectivo"]["descripcion"]; ?></dd>
-</dl>
 <?php 
     echo $this->Form->create("Curso", array("class" => "form-vertical"));
     $this->Form->inputDefaults(array("class" => "span4"));

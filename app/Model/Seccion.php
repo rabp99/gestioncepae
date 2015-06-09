@@ -23,6 +23,9 @@ class Seccion extends AppModel {
     public $hasMany = array(
         "Matricula" => array(
             "foreignKey" => "idseccion"
+        ),
+        "Asignacion" => array(
+            "foreignKey" => "idseccion"
         )
     );
     

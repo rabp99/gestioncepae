@@ -40,6 +40,16 @@
     echo $this->Form->input("fecha", array(
         "label" => "Fecha"
     ));
+    echo $this->Form->input("User.idgroup", array(
+        "type" => "hidden",
+        "value" => 4
+    ));
+    echo $this->Form->input("User.username", array(
+        "label" => "Nombre de Usuario"
+    ));
+    echo $this->Form->input("User.password", array(
+        "label" => "Password"
+    ));
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();
 ?>

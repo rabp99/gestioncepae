@@ -25,16 +25,10 @@ class CursosController extends AppController {
         $this->Paginator->settings = $this->paginate;
         $cursos = $this->Paginator->paginate();
         $this->set(compact("cursos"));
-        
-        // Calcular Año Lectivo actual
-        $this->set("aniolectivo", $this->Curso->Grado->Aniolectivo->findByEstado("1"));
     }
     
     public function add() {
         $this->layout = "main";
-                
-        // Calcular Año Lectivo actual
-        $this->set("aniolectivo", $this->Curso->Grado->Aniolectivo->findByEstado("1"));
         
         $this->set("niveles", $this->Curso->Grado->Nivel->find("list", array(
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),

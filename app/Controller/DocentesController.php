@@ -30,7 +30,7 @@ class DocentesController extends AppController {
                 
         if ($this->request->is(array("post", "put"))) {
             $this->Docente->create();
-            if ($this->Docente->save($this->request->data)) {
+            if ($this->Docente->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__("El docente ha sido registrado correctamente."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
@@ -61,11 +61,17 @@ class DocentesController extends AppController {
         if (!$docente) {
             throw new NotFoundException(__("Docente inválido"));
         }
-        if ($this->request->is(array("post", "put"))) {      
+        if ($this->request->is(array("post", "put"))) {
+            $ds = $this->Docente->getDataSource();
+            $ds->begin();
             $this->Docente->id = $id;
-            if ($this->Docente->save($this->request->data)) {     
-                $this->Session->setFlash(__("El Docente ha sido actualizado."), "flash_bootstrap");
-                return $this->redirect(array("action" => "index"));
+            if ($this->Docente->save($this->request->data)) {
+                $this->Docente->User->id = $docente["Docente"]["iduser"];
+                if ($this->Docente->User->save($this->request->data)) {
+                    $ds->commit();
+                    $this->Session->setFlash(__("El Docente ha sido actualizado."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "index"));
+                }
             }
             $this->Session->setFlash(__("No es posible actualizar el Docente."), "flash_bootstrap");
         }
@@ -78,10 +84,17 @@ class DocentesController extends AppController {
         if ($this->request->is("get")) {
             throw new MethodNotAllowedException();
         }
+        $ds = $this->Docente->getDataSource();
+        $ds->begin();
+        $docente = $this->Docente->findByIddocente($id);
         $this->Docente->id = $id;
         if ($this->Docente->saveField("estado", 2)) {
-            $this->Session->setFlash(__("El Docente de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
-            return $this->redirect(array("action" => "index"));
+            $this->Docente->User->id = $docente["Docente"]["iduser"];
+            if($this->Docente->User->saveField("estado", 2)) {
+                $ds->commit();
+                $this->Session->setFlash(__("El Docente de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
+                return $this->redirect(array("action" => "index"));
+            }
         }
     }
 }

@@ -23,6 +23,4 @@
     <dd><?php echo $curso["Grado"]["descripcion"]; ?></dd>
     <dt>Nivel</dt>
     <dd><?php echo $curso["Grado"]["Nivel"]["descripcion"]; ?></dd>
-    <dt>Año Lectivo</dt>
-    <dd><?php echo $curso["Grado"]["Aniolectivo"]["descripcion"]; ?></dd>
 </dl>
