@@ -38,6 +38,7 @@
                         </div>
                     </div>
                     <div class="aqua-panel-content">
+                        <?php echo $this->Session->flash(); ?>
                         <?php echo $this->Form->create("User", array("action" => "login")); ?>
                             <div class="alert alert-block alert-error" id="varticalForm_es_" style="display:none">
                                 <p>Please fix the following input errors:</p>

@@ -14,6 +14,9 @@ class Asignacion extends AppModel {
         ),
         "Docente" => array(
             "foreignKey" => "iddocente"
+        ),
+        "Curso" => array(
+            "foreignKey" => "idcurso"
         )
     );
 }

@@ -16,7 +16,7 @@
         <tbody>
             <?php foreach ($groups as $group) { ?>
             <tr>
-                <td><?php echo $group["Group"]["id"]; ?></td>
+                <td><?php echo $group["Group"]["idgroup"]; ?></td>
                 <td><?php echo $group["Group"]["descripcion"]; ?></td>
             </tr>
             <?php } ?>

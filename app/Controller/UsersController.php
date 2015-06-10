@@ -1,5 +1,3 @@
-<!-- File: /app/Controller/UsersController.php -->
-
 <?php
 
 /**
@@ -10,7 +8,7 @@
 class UsersController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
-        // $this->Auth->allow("index", "initDB", "add", "login");
+        $this->Auth->allow("index", "initDB", "add", "login");
     }
 
     public function initDB() {
@@ -38,7 +36,7 @@ class UsersController extends AppController {
     }
 
     public function index() {
-        $this->layout = "admin";
+        $this->layout = "main";
         
         $this->set("users", $this->User->find("all", array(
             'conditions' => array('User.estado' => '1')
@@ -46,7 +44,7 @@ class UsersController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "admin";
+        $this->layout = "main";
 
         $this->User->id = $id;
         if (!$this->User->exists()) {
@@ -56,10 +54,10 @@ class UsersController extends AppController {
     }
 
     public function add() {
-        $this->layout = "admin";
+        $this->layout = "main";
         
         $this->set("groups", $this->User->Group->find("list", array(
-            "fields" => array("Group.id", "Group.descripcion")
+            "fields" => array("Group.idgroup", "Group.descripcion")
         )));
 
         if ($this->request->is('post')) {
@@ -112,7 +110,9 @@ class UsersController extends AppController {
 
     public function login() {
         $this->layout = false;
+        
         if ($this->request->is(array("post", "put"))) {
+            debug("dsadsa");
             if ($this->Auth->login())
                 return $this->redirect($this->Auth->redirectUrl());
             $this->Session->setFlash(__('Nombre de Usuario o password incorrecto, inténtelo nuevamente'), "flash_bootstrap");

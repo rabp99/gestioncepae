@@ -58,7 +58,9 @@
                                     <li><a href="#" tabindex="-1">Another action</a></li>
                                     <li><a href="#" tabindex="-1">Something else</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo "Yii::app()->baseUrl"; ?>/site/logout" tabindex="-1">Cerrar Sesión</a></li>
+                                    <li>
+                                        <?php echo $this->Html->link("Cerrar Sesión", array("controller" => "Users", "action" => "logout"), array("tabindex" => -1)); ?>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
