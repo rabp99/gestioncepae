@@ -1,40 +1,40 @@
-<!-- File: /app/View/Elements/getAlumnos.ctp -->
+<!-- File: /app/View/Elements/getDocentes.ctp -->
 <?php
     $this->Form->inputDefaults(array(
        "class" => "span4" 
     ));
-    echo $this->Form->input("idalumno", array(
-        "label" => "Código Alumno",
+    echo $this->Form->input("iddocente", array(
+        "label" => "Código Docente",
         "data-toggle" => "modal",
-        "data-target" => "#mdlBuscarAlumno",
+        "data-target" => "#mdlBuscarDocente",
         "type" => "text"
     ));
-    echo $this->Form->input("Alumno.nombreCompleto", array(
+    echo $this->Form->input("Docente.nombreCompleto", array(
         "label" => "Nombre Completo",
         "readonly" => true
     ));
 ?>
 
 <!-- Modal -->
-<div class="modal fade" id="mdlBuscarAlumno" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="mdlBuscarDocente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                <h4 class="modal-title">Seleccionar Alumno</h4>
+                <h4 class="modal-title">Seleccionar Docente</h4>
             </div>
             <div class="modal-body">
                 <?php
-                    echo $this->Form->input("Alumno.busqueda", array(
+                    echo $this->Form->input("Docente.busqueda", array(
                         "label" => "Buscar",
                         "class" => "span2",
                         "type" => "search"
                     )); 
                     echo $this->requestAction(array(
-                        'controller'=> 'Alumnos',
-                        'action'=> 'getAlumnos'
+                        'controller'=> 'Docentes',
+                        'action'=> 'getDocentes'
                     ));
-                    echo $this->Html->link("Crear Alumno", array("controller" => "Alumnos", "action" => "add"));
+                    echo $this->Html->link("Crear Docente", array("controller" => "Docentes", "action" => "add"));
                 ?>
             </div>
             <div class="modal-footer">
@@ -44,12 +44,12 @@
     </div>
 </div>
 <?php
-    $this->Js->get("#AlumnoBusqueda")->event("keyup", 
+    $this->Js->get("#DocenteBusqueda")->event("keyup", 
         $this->Js->request(array(
-            "controller" => "Alumnos",
-            "action" => "getAlumnos"
+            "controller" => "Docentes",
+            "action" => "getDocentes"
         ), array(
-            "update" => "#dvBuscarAlumnos",
+            "update" => "#dvBuscarDocentes",
             "async" => true,
             "method" => 'post',
             "dataExpression" => true,
@@ -61,19 +61,19 @@
     );
 ?>
 <?php $this->Html->scriptStart(array('inline' => false)); ?>
-    $("body").on("click", ".seleccionarAlumno", function() {
-        var codigo = $(this).parent().parent().find(".tdIdalumno").text();
+    $("body").on("click", ".seleccionarDocente", function() {
+        var codigo = $(this).parent().parent().find(".tdIddocente").text();
         var nombreCompleto = $(this).parent().parent().find(".tdNombreCompleto").text();
-        $("#<?php echo $model ?>Idalumno").val(codigo);      
-        $("#AlumnoNombreCompleto").val(nombreCompleto);
-        $("#mdlBuscarAlumno").modal('toggle');
-        $("#AlumnoBusqueda").val("");
+        $("#<?php echo $model ?>Iddocente").val(codigo);      
+        $("#DocenteNombreCompleto").val(nombreCompleto);
+        $("#mdlBuscarDocente").modal('toggle');
+        $("#DocenteBusqueda").val("");
         <?php
           echo  $this->Js->request(array(
-                'controller'=> 'Alumnos',
-                'action'=> 'getAlumnos'
+                'controller'=> 'Docentes',
+                'action'=> 'getDocentes'
             ), array(
-                'update'=>'#dvBuscarAlumnos',
+                'update'=>'#dvBuscarDocentes',
                 'async' => true,
                 'method' => 'post',
                 'dataExpression'=>true,

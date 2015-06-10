@@ -1,0 +1,6 @@
+1. Forward Enginnering the database
+2. schema create DbAcl
+3. acl create aco root controllers
+4. acl_extras.acl_extras aco_sync
+5. Crear Grupos y Usuarios
+6. initDB

@@ -20,6 +20,8 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('AuthComponent', 'Controller/Component');
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 /**
  * Application Controller
@@ -31,9 +33,42 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    public $components = array(
+        "Acl",
+        "Session",
+        "Auth" => array(
+            "authError" => "No tiene los permisos necesarios para realizar esta acción",
+            "authenticate" => array(
+                "Form" => array(
+                    "passwordHasher" => 'Blowfish'
+                )
+            ),
+            "authorize" => array(
+                "Actions" => array("actionPath" => "controllers")
+            )
+        )
+    );
+        
     public $helpers = array(
         "Js" => array('Jquery'),
         "Html", 
         "Form"
     );
+    
+    public function beforeFilter() {
+        //Configure AuthComponent
+        $this->Auth->loginAction = array(
+          'controller' => 'Users',
+          'action' => 'login'
+        );
+        $this->Auth->logoutRedirect = array(
+          'controller' => 'Users',
+          'action' => 'login'
+        );
+        $this->Auth->loginRedirect = array(
+          "controller" => "Pages",
+          "action" => "display", "home"
+        );
+        $this->Auth->flash["element"] = "flash_bootstrap";
+    }
 }

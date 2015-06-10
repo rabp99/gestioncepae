@@ -1,3 +1,4 @@
+<!-- File: /app/View/Alumnos/get_alumnos.ctp -->
 <div id="dvBuscarAlumnos">
     <table class="table">
         <thead>

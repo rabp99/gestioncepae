@@ -167,11 +167,14 @@ class AlumnosController extends AppController {
                         "Alumno.nombres LIKE" => "%" . $busqueda . "%",
                         "Alumno.apellidoPaterno LIKE" => "%" . $busqueda . "%",
                         "Alumno.apellidoMaterno LIKE" => "%" . $busqueda . "%"
-                    )
+                    ),
+                    "AND" => array("Alumno.estado" => 1)
                 )
             ));
         }
-        else $alumnos = $this->Alumno->find("all");
+        else $alumnos = $this->Alumno->find("all", array(
+            "conditions" => array("Alumno.estado" => 1)
+        ));
         
         if(isset($this->request->data["Aniolectivo"]["idaniolectivo"])) {
             $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];

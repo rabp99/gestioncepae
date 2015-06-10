@@ -97,4 +97,28 @@ class DocentesController extends AppController {
             }
         }
     }
+      
+    public function getDocentes() {
+        $this->layout = "ajax";     
+        
+        if(isset($this->request->data["Docente"]["busqueda"])) {
+            $busqueda = $this->request->data["Docente"]["busqueda"];
+            $docentes = $this->Docente->find("all", array(
+                "conditions" => array(
+                    "OR" => array(
+                        "Docente.nombres LIKE" => "%" . $busqueda . "%",
+                        "Docente.apellidoPaterno LIKE" => "%" . $busqueda . "%",
+                        "Docente.apellidoMaterno LIKE" => "%" . $busqueda . "%"
+                    ),
+                    "AND" => array("Docente.estado" => 1)
+                )
+            ));
+        }
+        else $docentes = $this->Docente->find("all", array(
+            "conditions" => array("Docente.estado" => 1)
+            ));
+        
+        $this->set("docentes", $docentes);
+        $this->render();
+    }
 }

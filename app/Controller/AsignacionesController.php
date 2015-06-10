@@ -24,7 +24,18 @@ class AsignacionesController extends AppController {
     public function registrar($idcurso = null, $idseccion = null) {
         $this->layout = "main";
         
+        $this->Seccion->recursive = 2;
+        $this->set("seccion", $this->Seccion->findByIdseccion($idseccion));
+        $this->set("curso", $this->Curso->findByIdcurso($idcurso));
         
+        if($this->request->is(array("post", "put"))) {
+            $this->Asignacion->create();
+            if($this->Asignacion->save($this->request->data)) {
+                $this->Session->setFlash(__("El Docente ha sido asignado correctamente."), "flash_bootstrap");
+                return $this->redirect(array("action" => "index"));
+            }
+            $this->Session->setFlash(__("No fue posible asignar al Docente."), "flash_bootstrap");
+        }
     }
 
     public function getAsignaciones() {
