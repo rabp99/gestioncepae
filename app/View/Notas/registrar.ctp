@@ -11,7 +11,11 @@
     $this->Form->inputDefaults(array(
         "class" => "span4"
     ));
-    echo $this->Form->input("idbimestre", array(
+    echo $this->Form->input("Nota.idasignacion", array(
+        "type" => "hidden",
+        "value" => $asignacion["Asignacion"]["idasignacion"]
+    ));
+    echo $this->Form->input("Nota.idbimestre", array(
         "label" => "Bimestre",
         "options" => $bimestres,
         "empty" => "Selecciona uno"
@@ -21,7 +25,7 @@
 ?>
 
 <?php
-    $this->Js->get('#DetallenotaIdbimestre')->event('change', 
+    $this->Js->get('#NotaIdbimestre')->event('change', 
         $this->Js->request(array(
             "controller" => "Notas",
             "action" => "getFormRegistro"
