@@ -309,11 +309,29 @@
 ?>
 
 <?php
-    $this->Js->get("#AlumnoSeguro")->event("change", 
-        "if($(this).prop('checked')) $('#AlumnoAseguradora').attr({disabled: false});" .
+    $alumnoSeguroChange = "if($('#AlumnoSeguro').prop('checked')) $('#AlumnoAseguradora').attr({disabled: false});" .
         "else {" .
         "   $('#AlumnoAseguradora').val('');" .
         "   $('#AlumnoAseguradora').attr({disabled: true});" .
-        "}"
+    "}";
+    $this->Js->buffer($alumnoSeguroChange);
+    $this->Js->get("#AlumnoSeguro")->event("change", $alumnoSeguroChange);
+?>
+
+<?php
+    $this->Js->get("#Padre0Dni")->event("keyup",
+        $this->Js->request(array(
+            "controller" => "Alumnos",
+            "action" => "getPadreByDni"
+        ), array(
+            "async" => true,
+            "method" => 'post',
+            "dataExpression" => true,
+            "data" => $this->Js->serializeForm(array(
+                "isForm" => true,
+                "inline" => true
+            )),
+            "success" => "alert(data);"
+        ))  
     );
 ?>

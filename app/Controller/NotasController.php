@@ -7,11 +7,6 @@
 class NotasController extends AppController {  
     public $uses = array("Bimestre", "Docente", "Curso", "Asignacion", "Nota", "Detallenota");
         
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("administrar", "registrar", "getFormNotas", "getFormRegistro");
-    }
-    
     public function index() {
         $this->layout = "main";
         

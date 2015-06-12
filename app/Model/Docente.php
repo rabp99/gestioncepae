@@ -51,6 +51,14 @@ class Docente extends AppModel {
             "numeric" => array(
                 "rule" => "numeric",
                 "message" => "Sólo permitido números"
+            ),
+            "minLength" => array(
+                "rule" => array("minLength", 8),
+                "message" => "El DNI debe tener 8 dígitos"
+            ),
+            "isUnique" => array(
+                "rule" => "isUnique",
+                "message" => "Ya existe un Docente con este DNI"
             )
         )
     );

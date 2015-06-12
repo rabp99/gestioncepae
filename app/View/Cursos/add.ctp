@@ -29,7 +29,7 @@
     echo $this->Form->input('idgrado', array(
         "label" => "Grado",
         "type" => "select",
-        "disabled" => true
+        "empty" => "Selecciona uno"
     ));
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();

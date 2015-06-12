@@ -28,7 +28,16 @@ class User extends AppModel {
             "foreignKey" => "idgroup"
         )
     );
-    
+     
+    public $validate = array(
+        "username" => array(
+            "isUnique" => array(
+                "rule" => "isUnique",
+                "message" => "Ya existe un usuario con este nombre"
+            )
+        )
+    );
+        
     public $actsAs = array('Acl' => array('type' => 'requester', 'enabled' => false));
 
     public function beforeSave($options = array()) {

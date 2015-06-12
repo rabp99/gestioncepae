@@ -112,7 +112,6 @@ class UsersController extends AppController {
         $this->layout = false;
         
         if ($this->request->is(array("post", "put"))) {
-            debug("dsadsa");
             if ($this->Auth->login())
                 return $this->redirect($this->Auth->redirectUrl());
             $this->Session->setFlash(__('Nombre de Usuario o password incorrecto, inténtelo nuevamente'), "flash_bootstrap");

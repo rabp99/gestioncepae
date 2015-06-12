@@ -6,6 +6,11 @@
  */
 class AlumnosController extends AppController {   
     public $components = array("Paginator");
+    
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow("getPadreByDni");
+    }
 
     public $paginate = array(
         "limit" => 10,
@@ -189,5 +194,15 @@ class AlumnosController extends AppController {
         
         $this->set("alumnos", $alumnos);
         $this->render();
+    }   
+    
+    public function getPadreByDni() {
+        $this->layout = "ajax";
+        
+        $padre = $this->Alumno->Padre->findByDni($this->request->data["Padre"][0]["dni"]);
+        
+        echo json_encode($padre);;
+        
+        die();
     }
 }
