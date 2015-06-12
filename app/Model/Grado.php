@@ -16,6 +16,11 @@ class Grado extends AppModel {
     public $hasMany = array(
         "Seccion" => array(
             "foreignKey" => "idseccion"
+        ),
+        "Curso" => array(
+            "foreignKey" => "idgrado",
+            "conditions" => array("Curso.estado" => 1),
+            "order" => "Curso.idarea ASC",
         )
     );
     
