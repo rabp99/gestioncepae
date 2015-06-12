@@ -33,7 +33,7 @@ CREATE TABLE `acos` (
   PRIMARY KEY (`id`),
   KEY `idx_acos_lft_rght` (`lft`,`rght`),
   KEY `idx_acos_alias` (`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `acos` (
 
 LOCK TABLES `acos` WRITE;
 /*!40000 ALTER TABLE `acos` DISABLE KEYS */;
-INSERT INTO `acos` VALUES (1,NULL,NULL,NULL,'controllers',1,214),(2,1,NULL,NULL,'Alumnos',2,15),(3,2,NULL,NULL,'index',3,4),(4,2,NULL,NULL,'add',5,6),(5,2,NULL,NULL,'view',7,8),(6,2,NULL,NULL,'edit',9,10),(7,2,NULL,NULL,'delete',11,12),(8,2,NULL,NULL,'getAlumnos',13,14),(9,1,NULL,NULL,'Aniolectivos',16,27),(10,9,NULL,NULL,'index',17,18),(11,9,NULL,NULL,'add',19,20),(12,9,NULL,NULL,'view',21,22),(13,9,NULL,NULL,'edit',23,24),(14,9,NULL,NULL,'delete',25,26),(15,1,NULL,NULL,'Areas',28,39),(16,15,NULL,NULL,'index',29,30),(17,15,NULL,NULL,'add',31,32),(18,15,NULL,NULL,'view',33,34),(19,15,NULL,NULL,'edit',35,36),(20,15,NULL,NULL,'delete',37,38),(21,1,NULL,NULL,'Asignaciones',40,47),(22,21,NULL,NULL,'index',41,42),(23,21,NULL,NULL,'registrar',43,44),(24,21,NULL,NULL,'getAsignaciones',45,46),(25,1,NULL,NULL,'Bimestres',48,59),(26,25,NULL,NULL,'index',49,50),(27,25,NULL,NULL,'add',51,52),(28,25,NULL,NULL,'view',53,54),(29,25,NULL,NULL,'edit',55,56),(30,25,NULL,NULL,'delete',57,58),(31,1,NULL,NULL,'Conceptos',60,73),(32,31,NULL,NULL,'index',61,62),(33,31,NULL,NULL,'add',63,64),(34,31,NULL,NULL,'view',65,66),(35,31,NULL,NULL,'edit',67,68),(36,31,NULL,NULL,'delete',69,70),(37,31,NULL,NULL,'getFormByAniolectivo',71,72),(38,1,NULL,NULL,'Cursos',74,85),(39,38,NULL,NULL,'index',75,76),(40,38,NULL,NULL,'add',77,78),(41,38,NULL,NULL,'view',79,80),(42,38,NULL,NULL,'edit',81,82),(43,38,NULL,NULL,'delete',83,84),(44,1,NULL,NULL,'Docentes',86,99),(45,44,NULL,NULL,'index',87,88),(46,44,NULL,NULL,'add',89,90),(47,44,NULL,NULL,'view',91,92),(48,44,NULL,NULL,'edit',93,94),(49,44,NULL,NULL,'delete',95,96),(50,44,NULL,NULL,'getDocentes',97,98),(51,1,NULL,NULL,'Grados',100,113),(52,51,NULL,NULL,'index',101,102),(53,51,NULL,NULL,'add',103,104),(54,51,NULL,NULL,'view',105,106),(55,51,NULL,NULL,'edit',107,108),(56,51,NULL,NULL,'delete',109,110),(57,51,NULL,NULL,'getByIdnivel',111,112),(58,1,NULL,NULL,'Groups',114,121),(59,58,NULL,NULL,'index',115,116),(60,58,NULL,NULL,'view',117,118),(61,58,NULL,NULL,'add',119,120),(62,1,NULL,NULL,'Matriculas',122,131),(63,62,NULL,NULL,'index',123,124),(64,62,NULL,NULL,'add',125,126),(65,62,NULL,NULL,'view',127,128),(66,62,NULL,NULL,'delete',129,130),(67,1,NULL,NULL,'Niveles',132,143),(68,67,NULL,NULL,'index',133,134),(69,67,NULL,NULL,'add',135,136),(70,67,NULL,NULL,'view',137,138),(71,67,NULL,NULL,'edit',139,140),(72,67,NULL,NULL,'delete',141,142),(73,1,NULL,NULL,'Notas',144,147),(74,73,NULL,NULL,'index',145,146),(75,1,NULL,NULL,'Pages',148,151),(76,75,NULL,NULL,'display',149,150),(77,1,NULL,NULL,'Pagos',152,161),(78,77,NULL,NULL,'index',153,154),(79,77,NULL,NULL,'registrar',155,156),(80,77,NULL,NULL,'view',157,158),(81,77,NULL,NULL,'getFormPagos',159,160),(82,1,NULL,NULL,'Secciones',162,177),(83,82,NULL,NULL,'index',163,164),(84,82,NULL,NULL,'add',165,166),(85,82,NULL,NULL,'view',167,168),(86,82,NULL,NULL,'edit',169,170),(87,82,NULL,NULL,'delete',171,172),(88,82,NULL,NULL,'getByIdgrado',173,174),(89,82,NULL,NULL,'getNextSeccion',175,176),(90,1,NULL,NULL,'Turnos',178,189),(91,90,NULL,NULL,'index',179,180),(92,90,NULL,NULL,'add',181,182),(93,90,NULL,NULL,'view',183,184),(94,90,NULL,NULL,'edit',185,186),(95,90,NULL,NULL,'delete',187,188),(96,1,NULL,NULL,'Users',190,211),(97,96,NULL,NULL,'initDB',191,192),(98,96,NULL,NULL,'index',193,194),(99,96,NULL,NULL,'view',195,196),(100,96,NULL,NULL,'add',197,198),(101,96,NULL,NULL,'edit',199,200),(102,96,NULL,NULL,'delete',201,202),(103,96,NULL,NULL,'login',203,204),(104,96,NULL,NULL,'logout',205,206),(105,96,NULL,NULL,'manage_usuario',207,208),(106,96,NULL,NULL,'change_password',209,210),(107,1,NULL,NULL,'AclExtras',212,213);
+INSERT INTO `acos` VALUES (1,NULL,NULL,NULL,'controllers',1,222),(2,1,NULL,NULL,'Alumnos',2,15),(3,2,NULL,NULL,'index',3,4),(4,2,NULL,NULL,'add',5,6),(5,2,NULL,NULL,'view',7,8),(6,2,NULL,NULL,'edit',9,10),(7,2,NULL,NULL,'delete',11,12),(8,2,NULL,NULL,'getAlumnos',13,14),(9,1,NULL,NULL,'Aniolectivos',16,27),(10,9,NULL,NULL,'index',17,18),(11,9,NULL,NULL,'add',19,20),(12,9,NULL,NULL,'view',21,22),(13,9,NULL,NULL,'edit',23,24),(14,9,NULL,NULL,'delete',25,26),(15,1,NULL,NULL,'Areas',28,39),(16,15,NULL,NULL,'index',29,30),(17,15,NULL,NULL,'add',31,32),(18,15,NULL,NULL,'view',33,34),(19,15,NULL,NULL,'edit',35,36),(20,15,NULL,NULL,'delete',37,38),(21,1,NULL,NULL,'Asignaciones',40,47),(22,21,NULL,NULL,'index',41,42),(23,21,NULL,NULL,'registrar',43,44),(24,21,NULL,NULL,'getAsignaciones',45,46),(25,1,NULL,NULL,'Bimestres',48,59),(26,25,NULL,NULL,'index',49,50),(27,25,NULL,NULL,'add',51,52),(28,25,NULL,NULL,'view',53,54),(29,25,NULL,NULL,'edit',55,56),(30,25,NULL,NULL,'delete',57,58),(31,1,NULL,NULL,'Conceptos',60,73),(32,31,NULL,NULL,'index',61,62),(33,31,NULL,NULL,'add',63,64),(34,31,NULL,NULL,'view',65,66),(35,31,NULL,NULL,'edit',67,68),(36,31,NULL,NULL,'delete',69,70),(37,31,NULL,NULL,'getFormByAniolectivo',71,72),(38,1,NULL,NULL,'Cursos',74,85),(39,38,NULL,NULL,'index',75,76),(40,38,NULL,NULL,'add',77,78),(41,38,NULL,NULL,'view',79,80),(42,38,NULL,NULL,'edit',81,82),(43,38,NULL,NULL,'delete',83,84),(44,1,NULL,NULL,'Docentes',86,99),(45,44,NULL,NULL,'index',87,88),(46,44,NULL,NULL,'add',89,90),(47,44,NULL,NULL,'view',91,92),(48,44,NULL,NULL,'edit',93,94),(49,44,NULL,NULL,'delete',95,96),(50,44,NULL,NULL,'getDocentes',97,98),(51,1,NULL,NULL,'Grados',100,113),(52,51,NULL,NULL,'index',101,102),(53,51,NULL,NULL,'add',103,104),(54,51,NULL,NULL,'view',105,106),(55,51,NULL,NULL,'edit',107,108),(56,51,NULL,NULL,'delete',109,110),(57,51,NULL,NULL,'getByIdnivel',111,112),(58,1,NULL,NULL,'Groups',114,121),(59,58,NULL,NULL,'index',115,116),(60,58,NULL,NULL,'view',117,118),(61,58,NULL,NULL,'add',119,120),(62,1,NULL,NULL,'Matriculas',122,131),(63,62,NULL,NULL,'index',123,124),(64,62,NULL,NULL,'add',125,126),(65,62,NULL,NULL,'view',127,128),(66,62,NULL,NULL,'delete',129,130),(67,1,NULL,NULL,'Niveles',132,143),(68,67,NULL,NULL,'index',133,134),(69,67,NULL,NULL,'add',135,136),(70,67,NULL,NULL,'view',137,138),(71,67,NULL,NULL,'edit',139,140),(72,67,NULL,NULL,'delete',141,142),(73,1,NULL,NULL,'Notas',144,155),(74,73,NULL,NULL,'index',145,146),(75,73,NULL,NULL,'administrar',147,148),(76,73,NULL,NULL,'registrar',149,150),(77,73,NULL,NULL,'getFormNotas',151,152),(78,73,NULL,NULL,'getFormRegistro',153,154),(79,1,NULL,NULL,'Pages',156,159),(80,79,NULL,NULL,'display',157,158),(81,1,NULL,NULL,'Pagos',160,169),(82,81,NULL,NULL,'index',161,162),(83,81,NULL,NULL,'registrar',163,164),(84,81,NULL,NULL,'view',165,166),(85,81,NULL,NULL,'getFormPagos',167,168),(86,1,NULL,NULL,'Secciones',170,185),(87,86,NULL,NULL,'index',171,172),(88,86,NULL,NULL,'add',173,174),(89,86,NULL,NULL,'view',175,176),(90,86,NULL,NULL,'edit',177,178),(91,86,NULL,NULL,'delete',179,180),(92,86,NULL,NULL,'getByIdgrado',181,182),(93,86,NULL,NULL,'getNextSeccion',183,184),(94,1,NULL,NULL,'Turnos',186,197),(95,94,NULL,NULL,'index',187,188),(96,94,NULL,NULL,'add',189,190),(97,94,NULL,NULL,'view',191,192),(98,94,NULL,NULL,'edit',193,194),(99,94,NULL,NULL,'delete',195,196),(100,1,NULL,NULL,'Users',198,219),(101,100,NULL,NULL,'initDB',199,200),(102,100,NULL,NULL,'index',201,202),(103,100,NULL,NULL,'view',203,204),(104,100,NULL,NULL,'add',205,206),(105,100,NULL,NULL,'edit',207,208),(106,100,NULL,NULL,'delete',209,210),(107,100,NULL,NULL,'login',211,212),(108,100,NULL,NULL,'logout',213,214),(109,100,NULL,NULL,'manage_usuario',215,216),(110,100,NULL,NULL,'change_password',217,218),(111,1,NULL,NULL,'AclExtras',220,221);
 /*!40000 ALTER TABLE `acos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,7 +76,7 @@ CREATE TABLE `alumnos` (
   PRIMARY KEY (`idalumno`,`iduser`),
   KEY `fk_alumnos_users1_idx` (`iduser`),
   CONSTRAINT `fk_alumnos_users1` FOREIGN KEY (`iduser`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,6 +85,7 @@ CREATE TABLE `alumnos` (
 
 LOCK TABLES `alumnos` WRITE;
 /*!40000 ALTER TABLE `alumnos` DISABLE KEYS */;
+INSERT INTO `alumnos` VALUES (1,2,'adasda','sdsa','dsadad','dsfa','dfsfads','F','2015-06-11','ewqasdsad','fdsasdafdass@fdsa.fdsafd','fsdafs','1',NULL,'dsafdsafds','affdsafdsa','dafsdafdsa','fdsasdafs','1'),(2,4,'asdasd','sdasda','sadasd','sadsa','560454564','M','2015-06-11','saddsadasasd','dsadsadsa64@dsadsa.sad','sdadsa','1','sadadasdsa','dsadsadsa','dsadsadsa','dsasda','sdaas','1');
 /*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,8 +102,8 @@ CREATE TABLE `alumnos_padres` (
   PRIMARY KEY (`idpadre`,`idalumno`),
   KEY `fk_padres_has_alumnos_alumnos1_idx` (`idalumno`),
   KEY `fk_padres_has_alumnos_padres1_idx` (`idpadre`),
-  CONSTRAINT `fk_padres_has_alumnos_padres1` FOREIGN KEY (`idpadre`) REFERENCES `padres` (`idpadre`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_padres_has_alumnos_alumnos1` FOREIGN KEY (`idalumno`) REFERENCES `alumnos` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_padres_has_alumnos_alumnos1` FOREIGN KEY (`idalumno`) REFERENCES `alumnos` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_padres_has_alumnos_padres1` FOREIGN KEY (`idpadre`) REFERENCES `padres` (`idpadre`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -112,6 +113,7 @@ CREATE TABLE `alumnos_padres` (
 
 LOCK TABLES `alumnos_padres` WRITE;
 /*!40000 ALTER TABLE `alumnos_padres` DISABLE KEYS */;
+INSERT INTO `alumnos_padres` VALUES (1,1),(2,1),(3,2),(4,2);
 /*!40000 ALTER TABLE `alumnos_padres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +157,7 @@ CREATE TABLE `areas` (
   `importancia` int(10) unsigned DEFAULT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idarea`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,6 +166,7 @@ CREATE TABLE `areas` (
 
 LOCK TABLES `areas` WRITE;
 /*!40000 ALTER TABLE `areas` DISABLE KEYS */;
+INSERT INTO `areas` VALUES (1,'Matermatica',12,'1');
 /*!40000 ALTER TABLE `areas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,10 +249,10 @@ CREATE TABLE `asignaciones` (
   KEY `fk_clases_secciones1_idx` (`idseccion`),
   KEY `fk_clases_cursos1_idx` (`idcurso`),
   KEY `fk_asignaciones_docentes1_idx` (`iddocente`),
-  CONSTRAINT `fk_clases_secciones1` FOREIGN KEY (`idseccion`) REFERENCES `secciones` (`idseccion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_asignaciones_docentes1` FOREIGN KEY (`iddocente`) REFERENCES `docentes` (`iddocente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_clases_cursos1` FOREIGN KEY (`idcurso`) REFERENCES `cursos` (`idcurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_asignaciones_docentes1` FOREIGN KEY (`iddocente`) REFERENCES `docentes` (`iddocente`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_clases_secciones1` FOREIGN KEY (`idseccion`) REFERENCES `secciones` (`idseccion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,6 +261,7 @@ CREATE TABLE `asignaciones` (
 
 LOCK TABLES `asignaciones` WRITE;
 /*!40000 ALTER TABLE `asignaciones` DISABLE KEYS */;
+INSERT INTO `asignaciones` VALUES (1,1,1,1,'1');
 /*!40000 ALTER TABLE `asignaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +277,7 @@ CREATE TABLE `bimestres` (
   `descripcion` varchar(60) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idbimestre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,6 +286,7 @@ CREATE TABLE `bimestres` (
 
 LOCK TABLES `bimestres` WRITE;
 /*!40000 ALTER TABLE `bimestres` DISABLE KEYS */;
+INSERT INTO `bimestres` VALUES (1,'Primer Bimestre','1');
 /*!40000 ALTER TABLE `bimestres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,7 +306,7 @@ CREATE TABLE `conceptos` (
   PRIMARY KEY (`idconcepto`,`idaniolectivo`),
   KEY `fk_conceptos_aniolectivos1_idx` (`idaniolectivo`),
   CONSTRAINT `fk_conceptos_aniolectivos1` FOREIGN KEY (`idaniolectivo`) REFERENCES `aniolectivos` (`idaniolectivo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,6 +315,7 @@ CREATE TABLE `conceptos` (
 
 LOCK TABLES `conceptos` WRITE;
 /*!40000 ALTER TABLE `conceptos` DISABLE KEYS */;
+INSERT INTO `conceptos` VALUES (1,1,'Matricula',200.00,'1');
 /*!40000 ALTER TABLE `conceptos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,9 +335,9 @@ CREATE TABLE `cursos` (
   PRIMARY KEY (`idcurso`,`idgrado`,`idarea`),
   KEY `fk_cursos_grados1_idx` (`idgrado`),
   KEY `fk_cursos_areas1_idx` (`idarea`),
-  CONSTRAINT `fk_cursos_grados1` FOREIGN KEY (`idgrado`) REFERENCES `grados` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cursos_areas1` FOREIGN KEY (`idarea`) REFERENCES `areas` (`idarea`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_cursos_areas1` FOREIGN KEY (`idarea`) REFERENCES `areas` (`idarea`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cursos_grados1` FOREIGN KEY (`idgrado`) REFERENCES `grados` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,6 +346,7 @@ CREATE TABLE `cursos` (
 
 LOCK TABLES `cursos` WRITE;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
+INSERT INTO `cursos` VALUES (1,1,1,'asdsadsa','1');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,16 +360,15 @@ DROP TABLE IF EXISTS `detallenotas`;
 CREATE TABLE `detallenotas` (
   `iddetallenota` int(11) NOT NULL AUTO_INCREMENT,
   `idnota` int(11) NOT NULL,
-  `matriculas_idmatricula` int(11) NOT NULL,
-  `valor` varchar(45) NOT NULL,
-  `observaciones` varchar(300) DEFAULT NULL,
+  `idmatricula` int(11) NOT NULL,
+  `valor` decimal(4,2) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`iddetallenota`,`idnota`,`matriculas_idmatricula`),
+  PRIMARY KEY (`iddetallenota`,`idnota`,`idmatricula`),
   KEY `fk_detallenotas_notas1_idx` (`idnota`),
-  KEY `fk_detallenotas_matriculas1_idx` (`matriculas_idmatricula`),
-  CONSTRAINT `fk_detallenotas_notas1` FOREIGN KEY (`idnota`) REFERENCES `notas` (`idnota`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_detallenotas_matriculas1` FOREIGN KEY (`matriculas_idmatricula`) REFERENCES `matriculas` (`idmatricula`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `fk_detallenotas_matriculas1_idx` (`idmatricula`),
+  CONSTRAINT `fk_detallenotas_matriculas1` FOREIGN KEY (`idmatricula`) REFERENCES `matriculas` (`idmatricula`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_detallenotas_notas1` FOREIGN KEY (`idnota`) REFERENCES `notas` (`idnota`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -371,6 +377,7 @@ CREATE TABLE `detallenotas` (
 
 LOCK TABLES `detallenotas` WRITE;
 /*!40000 ALTER TABLE `detallenotas` DISABLE KEYS */;
+INSERT INTO `detallenotas` VALUES (1,1,1,12.00,'1'),(2,2,1,20.00,'1');
 /*!40000 ALTER TABLE `detallenotas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,7 +433,7 @@ CREATE TABLE `docentes` (
   UNIQUE KEY `dni_UNIQUE` (`dni`),
   KEY `fk_docentes_users1_idx` (`iduser`),
   CONSTRAINT `fk_docentes_users1` FOREIGN KEY (`iduser`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -435,6 +442,7 @@ CREATE TABLE `docentes` (
 
 LOCK TABLES `docentes` WRITE;
 /*!40000 ALTER TABLE `docentes` DISABLE KEYS */;
+INSERT INTO `docentes` VALUES (1,6,'dsadsa','dsasda','dsasdasda','dsaasd','21321321','sdada','312312','31232113','2015-06-11','1');
 /*!40000 ALTER TABLE `docentes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -455,7 +463,7 @@ CREATE TABLE `grados` (
   PRIMARY KEY (`idgrado`,`idnivel`),
   KEY `fk_grados_niveles_idx` (`idnivel`),
   CONSTRAINT `fk_grados_niveles` FOREIGN KEY (`idnivel`) REFERENCES `niveles` (`idnivel`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -464,6 +472,7 @@ CREATE TABLE `grados` (
 
 LOCK TABLES `grados` WRITE;
 /*!40000 ALTER TABLE `grados` DISABLE KEYS */;
+INSERT INTO `grados` VALUES (1,3,'1°',12,NULL,'1');
 /*!40000 ALTER TABLE `grados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -509,9 +518,9 @@ CREATE TABLE `matriculas` (
   PRIMARY KEY (`idmatricula`,`idseccion`,`idalumno`),
   KEY `fk_matriculas_secciones1_idx` (`idseccion`),
   KEY `fk_matriculas_alumnos1_idx` (`idalumno`),
-  CONSTRAINT `fk_matriculas_secciones1` FOREIGN KEY (`idseccion`) REFERENCES `secciones` (`idseccion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_matriculas_alumnos1` FOREIGN KEY (`idalumno`) REFERENCES `alumnos` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_matriculas_alumnos1` FOREIGN KEY (`idalumno`) REFERENCES `alumnos` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_matriculas_secciones1` FOREIGN KEY (`idseccion`) REFERENCES `secciones` (`idseccion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -520,6 +529,7 @@ CREATE TABLE `matriculas` (
 
 LOCK TABLES `matriculas` WRITE;
 /*!40000 ALTER TABLE `matriculas` DISABLE KEYS */;
+INSERT INTO `matriculas` VALUES (1,1,1,'2015-06-12','dasdadsa','1');
 /*!40000 ALTER TABLE `matriculas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -559,15 +569,16 @@ CREATE TABLE `notas` (
   `idnota` int(11) NOT NULL AUTO_INCREMENT,
   `idasignacion` int(11) NOT NULL,
   `idbimestre` int(11) NOT NULL,
-  `descripcion` varchar(45) NOT NULL,
-  `peso` varchar(45) NOT NULL,
-  `estado` varchar(45) NOT NULL DEFAULT '1',
+  `descripcion` varchar(60) NOT NULL,
+  `peso` int(11) NOT NULL,
+  `observaciones` varchar(300) DEFAULT NULL,
+  `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idnota`,`idasignacion`,`idbimestre`),
   KEY `fk_notas_bimestres1_idx` (`idbimestre`),
   KEY `fk_notas_asignaciones1_idx` (`idasignacion`),
-  CONSTRAINT `fk_notas_bimestres1` FOREIGN KEY (`idbimestre`) REFERENCES `bimestres` (`idbimestre`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_notas_asignaciones1` FOREIGN KEY (`idasignacion`) REFERENCES `asignaciones` (`idasignacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_notas_asignaciones1` FOREIGN KEY (`idasignacion`) REFERENCES `asignaciones` (`idasignacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notas_bimestres1` FOREIGN KEY (`idbimestre`) REFERENCES `bimestres` (`idbimestre`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -576,6 +587,7 @@ CREATE TABLE `notas` (
 
 LOCK TABLES `notas` WRITE;
 /*!40000 ALTER TABLE `notas` DISABLE KEYS */;
+INSERT INTO `notas` VALUES (1,1,1,'Oral',2,'dasdsa','1'),(2,1,1,'Examen',1,'sdsda','1');
 /*!40000 ALTER TABLE `notas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -608,7 +620,7 @@ CREATE TABLE `padres` (
   UNIQUE KEY `dni_UNIQUE` (`dni`),
   KEY `fk_padres_users1_idx` (`iduser`),
   CONSTRAINT `fk_padres_users1` FOREIGN KEY (`iduser`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -617,6 +629,7 @@ CREATE TABLE `padres` (
 
 LOCK TABLES `padres` WRITE;
 /*!40000 ALTER TABLE `padres` DISABLE KEYS */;
+INSERT INTO `padres` VALUES (1,3,'1','dsadas','sa','dasdasdas','40564654',NULL,'045645640','5640560456','2015-06-11','dsadas@dsadsa.dsa','dsaffds','Sin estudios','dsafdsaf','Padre','0'),(2,NULL,'1','dsadasdsa','dsadsada','dfsad','56465045',NULL,'4058498409','8498048904','2015-06-11','fdsafdsa@fdsaf.dsafdsa','dsafdsa','Primaria','dsfsa','Madre','0'),(3,5,'1','uhiuhuihui','huihiuh','iuhuihuih','04560456',NULL,'4046540654','4056046540','2015-06-11','dsadas@dsad.sadas','sadas','Sin estudios','dsadsa','Padre','0'),(4,NULL,'1','sdasda','asd','dsadsaasd','46545879',NULL,'6540564056','0456046504','2015-06-11','dsadsa@das.dsa','dsadsa','Secundaria','sdadsa','Madre','0');
 /*!40000 ALTER TABLE `padres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -638,9 +651,9 @@ CREATE TABLE `pagos` (
   PRIMARY KEY (`idpago`,`idmatricula`,`idconcepto`),
   KEY `fk_pagos_matriculas1_idx` (`idmatricula`),
   KEY `fk_pagos_conceptos1_idx` (`idconcepto`),
-  CONSTRAINT `fk_pagos_matriculas1` FOREIGN KEY (`idmatricula`) REFERENCES `matriculas` (`idmatricula`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pagos_conceptos1` FOREIGN KEY (`idconcepto`) REFERENCES `conceptos` (`idconcepto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_pagos_conceptos1` FOREIGN KEY (`idconcepto`) REFERENCES `conceptos` (`idconcepto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pagos_matriculas1` FOREIGN KEY (`idmatricula`) REFERENCES `matriculas` (`idmatricula`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -649,6 +662,7 @@ CREATE TABLE `pagos` (
 
 LOCK TABLES `pagos` WRITE;
 /*!40000 ALTER TABLE `pagos` DISABLE KEYS */;
+INSERT INTO `pagos` VALUES (1,1,1,'Matricula',200.00,NULL,'1');
 /*!40000 ALTER TABLE `pagos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -670,10 +684,10 @@ CREATE TABLE `secciones` (
   KEY `fk_secciones_grados1_idx` (`idgrado`),
   KEY `fk_secciones_aniolectivos1_idx` (`idaniolectivo`),
   KEY `fk_secciones_turnos1_idx` (`idturno`),
-  CONSTRAINT `fk_secciones_grados1` FOREIGN KEY (`idgrado`) REFERENCES `grados` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_secciones_aniolectivos1` FOREIGN KEY (`idaniolectivo`) REFERENCES `aniolectivos` (`idaniolectivo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_secciones_grados1` FOREIGN KEY (`idgrado`) REFERENCES `grados` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_secciones_turnos1` FOREIGN KEY (`idturno`) REFERENCES `turnos` (`idturno`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -682,6 +696,7 @@ CREATE TABLE `secciones` (
 
 LOCK TABLES `secciones` WRITE;
 /*!40000 ALTER TABLE `secciones` DISABLE KEYS */;
+INSERT INTO `secciones` VALUES (1,1,1,1,'A','1');
 /*!40000 ALTER TABLE `secciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -697,7 +712,7 @@ CREATE TABLE `turnos` (
   `descripcion` varchar(60) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idturno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -706,6 +721,7 @@ CREATE TABLE `turnos` (
 
 LOCK TABLES `turnos` WRITE;
 /*!40000 ALTER TABLE `turnos` DISABLE KEYS */;
+INSERT INTO `turnos` VALUES (1,'Mañana','1');
 /*!40000 ALTER TABLE `turnos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -725,7 +741,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`iduser`,`idgroup`),
   KEY `fk_users_groups1_idx` (`idgroup`),
   CONSTRAINT `fk_users_groups1` FOREIGN KEY (`idgroup`) REFERENCES `groups` (`idgroup`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -734,7 +750,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,'admin','$2a$10$zBL6y6tQJ4SVtsO6yBE0FueCGqAmUM0KGJ0gpRn113j733le1dwTK','1');
+INSERT INTO `users` VALUES (1,1,'admin','$2a$10$onx8A/ylFgi8peYpmkjc3./wfr.h7VNujPWz668HSK73xWNrTIh5.','1'),(2,2,'alumno1','$2a$10$ggm1TKZeSBkg2is0F8xVU.VYPSlsWi0VZ7rxfKAIRFt1WeFqVMgk6','1'),(3,3,'40564654','$2a$10$0/Udc72Xzyg/MkdhJv3rk.Ygka2LfY2XguMMfxvgYt3DCn1Phhz/e','1'),(4,2,'alumno2','$2a$10$665AzPxFnEuUGGpRMr9O6OERRjJ/yqRxvyxOGvy9K8BGkrv.LjAC2','1'),(5,3,'04560456','$2a$10$GJYE.LFzfGdljdbbVR/CO.5vEtgPG6TigVoKOrba5R0yJ8I5tP3qO','1'),(6,4,'d','$2a$10$v1Cwj/vDVtNC2a2VAK/3/OiTwY8OnNJKYJemKJBI.GhYQFCe6fNpW','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -747,4 +763,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-10 14:06:06
+-- Dump completed on 2015-06-12  0:21:40
