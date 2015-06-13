@@ -16,10 +16,10 @@ class ReportesController extends AppController {
     }
     
     public function notas() {
-        //App::import("Vendor", "Fpdf", array("file" => "fpdf/fpdf.php"));
-        //$this->layout = 'pdf'; //this will use the pdf.ctp layout
+        App::import("Vendor", "Fpdf", array("file" => "fpdf/fpdf.php"));
+        $this->layout = 'pdf'; //this will use the pdf.ctp layout
 
-        //$this->set("fpdf", new FPDF("P","mm","A4"));
+        $this->set("fpdf", new FPDF("P","mm","A4"));
         
         // Inicialización de variables
         $idaniolectivo = 1;
@@ -48,11 +48,7 @@ class ReportesController extends AppController {
         $areas = $this->Area->find("all", array(
            "conditions" => array("Area.idarea" => $idareas) 
         ));
-        
-        // Salida de la Información
-        $this->set(compact("matricula"));
-        $this->set(compact("bimestre"));
-        
+              
         foreach($areas as $k_area => $area) {
             $areas[$k_area]["Curso"] = array();
             foreach($cursos as $k_curso => $curso) {
@@ -75,11 +71,15 @@ class ReportesController extends AppController {
                     array_push($areas[$k_area]["Curso"], $curso["Curso"]);
                 }
             }
+            $areas[$k_area]["Area"]["promediofinal"] = $this->promediofinal($areas[$k_area]);
         }
         
-        debug($areas);
+        // Salida de la Información
+        $this->set(compact("matricula"));
+        $this->set(compact("bimestre"));
+        $this->set(compact("areas"));
         
-        // $this->response->type("application/pdf");
+        $this->response->type("application/pdf");
     }
     
     private function promedio($notas) {
@@ -94,5 +94,16 @@ class ReportesController extends AppController {
         }
         $promedio = $subpromedio / $peso;
         return $promedio;
+    }
+    
+    private function promediofinal($area) {
+        // Calcular peso total
+        $subpromedio = 0;
+        foreach($area["Curso"] as $curso) {
+            $subpromedio += $curso["promedio"];
+        }
+        $promediofinal = $subpromedio / sizeof($area["Curso"]);
+        
+        return $promediofinal;
     }
 }

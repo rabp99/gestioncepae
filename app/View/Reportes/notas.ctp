@@ -59,6 +59,32 @@
     
     $fpdf->ln();
     
+    foreach($areas as $area) {
+        $fpdf->Cell(112, 6, utf8_decode($area["Area"]["descripcion"]), "LRB", 0, "L");
+        $fpdf->Cell(25, 6, "", "LRB", 0, "C");
+        $fpdf->Cell(25, 6, "", "LRB", 0, "C");
+        $fpdf->Cell(26, 6, utf8_decode($area["Area"]["promediofinal"]), "LRB", 0, "C");
+        
+        $fpdf->ln();
+        
+        $i = 0;
+        foreach($area["Curso"] as $curso) {
+            $fpdf->Cell(22, 6, "", ($i == 0 ? ($i + 1 == sizeof($area["Curso"]) ? "LRBT" : "LRT") : ($i + 1 == sizeof($area["Curso"]) ? "LRB" : "LR")), 0, "C");
+            $fpdf->Cell(90, 6, utf8_decode($curso["descripcion"]), "LRB", 0, "L");
+            $fpdf->Cell(25, 6, utf8_decode($curso["promedio"]), "LRB", 0, "C");
+            $fpdf->Cell(25, 6, "", "LR", 0, "C");
+            $fpdf->Cell(26, 6, "", "LR", 0, "C");
+            
+            $fpdf->ln();
+            $i++;
+        }
+        $fpdf->Cell(137, 6, "", "LRB", 0, "L");
+        $fpdf->Cell(25, 6, "", "LRB", 0, "L");
+        $fpdf->Cell(26, 6, "", "LRB", 0, "L");
+        $fpdf->ln();
+    } 
+    
+    
    
     $fpdf->Output("Reporte_de_Notas.pdf", "D");
 ?>
