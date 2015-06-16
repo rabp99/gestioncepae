@@ -1,5 +1,8 @@
 <?php
     $fpdf->AddPage();
+    
+    $fpdf->Image("../../app/webroot/img/images/insifon.jpg", 152, 7, 39, 50);
+    
     $fpdf->SetFont("Times", "", 14);
     $fpdf->Cell(55);
     $fpdf->Cell(30, 6, utf8_decode("INSTITUCIÓN EDUCATIVA PARTICULAR"), 0, 0, 'C');
@@ -21,7 +24,7 @@
     $fpdf->Cell(55);
     $fpdf->Cell(30, 6, utf8_decode("RD. 008688-05"), 0, 0, 'C');
     
-    $fpdf->ln(15);
+    $fpdf->ln(20);
     
     $fpdf->SetFont("Arial", "", 11);
     $fpdf->Cell(55);

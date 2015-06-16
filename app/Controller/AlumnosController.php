@@ -7,11 +7,6 @@
 class AlumnosController extends AppController {   
     public $components = array("Paginator");
     
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("getPadreByDni");
-    }
-
     public $paginate = array(
         "limit" => 10,
         "order" => array(
@@ -48,6 +43,41 @@ class AlumnosController extends AppController {
             $this->Alumno->User->create();
             if($this->Alumno->User->save($this->request->data["User"])) {
                 $this->request->data["Alumno"]["iduser"] = $this->Alumno->User->id;
+                if(isset($this->request->data["Padre"]["$i_apoderado"]["idpadre"])) {
+                    // no guardar usuario
+                    $this->Session->setFlash(__("No se guarda el usuaio de padre."), "flash_bootstrap");
+                                
+                    $this->Alumno->create();
+                    if($this->Alumno->save($this->request->data["Alumno"])) {
+                        $this->request->data["Alumno"]["idalumno"] = $this->Alumno->id;
+                        $r = true;
+                        $alumnos_padres = array();
+                        foreach($this->request->data["Padre"] as $key => $padre) {
+                            $this->Alumno->Padre->create();
+                            if($this->Alumno->Padre->save($padre)) {
+                                $this->request->data["Padre"][$key]["idpadre"] = $this->Alumno->Padre->id;
+                                $alumnos_padres[] = array(
+                                    "Alumno" => array("idalumno" => $this->request->data["Alumno"]["idalumno"]),
+                                    "Padre" => array("idpadre" => $this->request->data["Padre"][$key]["idpadre"]),
+                                );
+                            } else {
+                                $r = false;
+                            }
+                        }
+                        
+                        unset($this->request->data["Auxiliar"]);
+                        unset($this->request->data["User"]);
+                        unset($this->request->data["Padre"][$i_apoderado]["User"]);
+                        $this->Alumno->AlumnosPadre->create();
+                        if($this->Alumno->AlumnosPadre->save($alumnos_padres)) {
+                            if($r) {
+                                $ds->commit();
+                                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                return $this->redirect(array("action" => "index"));
+                            }
+                        }
+                    }
+                }
                 $this->Alumno->User->create();
                 if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
                     $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
@@ -196,10 +226,20 @@ class AlumnosController extends AppController {
         $this->render();
     }   
     
-    public function getPadreByDni() {
+    public function getPadre0ByDni() {
         $this->layout = "ajax";
         
         $padre = $this->Alumno->Padre->findByDni($this->request->data["Padre"][0]["dni"]);
+        
+        echo json_encode($padre);;
+        
+        die();
+    }   
+    
+    public function getPadre1ByDni() {
+        $this->layout = "ajax";
+        
+        $padre = $this->Alumno->Padre->findByDni($this->request->data["Padre"][1]["dni"]);
         
         echo json_encode($padre);;
         

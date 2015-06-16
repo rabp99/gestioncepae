@@ -6,12 +6,7 @@
  */
 class ReportesController extends AppController {
     public $uses = array("User", "Alumno", "Matricula", "Bimestre", "Nota", "Curso", "Area", "Asignacion");
-    
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("notas");
-    }
-    
+        
     public function index() {
     }
     
