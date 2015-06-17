@@ -1,6 +1,6 @@
 <!-- File: /app/View/Common/index.ctp -->
 <div class="aqua-container">
-    <?php if(!empty($this->fetch("accion"))) {?>
+    <?php $accion = $this->fetch("accion"); if(!empty($accion)) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "add")) ?>" class="aqua-shortcut text-align-center">
             <span class="modernpics newline">V</span>

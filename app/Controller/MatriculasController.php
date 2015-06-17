@@ -14,6 +14,7 @@ class MatriculasController extends AppController {
         "order" => array(
             "Matricula.fecha" => "asc"
         ),
+        "recursive" => 3,
         "conditions" => array(
             "Matricula.estado" => 1
         )
@@ -21,25 +22,34 @@ class MatriculasController extends AppController {
 
     public function index() {
         $this->layout = "main";
+                
+        $this->set("aniolectivos", $this->Matricula->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
         
         $this->set("niveles", $this->Matricula->Seccion->Grado->Nivel->find("list", array(
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
             "conditions" => array("Nivel.estado" => 1)
         )));
-        if($this->request->is("POST")) {
+            
+        if($this->request->is(array("post", "put"))) {
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"]))
+                $this->paginate["conditions"]["Seccion.idaniolectivo"] = $this->request->data["Aniolectivo"]["idaniolectivo"];
+            
             if(isset($this->request->data["Grado"]["idgrado"])) {
                 $idgrado = $this->request->data["Grado"]["idgrado"];
                 $this->paginate["conditions"]["Seccion.idgrado"] = $idgrado;
             }
+            
             if(isset($this->request->data["Matricula"]["idseccion"])) {
                 $idseccion = $this->request->data["Matricula"]["idseccion"];
                 $this->paginate["conditions"]["Matricula.idseccion"] = $idseccion;
             }
-            unset($this->request->data["Nivel"]["idnivel"]);
+            $this->Paginator->settings = $this->paginate;
+            $matriculas = $this->Paginator->paginate();
+            $this->set(compact("matriculas"));
         }
-        $this->Paginator->settings = $this->paginate;
-        $matriculas = $this->Paginator->paginate();
-        $this->set(compact("matriculas"));
     }
     
     public function add() {

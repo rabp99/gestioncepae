@@ -3,6 +3,6 @@
     echo $this->Form->input("idgrado", array(
         "label" => "Grado",
         "options" => $grados,
-        "empty" => "Selecciona uno"
+        "empty" => "Selecciona uno",
     ));
 ?>

@@ -1,6 +1,6 @@
 <!-- File: /app/View/Common/view.ctp -->
 <div class="aqua-container">
-    <?php if(!empty($this->fetch("accion1"))) {?>
+    <?php $accion1 = $this->fetch("accion1"); if(!empty($accion1)) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "add")); ?>" class="aqua-shortcut text-align-center">
             <span class="modernpics newline">V</span>
@@ -8,7 +8,7 @@
         </a>
     </div>
     <?php } ?>
-    <?php if(!empty($this->fetch("accion2"))) {?>
+    <?php $accion2 = $this->fetch("accion2"); if(!empty($accion2)) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "edit", $this->fetch("id"))); ?>" class="aqua-shortcut text-align-center">
             <span class="modernpics newline">r</span>
@@ -16,7 +16,7 @@
         </a>
     </div>
     <?php } ?>
-    <?php if(!empty($this->fetch("accion3"))) {?>
+    <?php $accion3 = $this->fetch("accion3"); if(!empty($accion3)) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "index")); ?>" class="aqua-shortcut text-align-center">
             <span class="modernpics newline">(</span>
@@ -24,7 +24,7 @@
         </a>
     </div>
     <?php } ?>
-    <?php if(!empty($this->fetch("accion4"))) {?>
+    <?php $accion4 = $this->fetch("accion4"); if(!empty($accion4)) {?>
     <div class="span1">
         <a href="<?php echo $this->Html->url(array("action" => "delete", $this->fetch("id"))); ?>" class="aqua-shortcut text-align-center delete" id="yt0">
             <span class="modernpics newline icons-red">x</span>

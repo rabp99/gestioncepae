@@ -146,3 +146,8 @@
         ))
     );
 ?>
+
+<?php $this->Js->get('#MatriculaAddForm')->event("submit", 
+        "if(confirm('No olvides de definir los Pagos a realizar. ¿Estás seguro de continuar?')) return true; else return false;"
+    );
+?>
