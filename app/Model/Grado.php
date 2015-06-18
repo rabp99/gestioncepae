@@ -38,7 +38,7 @@ class Grado extends AppModel {
             ),       
             "menor" => array(
                 "rule" => array("comparison", "<", 40),
-                "message" => "Debe ser un menor a 40"
+                "message" => "Debe ser un número menor a 40"
             ),
         ),    
         "idgrado" => array(

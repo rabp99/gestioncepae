@@ -19,7 +19,7 @@
             $tr = array($matricula["Alumno"]["nombreCompleto"]);
             foreach($notas as $k_nota => $nota) {
                 $n = $k_matricula * $n_notas + $k_nota;
-                $detallenota = $this->Form->input("Detallenota." . $n . ".valor", array("div" => false, "label" => false));
+                $detallenota = $this->Form->input("Detallenota." . $n . ".valor", array("div" => false, "label" => false, "style" => "width: 50px"));
                 $detallenota .= $this->Form->input("Detallenota." . $n . ".idnota", array("type" => "hidden", "value" => $nota["Nota"]["idnota"]));
                 $detallenota .= $this->Form->input("Detallenota." . $n . ".idmatricula", array("type" => "hidden", "value" => $matricula["idmatricula"]));
                 array_push($tr, $detallenota);
