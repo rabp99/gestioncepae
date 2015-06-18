@@ -1,7 +1,8 @@
 <!-- File: /app/View/Notas/administrar.ctp -->
 <?php 
     $this->extend("/Common/view");
-    $this->assign("titulo", "Notas del Curso " . $asignacion["Curso"]["descripcion"]);  
+    $this->assign("titulo", "Administrar Notas del Curso " . $asignacion["Curso"]["descripcion"]);  
+    $this->assign("accion3", "Administar Notas");
     
     $this->Html->addCrumb('Notas', '/Notas');
     $this->Html->addCrumb('Administrar', '/Notas/administrar');
@@ -25,19 +26,20 @@
 ?>
 
 <?php
-    $this->Js->get('#NotaIdbimestre')->event('change', 
-        $this->Js->request(array(
-            "controller" => "Notas",
-            "action" => "getFormNotas"
-        ), array(
-            "update" => "#form-notas",
-            "async" => true,
-            "method" => 'post',
-            "dataExpression" => true,
-            "data" => $this->Js->serializeForm(array(
-                "isForm" => false,
-                "inline" => true
-            ))
+    $getFormNotas = $this->Js->request(array(
+        "controller" => "Notas",
+        "action" => "getFormNotas"
+    ), array(
+        "update" => "#form-notas",
+        "async" => true,
+        "method" => 'post',
+        "dataExpression" => true,
+        "data" => $this->Js->get("#NotaIdbimestre")->serializeForm(array(
+            "isForm" => false,
+            "inline" => true
         ))
-    );
+    ));
+    
+    $this->Js->get('#NotaIdbimestre')->event('change', $getFormNotas);
+    $this->Js->buffer($getFormNotas);
 ?>

@@ -12,12 +12,24 @@ class NotasController extends AppController {
         
         $user = $this->Auth->user();
         $docente = $this->Docente->findByIduser($user["iduser"]);
+                
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        $asignaciones = array();
+        if($this->request->is(array("post", "put"))) {
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
+                $conditions["Seccion.idaniolectivo"] = $this->request->data["Aniolectivo"]["idaniolectivo"];
+                $conditions["Asignacion.estado"] = 1;
+                $conditions["Asignacion.iddocente"] = $docente["Docente"]["iddocente"];           
+            }
+            $this->Asignacion->recursive = 3;
+            $asignaciones = $this->Asignacion->find("all", array(
+                "conditions" => $conditions
+            ));            
+        }
         
-        $this->Asignacion->recursive = 3;
-        $asignaciones = $this->Asignacion->find("all", array(
-            "conditions" => array("Asignacion.estado" => 1, "Asignacion.iddocente" => $docente["Docente"]["iddocente"])
-        ));
-
         $this->set(compact("asignaciones"));
     }
     
@@ -37,7 +49,7 @@ class NotasController extends AppController {
             $this->Nota->create();
             if($this->Nota->save($this->request->data)) {
                 $this->Session->setFlash(__("La Nota ha sido registrada correctamente."), "flash_bootstrap");
-                return $this->redirect(array("action" => "index"));
+                return;
             }   
             $this->Session->setFlash(__("La Nota no ha sido registrada correctamente."), "flash_bootstrap");
         }
@@ -75,7 +87,7 @@ class NotasController extends AppController {
                 "Nota.idbimestre" => $this->request->data["Nota"]["idbimestre"]
             )
         ));
-        
+        if(empty($this->request->data["Nota"]["idbimestre"])) die();
         $this->set(compact("notas"));
     }
     

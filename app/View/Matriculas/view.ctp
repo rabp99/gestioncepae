@@ -46,7 +46,12 @@
         </div>
         <div id="yw0_tab_4" class="tab-pane fade">
             <div class="info-panel">
-
+                <dl class="dl-horizontal">
+                <?php foreach($matricula["Pago"] as $pago) { ?>
+                    <dt><?php echo $pago["Concepto"]["descripcion"]; ?>:</dt>
+                    <dd><?php echo $pago["monto"]; ?></dd>
+                <?php } ?>
+                </dl>
             </div>
         </div>
     </div>

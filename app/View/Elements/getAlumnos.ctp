@@ -7,7 +7,8 @@
         "label" => "Código Alumno",
         "data-toggle" => "modal",
         "data-target" => "#mdlBuscarAlumno",
-        "type" => "text"
+        "type" => "text",
+        "readonly" => true
     ));
     echo $this->Form->input("Alumno.nombreCompleto", array(
         "label" => "Nombre Completo",

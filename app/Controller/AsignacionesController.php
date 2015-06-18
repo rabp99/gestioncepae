@@ -6,6 +6,11 @@
  */
 class AsignacionesController extends AppController {   
     public $uses = array("Asignacion", "Aniolectivo", "Nivel", "Curso", "Seccion");
+      
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow("view", "modificar");
+    }
     
     public function index() {
         $this->layout = "main";
@@ -37,6 +42,35 @@ class AsignacionesController extends AppController {
             $this->Session->setFlash(__("No fue posible asignar al Docente."), "flash_bootstrap");
         }
     }
+      
+    public function modificar($idcurso = null, $idseccion = null) {
+        $this->layout = "main";
+        
+        $this->Asignacion->recursive = 3;
+        $asignacion = $this->Asignacion->find("first", array(
+            "conditions" => array("Asignacion.idcurso" => $idcurso, "Asignacion.idseccion" => $idseccion)
+        ));
+        
+        $this->set("asignacion", $asignacion);
+        
+        if($this->request->is(array("post", "put"))) {
+            $this->Asignacion->id = $this->request->data["Asignacion"]["idasignacion"];
+            if($this->Asignacion->save($this->request->data)) {
+                $this->Session->setFlash(__("El Docente ha sido asignado correctamente."), "flash_bootstrap");
+                return $this->redirect(array("action" => "index"));
+            }
+            $this->Session->setFlash(__("No fue posible asignar al Docente."), "flash_bootstrap");
+        }
+    }
+    
+    public function view($idcurso = null, $idseccion = null) {
+        $this->layout = "main";
+        
+        $this->Asignacion->recursive = 3;
+        $this->set("asignacion", $this->Asignacion->find("first", array(
+            "conditions" => array("Asignacion.idcurso" => $idcurso, "Asignacion.idseccion" => $idseccion)
+        )));
+    }
 
     public function getAsignaciones() {
         $this->layout = "ajax";
@@ -49,9 +83,13 @@ class AsignacionesController extends AppController {
         
         foreach($cursos as $k_curso => $curso) {
             $cursos[$k_curso]["Seccion"] = $seccion["Seccion"];
-            foreach($curso["Asignacion"] as $k_asignacion => $asignacion) {
-                if($asignacion["idseccion"] != $this->request->data["Asignacion"]["idseccion"]) {
-                    unset($cursos[$k_curso]["Asignacion"][$k_asignacion]);
+            
+            $asignaciones = $curso["Asignacion"];
+            unset($cursos[$k_curso]["Asignacion"]);
+                    
+            foreach($asignaciones as $k_asignacion => $asignacion) {
+                if($asignacion["idseccion"] == $this->request->data["Asignacion"]["idseccion"] && $asignacion["Seccion"]["idaniolectivo"] == $this->request->data["Aniolectivo"]["idaniolectivo"]) {
+                    $cursos[$k_curso]["Asignacion"][0] = $asignacion;
                 }
             }
         }

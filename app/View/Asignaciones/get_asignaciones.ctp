@@ -22,8 +22,12 @@
                 $curso["Grado"]["Nivel"]["descripcion"],
                 $curso["Grado"]["descripcion"],
                 $curso["Seccion"]["descripcion"],
-                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $curso["Curso"]["idcurso"], $curso["Seccion"]["idseccion"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
-                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "registrar", $curso["Curso"]["idcurso"], $curso["Seccion"]["idseccion"]), array("escape" => false, "title" => "Asignar Docente", "rel" => "tooltip")) 
+                (!empty($curso["Asignacion"]) ? 
+                    $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $curso["Curso"]["idcurso"], $curso["Seccion"]["idseccion"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " :
+                    "") .
+                (empty($curso["Asignacion"]) ? 
+                    $this->Html->link("<i class='icon-pencil'></i>", array("action" => "registrar", $curso["Curso"]["idcurso"], $curso["Seccion"]["idseccion"]), array("escape" => false, "title" => "Asignar Docente", "rel" => "tooltip")) : 
+                    $this->Html->link("<i class='icon-pencil'></i>", array("action" => "modificar", $curso["Curso"]["idcurso"], $curso["Seccion"]["idseccion"]), array("escape" => false, "title" => "Modificar Asignación", "rel" => "tooltip"))) 
             ), array(
                 "class" => "odd"
             ), array(

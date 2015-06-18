@@ -31,6 +31,12 @@ class Pago extends AppModel {
                 "rule" => "notEmpty",
                 "message" => "No puede estar vacio"
             )
+        ),
+        "monto" => array(
+            "numeric" => array(
+                "rule" => "numeric",
+                "message" => "Ingrese un número"
+            )
         )
     );
 }

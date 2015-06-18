@@ -6,7 +6,15 @@
     $this->Html->addCrumb('Notas', '/Notas');
     $this->Html->addCrumb('Administrar', '/Notas/index');
 ?>
-
+<?php
+    echo $this->Form->create("Aniolectivo", array("class" => "form-horizontal"));
+    echo $this->Form->input("idaniolectivo", array(
+        "label" => "Año Lectivo",
+        "options" => $aniolectivos,
+        "empty" => "Selecciona uno"
+    ));
+    echo $this->Form->end();
+?>
 <table id="tbl-asignaciones" class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>
@@ -38,3 +46,8 @@
     } ?>
     </tbody>
 </table>
+<?php
+    $this->Js->get('#AniolectivoIdaniolectivo')->event('change', 
+        "$('#AniolectivoIndexForm').submit();"
+    );
+?>

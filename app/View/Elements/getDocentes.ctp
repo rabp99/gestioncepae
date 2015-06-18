@@ -7,11 +7,13 @@
         "label" => "Código Docente",
         "data-toggle" => "modal",
         "data-target" => "#mdlBuscarDocente",
-        "type" => "text"
+        "type" => "text",
+        "value" => (isset($docente_iddocente) ? $docente_iddocente : "")
     ));
     echo $this->Form->input("Docente.nombreCompleto", array(
         "label" => "Nombre Completo",
-        "readonly" => true
+        "readonly" => true,
+        "value" => (isset($docente_nombreCompleto) ? $docente_nombreCompleto : "")
     ));
 ?>
 

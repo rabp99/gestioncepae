@@ -73,21 +73,23 @@
         "$('#MatriculaIdseccion').html('<option value>Selecciona uno</option>');"
     );
     
-    $this->Js->get('#NivelIdnivel')->event('change', 
-        $this->Js->request(array(
-            "controller" => "Grados",
-            "action" => "getByIdnivel"
-        ), array(
-            "update" => "#GradoIdgrado",
-            "async" => true,
-            "method" => 'post',
-            "dataExpression" => true,
-            "data" => $this->Js->serializeForm(array(
-                "isForm" => true,
-                "inline" => true
-            ))
+    $gradosByIdnivel = $this->Js->request(array(
+        "controller" => "Grados",
+        "action" => "getByIdnivel"
+    ), array(
+        "update" => "#GradoIdgrado",
+        "async" => true,
+        "method" => 'post',
+        "dataExpression" => true,
+        "data" => $this->Js->serializeForm(array(
+            "isForm" => true,
+            "inline" => true
         ))
-    );
+    ));
+    
+    $this->Js->get('#NivelIdnivel')->event('change', $gradosByIdnivel);
+    
+    $this->Js->buffer($gradosByIdnivel);
 ?>
 
 <?php
@@ -114,37 +116,39 @@
 ?>
 
 <?php 
-    $this->Js->get('#AniolectivoIdaniolectivo')->event('change',
-        $this->Js->request(array(
-            "controller" => "Alumnos",
-            "action" => "getAlumnos"
-        ), array(
-            "update" => "#dvBuscarAlumnos",
-            "async" => true,
-            "method" => 'post',
-            "dataExpression" => true,
-            "data" => $this->Js->serializeForm(array(
-                "isForm" => false,
-                "inline" => true
-            ))
+    $getAlumnos = $this->Js->request(array(
+        "controller" => "Alumnos",
+        "action" => "getAlumnos"
+    ), array(
+        "update" => "#dvBuscarAlumnos",
+        "async" => true,
+        "method" => 'post',
+        "dataExpression" => true,
+        "data" => $this->Js->serializeForm(array(
+            "isForm" => false,
+            "inline" => true
         ))
-    );
+    ));
     
-    $this->Js->get('#AniolectivoIdaniolectivo')->event('change', 
-        $this->Js->request(array(
-            "controller" => "Conceptos",
-            "action" => "getFormByAniolectivo"
-        ), array(
-            "update" => "#yw0_tab_4 div.info-panel",
-            "async" => true,
-            "method" => 'post',
-            "dataExpression" => true,
-            "data" => $this->Js->serializeForm(array(
-                "isForm" => true,
-                "inline" => true
-            ))
+    $this->Js->get('#AniolectivoIdaniolectivo')->event('change', $getAlumnos);
+    $this->Js->buffer($getAlumnos);
+    
+    $getFormByAniolectivo = $this->Js->request(array(
+        "controller" => "Conceptos",
+        "action" => "getFormByAniolectivo"
+    ), array(
+        "update" => "#yw0_tab_4 div.info-panel",
+        "async" => true,
+        "method" => 'post',
+        "dataExpression" => true,
+        "data" => $this->Js->serializeForm(array(
+            "isForm" => true,
+            "inline" => true
         ))
-    );
+    ));
+    
+    $this->Js->get('#AniolectivoIdaniolectivo')->event('change', $getFormByAniolectivo);
+    $this->Js->buffer($getFormByAniolectivo);
 ?>
 
 <?php $this->Js->get('#MatriculaAddForm')->event("submit", 
