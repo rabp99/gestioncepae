@@ -8,6 +8,7 @@
         "data-toggle" => "modal",
         "data-target" => "#mdlBuscarDocente",
         "type" => "text",
+        "readonly" => true,
         "value" => (isset($docente_iddocente) ? $docente_iddocente : "")
     ));
     echo $this->Form->input("Docente.nombreCompleto", array(

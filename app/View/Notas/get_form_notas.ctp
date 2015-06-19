@@ -32,7 +32,8 @@
     ));
     echo $this->Form->input("Nota.peso", array(
         "label" => "Peso",
-        "class" => "span4"
+        "class" => "span4",
+        "options" => array("1" => "1", "2" => "2", "3" => "3", "4" => "4")
     ));
     echo $this->Form->label("Nota.observaciones", "Observaciones");
     echo $this->Form->textarea("Nota.observaciones", array(
