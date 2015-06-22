@@ -11,18 +11,32 @@ class ReportesController extends AppController {
     }
     
     public function notas() {
+        $this->layout = "alumno";
+        
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
+        $this->set("bimestres", $this->Bimestre->find("list", array(
+            "fields" => array("Bimestre.idbimestre", "Bimestre.descripcion"),
+            "conditions" => array("Bimestre.estado" => 1)
+        )));
+    }
+
+    public function notas_post() {
         App::import("Vendor", "Fpdf", array("file" => "fpdf/fpdf.php"));
         $this->layout = 'pdf'; //this will use the pdf.ctp layout
 
         $this->set("fpdf", new FPDF("P","mm","A4"));
         
         // Inicialización de variables
-        $idaniolectivo = 1;
+        $idaniolectivo = $this->request->data["Reporte"]["idaniolectivo"];
         
-        $idbimestre = 1;
+        $idbimestre = $this->request->data["Reporte"]["idbimestre"];
         
-        $user = $this->User->findByIduser(2);
-        $alumno = $this->Alumno->findByIduser($user["User"]["iduser"]);
+        $user = $this->Auth->user();
+        $alumno = $this->Alumno->findByIduser($user["iduser"]);
         
         // Recuperación de información
         $this->Matricula->recursive = 3;
@@ -56,6 +70,10 @@ class ReportesController extends AppController {
                             "Asignacion.idcurso" => $curso["Curso"]["idcurso"]
                         )
                     ));
+                    if(!isset($asignacion["Asignacion"])) {
+                        $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
+                        return $this->redirect(array("action" => "notas"));
+                    }
                     $notas = $this->Nota->Detallenota->find("all", array(
                         "conditions" => array(
                             "Nota.idasignacion" => $asignacion["Asignacion"]["idasignacion"],
@@ -87,8 +105,9 @@ class ReportesController extends AppController {
         foreach($notas as $nota) {
             $subpromedio += $nota["Nota"]["peso"] * $nota["Detallenota"]["valor"];
         }
+        if($peso == 0) return 0;
         $promedio = $subpromedio / $peso;
-        return $promedio;
+        return CakeNumber::precision($promedio, 2);
     }
     
     private function promediofinal($area) {
@@ -99,6 +118,6 @@ class ReportesController extends AppController {
         }
         $promediofinal = $subpromedio / sizeof($area["Curso"]);
         
-        return $promediofinal;
+        return CakeNumber::precision($promediofinal, 2);
     }
 }

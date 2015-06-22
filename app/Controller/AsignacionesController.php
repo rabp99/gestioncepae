@@ -6,14 +6,9 @@
  */
 class AsignacionesController extends AppController {   
     public $uses = array("Asignacion", "Aniolectivo", "Nivel", "Curso", "Seccion");
-      
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("view", "modificar");
-    }
-    
+   
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->set("aniolectivos", $this->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
@@ -27,7 +22,7 @@ class AsignacionesController extends AppController {
     }
     
     public function registrar($idcurso = null, $idseccion = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->Seccion->recursive = 2;
         $this->set("seccion", $this->Seccion->findByIdseccion($idseccion));
@@ -44,7 +39,7 @@ class AsignacionesController extends AppController {
     }
       
     public function modificar($idcurso = null, $idseccion = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->Asignacion->recursive = 3;
         $asignacion = $this->Asignacion->find("first", array(
@@ -64,7 +59,7 @@ class AsignacionesController extends AppController {
     }
     
     public function view($idcurso = null, $idseccion = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->Asignacion->recursive = 3;
         $this->set("asignacion", $this->Asignacion->find("first", array(

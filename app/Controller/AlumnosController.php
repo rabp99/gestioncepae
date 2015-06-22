@@ -4,7 +4,7 @@
  * CakePHP AlumnosController
  * @author admin
  */
-class AlumnosController extends AppController {   
+class AlumnosController extends AppController {
     public $components = array("Paginator");
     
     public $paginate = array(
@@ -18,7 +18,7 @@ class AlumnosController extends AppController {
     );
 
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->Paginator->settings = $this->paginate;
         $alumnos = $this->Paginator->paginate();
@@ -26,7 +26,7 @@ class AlumnosController extends AppController {
     }
     
     public function add() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         if ($this->request->is(array("post", "put"))) {
             // Indicar que Padre es Apoderado
@@ -118,7 +118,7 @@ class AlumnosController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if (!$id) {
             throw new NotFoundException(__("Alumno inválido"));
@@ -131,7 +131,7 @@ class AlumnosController extends AppController {
     }
     
     public function edit($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
 
         if (!$id) {
             throw new NotFoundException(__("Alumno inválido"));
@@ -244,5 +244,16 @@ class AlumnosController extends AppController {
         echo json_encode($padre);;
         
         die();
+    }
+    
+    public function datos_alumno() {
+        if(empty($this->request->params["requested"])) {
+            throw new ForbiddenException();
+        }
+
+        $user = $this->Auth->user();
+        $alumno = $this->Alumno->findByIduser($user["iduser"]);
+        
+        return $alumno;
     }
 }

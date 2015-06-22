@@ -38,7 +38,7 @@
                     </div>
                     <a href="<?php echo $this->Html->url(array(
                         "controller" => "Pages",
-                        "action" => "display", "home"
+                        "action" => "docente"
                     )); ?>" class="aqua-well-mini">
                         <h1 class="aqua-slogan">Sistema de Gestión Académica</h1>
                         <h2 class="aqua-slogan">Colegio CEPAE</h2>
@@ -46,17 +46,16 @@
                     <div class="aqua-well-mini pull-right">
                         <div class="aqua-user">
 
-                            <span class="aqua-user-name"><?php echo "Yii::app()->session['nombres'];" ?></span>
+                            <span class="aqua-user-name"><?php echo $this->requestAction("/Docentes/datos_docente")["Docente"]["nombreCompleto"]; ?></span>
 
                             <div class="btn-group">
-                                <a href="<?php echo "Yii::app()->baseUrl"; ?>/user/preferences/id/1" class="btn btn-small"><span class="icon-cog"></span></a>
+                                <a href="<?php echo $this->Html->url(array("controller" => "Users", "action" => "datos")); ?>" class="btn btn-small"><span class="icon-cog"></span></a>
                                 <a href="#" class="btn btn-small dropdown-toggle" data-toggle="dropdown"> 
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" tabindex="-1">Action</a></li>
-                                    <li><a href="#" tabindex="-1">Another action</a></li>
-                                    <li><a href="#" tabindex="-1">Something else</a></li>
+                                    <li><a href="<?php echo $this->Html->url(array("controller" => "Users", "action" => "datos")); ?>" tabindex="-1">Datos Usuario</a></li>
+                                    <li><a href="<?php echo $this->Html->url(array("controller" => "Users", "action" => "change_pass")); ?>" tabindex="-1">Cambiar Contraseña</a></li>
                                     <li class="divider"></li>
                                     <li>
                                         <?php echo $this->Html->link("Cerrar Sesión", array("controller" => "Users", "action" => "logout"), array("tabindex" => -1)); ?>
@@ -65,7 +64,11 @@
                             </div>
                         </div>
                         <span class="aqua-avatar">
-                            <img src="<?php echo "Yii::app()->baseUrl"; ?>/images/user.png" alt="user" width="46" height="45" />
+                            <?php echo $this->Html->image("images/user.png", array(
+                                "alt" => "docente",
+                                "width" => 46,
+                                "height" => 45
+                            )); ?>
                         </span>
 
                     </div>
@@ -82,36 +85,24 @@
                     </a>
 
                     <ul class="nav">
-                        <li class="active"><a href="#"><i class="icon-home icon-white"></i></a></li>
-                        <li>
-                            <a href="#">
-                                <i class="icon-list icon-white icon-margin"></i>
-                                Configuración
+                        <li class="active">
+                            <a href="<?php echo $this->Html->url(array(
+                                "controller" => "Pages",
+                                "action" => "docente"
+                            )); ?>">
+                                <i class="icon-home icon-white"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Alumnos
+                            <a href="<?php echo $this->Html->url(array("controller" => "Cursos", "action" => "cursosByDocente")) ?>">
+                                <span class="modernpics icons16 icons-white">a</span>
+                                Cursos
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Usuarios
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Notas", "action" => "index")) ?>">
+                                <span class="modernpics icons16 icons-white">V</span>
                                 Notas
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Pensiones
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Matrículas
                             </a>
                         </li>
                     </ul>
@@ -132,19 +123,40 @@
                     "lastClass" => "active",
                     "separator" => "<span class='divider'>/</span>"
                 ),
-                array('text' => 'Home')
+                array("text" => "Home", "url" => array("controller" => "Pages", "action" => "docente"))
             ); ?>
         </div>
         
         <div class="aqua-container">
+            <?php echo $this->Session->flash('auth'); ?>
             <?php echo $this->Session->flash(); ?>
             <?php echo $this->fetch("content"); ?>
         </div>
         <div class="clear"></div>
         
         <div class="footer">
-            jjj<br>
-            sjjsjsjsj<br>
+            <div id="aqua-footer">
+                <div class="aqua-container">
+                    <div class="span1 offset1">
+                        <ul id="yw7" class="nav">
+                            <li class="first">Teléfonos</li>
+                            <li>99</li>
+                            <li>99</li>
+                            <li class="last">99</li>
+                        </ul>                  
+                    </div>
+                    <div class="span1 offset3">
+                        <ul id="yw9" class="nav">
+                            <li class="first">Dirección</li>
+                            <address>dsasa</address>
+                        </ul>                       
+                    </div>
+                    <div class="span5 offset1">
+                        <p align="center">Trujillo, Perú. © Copyright 2015 C.E.P.A.E. ® Todos los Derechos Reservados</p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
         </div>
         
         <script type="text/javascript">

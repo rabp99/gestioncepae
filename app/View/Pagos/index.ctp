@@ -2,7 +2,6 @@
 <?php 
     $this->extend("/Common/index");
     $this->assign("titulo", "Administrar Pagos");
-    $this->assign("accion", "Crear Pago");
     
     $this->Html->addCrumb('Pagos', '/Pagos');
     $this->Html->addCrumb('Adiministrar', '/Pagos/index');
@@ -10,10 +9,15 @@
 <?php 
     $this->start("antes");
     echo $this->Form->create("Pago");
+    echo $this->Form->input("idaniolectivo", array(
+        "label" => "Año Lectivo",
+        "options" => $aniolectivos,
+        "empty" => "Selecciona uno"
+    ));   
     echo $this->Form->input("nombreCompleto", array(
         "label" => "Nombre de Alumno",
         "type" => "search"
-    ));
+    )); 
     $this->end();
 ?>
 <table id="tblMatriculas" class="items table table-striped table-bordered table-condensed">
@@ -46,7 +50,6 @@
     } ?>
     </tbody>
 </table>
-
 <?php
     $this->Js->get("#PagoNombreCompleto")->event("keyup", 
         $this->Js->request(array(
@@ -62,5 +65,10 @@
                 "inline" => true
             ))
         ))
+    );
+?>
+<?php
+    $this->Js->get('#PagoIdaniolectivo')->event('change', 
+        "$('#PagoIndexForm').submit();"
     );
 ?>

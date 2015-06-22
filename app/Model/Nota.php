@@ -12,4 +12,10 @@ class Nota extends AppModel {
             "foreignKey" => "idnota"
         )
     );
+    
+    public $belongsTo = array(
+        "Bimestre" => array(
+            'foreignKey' => 'idbimestre'
+        )
+    );
 }

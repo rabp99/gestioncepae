@@ -21,7 +21,7 @@ class MatriculasController extends AppController {
     );
 
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         $this->set("aniolectivos", $this->Matricula->Seccion->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
@@ -56,7 +56,7 @@ class MatriculasController extends AppController {
     }
     
     public function add() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->set("aniolectivos", $this->Matricula->Seccion->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
@@ -100,7 +100,7 @@ class MatriculasController extends AppController {
     }
     
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if (!$id) {
             throw new NotFoundException(__("Matricula inválida"));
@@ -122,5 +122,9 @@ class MatriculasController extends AppController {
             $this->Session->setFlash(__("La Matrícula de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
             return $this->redirect(array("action" => "index"));
         }
+    }
+    
+    public function getMatriculas() {
+        $this->layout = "ajax";
     }
 }

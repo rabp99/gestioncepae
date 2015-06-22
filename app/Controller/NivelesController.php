@@ -20,7 +20,7 @@ class NivelesController extends AppController {
     );
 
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->Paginator->settings = $this->paginate;
         $niveles = $this->Paginator->paginate();
@@ -28,7 +28,7 @@ class NivelesController extends AppController {
     }
     
     public function add() {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if ($this->request->is(array("post", "put"))) {
             $this->Nivel->create();
@@ -41,7 +41,7 @@ class NivelesController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if (!$id) {
             throw new NotFoundException(__("Nivel inválido"));
@@ -54,7 +54,7 @@ class NivelesController extends AppController {
     }
     
     public function edit($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
 
         if (!$id) {
             throw new NotFoundException(__("Nivel inválido"));

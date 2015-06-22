@@ -5,6 +5,7 @@
  * @author Roberto
  */
 class CursosController extends AppController {
+    public $uses = array("Curso", "Asignacion", "Docente", "Alumno", "Matricula");
 
     public $components = array("Paginator");
 
@@ -20,7 +21,7 @@ class CursosController extends AppController {
     );
 
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->Paginator->settings = $this->paginate;
         $cursos = $this->Paginator->paginate();
@@ -28,7 +29,7 @@ class CursosController extends AppController {
     }
     
     public function add() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->set("niveles", $this->Curso->Grado->Nivel->find("list", array(
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
@@ -51,21 +52,21 @@ class CursosController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if (!$id) {
-            throw new NotFoundException(__("Curso inválida"));
+            throw new NotFoundException(__("Curso inválido"));
         }
         $this->Curso->recursive = 2;
         $curso = $this->Curso->findByIdcurso($id);
         if (!$curso) {
-            throw new NotFoundException(__("Curso inválida"));
+            throw new NotFoundException(__("Curso inválido"));
         } 
         $this->set(compact("curso"));
     }
     
     public function edit($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
 
         if (!$id) {
             throw new NotFoundException(__("Curso inválida"));
@@ -115,5 +116,96 @@ class CursosController extends AppController {
             $this->Session->setFlash(__("El curso de código: %s ha sido eliminada.", h($id)), "flash_bootstrap");
             return $this->redirect(array("action" => "index"));
         }
+    }
+    
+    public function cursosByDocente() {
+        $this->layout = "docente";
+
+        $user = $this->Auth->user();
+        $docente = $this->Docente->findByIduser($user["iduser"]);
+                
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        $asignaciones = array();
+        
+        if($this->request->is(array("post", "put"))) {
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
+                $conditions["Seccion.idaniolectivo"] = $this->request->data["Aniolectivo"]["idaniolectivo"];
+                $conditions["Asignacion.estado"] = 1;
+                $conditions["Asignacion.iddocente"] = $docente["Docente"]["iddocente"];    
+                $this->Asignacion->recursive = 3;
+                $asignaciones = $this->Asignacion->find("all", array(
+                    "conditions" => $conditions
+                ));            
+            }       
+        }
+        
+        $this->set(compact("asignaciones"));
+    }  
+    
+    public function view_docente($id = null) {
+        $this->layout = "docente";
+                
+        if (!$id) {
+            throw new NotFoundException(__("Curso inválido"));
+        }
+        $this->Curso->recursive = 2;
+        $curso = $this->Curso->findByIdcurso($id);
+        if (!$curso) {
+            throw new NotFoundException(__("Curso inválido"));
+        } 
+        $this->set(compact("curso"));
+    }
+    
+    public function cursosByAlumno() {
+        $this->layout = "alumno";
+
+        $user = $this->Auth->user();
+        $alumno = $this->Alumno->findByIduser($user["iduser"]);
+                
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
+        $cursos = array();
+        $matricula_seleccionada = null;
+        
+        if($this->request->is(array("post", "put"))) {
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
+                $this->Matricula->recursive = 3;
+                $matriculas = $this->Matricula->find("all", array(
+                   "conditions" => array("Matricula.idalumno" => $alumno["Alumno"]["idalumno"]) 
+                ));
+                foreach($matriculas as $matricula) {
+                    if($matricula["Seccion"]["idaniolectivo"] == $this->request->data["Aniolectivo"]["idaniolectivo"]) {
+                        $matricula_seleccionada = $matricula;
+                        $grado = $matricula["Seccion"]["Grado"];
+                        $this->Curso->recursive = 2;
+                        $cursos = $this->Curso->find("all", array(
+                            "conditions" => array("Curso.idgrado" => $grado["idgrado"])
+                        ));
+                    }
+                }
+            }
+        }
+        $this->set(compact("matricula_seleccionada"));
+        $this->set(compact("cursos"));
+    }
+    
+    public function view_alumno($id = null) {
+        $this->layout = "alumno";
+                
+        if (!$id) {
+            throw new NotFoundException(__("Curso inválido"));
+        }
+        $this->Curso->recursive = 2;
+        $curso = $this->Curso->findByIdcurso($id);
+        if (!$curso) {
+            throw new NotFoundException(__("Curso inválido"));
+        } 
+        $this->set(compact("curso"));
     }
 }

@@ -4,7 +4,7 @@
  * CakePHP DocentesController
  * @author admin
  */
-class DocentesController extends AppController {   
+class DocentesController extends AppController {
     public $components = array("Paginator");
 
     public $paginate = array(
@@ -18,7 +18,7 @@ class DocentesController extends AppController {
     );
 
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->Paginator->settings = $this->paginate;
         $docentes = $this->Paginator->paginate();
@@ -26,7 +26,7 @@ class DocentesController extends AppController {
     }
     
     public function add() {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if ($this->request->is(array("post", "put"))) {
             $this->Docente->create();
@@ -39,7 +39,7 @@ class DocentesController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if (!$id) {
             throw new NotFoundException(__("Docente inválido"));
@@ -52,7 +52,7 @@ class DocentesController extends AppController {
     }
     
     public function edit($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
 
         if (!$id) {
             throw new NotFoundException(__("Docente inválido"));
@@ -97,7 +97,18 @@ class DocentesController extends AppController {
             }
         }
     }
-      
+        
+    public function datos_docente() {
+        if(empty($this->request->params["requested"])) {
+            throw new ForbiddenException();
+        }
+
+        $user = $this->Auth->user();
+        $docente = $this->Docente->findByIduser($user["iduser"]);
+        
+        return $docente;
+    }
+    
     public function getDocentes() {
         $this->layout = "ajax";     
         

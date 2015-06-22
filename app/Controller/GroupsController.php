@@ -5,21 +5,19 @@
  * @author Roberto
  */
 class GroupsController extends AppController {
-    
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow("index", "add");
     }
     
     public function index() {
-        $this->layout = "main";
         
         $this->Group->recursive = 0;
         $this->set('groups', $this->paginate());
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
 
         $this->Group->id = $id;
         if (!$this->Group->exists()) {
@@ -29,7 +27,6 @@ class GroupsController extends AppController {
     }
 
     public function add() {
-        $this->layout = "main";
 
         if ($this->request->is('post')) {
             $this->Group->create();

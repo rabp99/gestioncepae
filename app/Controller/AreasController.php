@@ -5,7 +5,6 @@
  * @author admin
  */
 class AreasController extends AppController {   
-    
     public $components = array("Paginator");
 
     public $paginate = array(
@@ -19,7 +18,7 @@ class AreasController extends AppController {
     );
 
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->Paginator->settings = $this->paginate;
         $areas = $this->Paginator->paginate();
@@ -27,7 +26,7 @@ class AreasController extends AppController {
     }
     
     public function add() {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if ($this->request->is(array("post", "put"))) {
             $this->Area->create();
@@ -40,7 +39,7 @@ class AreasController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if (!$id) {
             throw new NotFoundException(__("Área inválido"));
@@ -53,7 +52,7 @@ class AreasController extends AppController {
     }
     
     public function edit($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
 
         if (!$id) {
             throw new NotFoundException(__("Área inválido"));

@@ -5,7 +5,7 @@
  * @author admin
  */
 class PagosController extends AppController {
-    public $uses = array("Pago", "Matricula");
+    public $uses = array("Pago", "Matricula", "Aniolectivo");
 
     public $components = array("Paginator");
 
@@ -21,15 +21,23 @@ class PagosController extends AppController {
     );
 
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
+             
+        $this->set("aniolectivos", $this->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
         
-        $this->Paginator->settings = $this->paginate;
-        $matriculas = $this->Paginator->paginate("Matricula");
-        $this->set(compact("matriculas"));
+        if($this->request->is(array("post", "put"))) {
+            $this->paginate["conditions"]["Seccion.idaniolectivo"] = $this->request->data["Pago"]["idaniolectivo"];
+            $this->Paginator->settings = $this->paginate;
+            $matriculas = $this->Paginator->paginate("Matricula");
+            $this->set(compact("matriculas"));
+        }
     }
     
     public function registrar($idmatricula = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         if (!$idmatricula) {
             throw new NotFoundException(__("Matricula inválida"));
@@ -61,7 +69,7 @@ class PagosController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if (!$id) {
             throw new NotFoundException(__("Nivel inválido"));

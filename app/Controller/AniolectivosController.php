@@ -18,7 +18,7 @@ class AniolectivosController extends AppController {
     );
     
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->Paginator->settings = $this->paginate;
         $aniolectivos = $this->Paginator->paginate();
@@ -26,7 +26,7 @@ class AniolectivosController extends AppController {
     }
     
     public function add() {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if ($this->request->is(array("post", "put"))) {
             $this->Aniolectivo->create();
@@ -39,7 +39,7 @@ class AniolectivosController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if (!$id) {
             throw new NotFoundException(__("Año Lectivo inválido"));
@@ -52,7 +52,7 @@ class AniolectivosController extends AppController {
     }
     
     public function edit($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
 
         if (!$id) {
             throw new NotFoundException(__("Año Lectivo inválido"));

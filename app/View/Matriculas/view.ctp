@@ -15,7 +15,7 @@
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
         <li>
-            <a data-toggle="tab" href="#yw0_tab_4"><span class="modernpics">c</span> Pagos</a>
+            <a data-toggle="tab" href="#yw0_tab_4"><span class="modernpics">#</span> Pagos</a>
         </li>
         <li class="active">
             <a data-toggle="tab" href="#yw0_tab_5"><span class="modernpics">Z</span> Datos de Matrícula</a>

@@ -10,7 +10,7 @@ class Detallenota extends AppModel {
     public $belongsTo = array(
         "Nota" => array(
             'foreignKey' => 'idnota'
-        )    
+        )
     );
     
     public $validate = array(

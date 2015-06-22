@@ -2,6 +2,7 @@
 <?php 
     $this->extend("/Common/view");
     $this->assign("titulo", "Registrar Notas del Curso " . $asignacion["Curso"]["descripcion"]);  
+    $this->assign("accion3", "Administar Notas");
     
     $this->Html->addCrumb('Notas', '/Notas');
     $this->Html->addCrumb('Registrar', '/Notas/registrar');

@@ -36,7 +36,7 @@ class UsersController extends AppController {
     }
 
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->set("users", $this->User->find("all", array(
             'conditions' => array('User.estado' => '1')
@@ -44,7 +44,7 @@ class UsersController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
 
         $this->User->id = $id;
         if (!$this->User->exists()) {
@@ -54,7 +54,7 @@ class UsersController extends AppController {
     }
 
     public function add() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->set("groups", $this->User->Group->find("list", array(
             "fields" => array("Group.idgroup", "Group.descripcion")
@@ -112,8 +112,23 @@ class UsersController extends AppController {
         $this->layout = false;
         
         if ($this->request->is(array("post", "put"))) {
-            if ($this->Auth->login())
-                return $this->redirect($this->Auth->redirectUrl());
+            if ($this->Auth->login()) {
+                $group = $this->Auth->user()["Group"]["descripcion"];
+                switch($group) {
+                    case "Administrador":
+                        return $this->redirect("/Pages/admin");
+                        break;
+                    case "Alumno":
+                        return $this->redirect("/Pages/alumno/");
+                        break;
+                    case "Apoderado":
+                        return $this->redirect("/Pages/apoderado");
+                        break;
+                    case "Docente":
+                        return $this->redirect("/Pages/docente");
+                        break;
+                }
+            }
             $this->Session->setFlash(__('Nombre de Usuario o password incorrecto, inténtelo nuevamente'), "flash_bootstrap");
         }
     }
@@ -127,7 +142,17 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('Not logged in'), 'default', array(), 'auth');
         }
     }
-    
+          
+    public function datos_admin() {
+        if(empty($this->request->params["requested"])) {
+            throw new ForbiddenException();
+        }
+
+        $user = $this->Auth->user();
+
+        return $user;
+    }
+        
     public function manage_usuario() {
         if(empty($this->request->params["requested"])) {
             throw new ForbiddenException();

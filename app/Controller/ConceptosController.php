@@ -5,7 +5,6 @@
  * @author admin
  */
 class ConceptosController extends AppController {
-    
     public $components = array("Paginator");
 
     public $paginate = array(
@@ -19,7 +18,7 @@ class ConceptosController extends AppController {
     );
 
     public function index() {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         $this->set("aniolectivos", $this->Concepto->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
@@ -36,7 +35,7 @@ class ConceptosController extends AppController {
     }
     
     public function add() {
-        $this->layout = "main";
+        $this->layout = "admin";
                
         $this->set("aniolectivos", $this->Concepto->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
@@ -54,7 +53,7 @@ class ConceptosController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
                 
         if (!$id) {
             throw new NotFoundException(__("Concepto de Pago inválido"));
@@ -68,7 +67,7 @@ class ConceptosController extends AppController {
     }
     
     public function edit($id = null) {
-        $this->layout = "main";
+        $this->layout = "admin";
         
         if (!$id) {
             throw new NotFoundException(__("Concepto de Pago inválido"));

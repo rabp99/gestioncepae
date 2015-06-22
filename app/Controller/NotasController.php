@@ -4,11 +4,11 @@
  * CakePHP NotasController
  * @author admin
  */
-class NotasController extends AppController {  
-    public $uses = array("Bimestre", "Docente", "Curso", "Asignacion", "Nota", "Detallenota");
+class NotasController extends AppController {
+    public $uses = array("Bimestre", "Docente", "Curso", "Asignacion", "Nota", "Detallenota", "Alumno", "Matricula", "Seccion");
         
     public function index() {
-        $this->layout = "main";
+        $this->layout = "docente";
         
         $user = $this->Auth->user();
         $docente = $this->Docente->findByIduser($user["iduser"]);
@@ -22,19 +22,19 @@ class NotasController extends AppController {
             if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
                 $conditions["Seccion.idaniolectivo"] = $this->request->data["Aniolectivo"]["idaniolectivo"];
                 $conditions["Asignacion.estado"] = 1;
-                $conditions["Asignacion.iddocente"] = $docente["Docente"]["iddocente"];           
-            }
-            $this->Asignacion->recursive = 3;
-            $asignaciones = $this->Asignacion->find("all", array(
-                "conditions" => $conditions
-            ));            
+                $conditions["Asignacion.iddocente"] = $docente["Docente"]["iddocente"];  
+                $this->Asignacion->recursive = 3;
+                $asignaciones = $this->Asignacion->find("all", array(
+                    "conditions" => $conditions
+                ));
+            }   
         }
         
         $this->set(compact("asignaciones"));
     }
     
     public function administrar($idasignacion) {
-        $this->layout = "main";
+        $this->layout = "docente";
         
         $asignacion = $this->Asignacion->findByIdasignacion($idasignacion);
         
@@ -56,7 +56,7 @@ class NotasController extends AppController {
     }
     
     public function registrar($idasignacion) {
-        $this->layout = "main";
+        $this->layout = "docente";
         
         $asignacion = $this->Asignacion->findByIdasignacion($idasignacion);
         
@@ -107,5 +107,74 @@ class NotasController extends AppController {
         
         $this->set("matriculas", $seccion["Matricula"]);
         $this->set(compact("notas"));
+    }
+    
+    public function index_alumno() {
+        $this->layout = "alumno";
+
+        $user = $this->Auth->user();
+        $alumno = $this->Alumno->findByIduser($user["iduser"]);
+                
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
+        $cursos = array();
+        $matricula_seleccionada = null;
+        
+        if($this->request->is(array("post", "put"))) {
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
+                $this->Matricula->recursive = 3;
+                $matriculas = $this->Matricula->find("all", array(
+                   "conditions" => array("Matricula.idalumno" => $alumno["Alumno"]["idalumno"]) 
+                ));
+                foreach($matriculas as $matricula) {
+                    if($matricula["Seccion"]["idaniolectivo"] == $this->request->data["Aniolectivo"]["idaniolectivo"]) {
+                        $matricula_seleccionada = $matricula;
+                        $grado = $matricula["Seccion"]["Grado"];
+                        $this->Curso->recursive = 2;
+                        $cursos = $this->Curso->find("all", array(
+                            "conditions" => array("Curso.idgrado" => $grado["idgrado"])
+                        ));
+                    }
+                }
+            }
+        }
+        $this->set(compact("matricula_seleccionada"));
+        $this->set(compact("cursos"));
+    }
+    
+    public function view_alumno($idcurso = null, $idaniolectivo = null) {
+        $this->layout = "alumno";
+        
+        $user = $this->Auth->user();
+        $alumno = $this->Alumno->findByIduser($user["iduser"]);
+        
+        $this->Matricula->recursive = 3;
+        $matriculas = $this->Matricula->find("all", array(
+           "conditions" => array("Matricula.idalumno" => $alumno["Alumno"]["idalumno"]) 
+        ));
+        
+        $detallenotas = array();
+        
+        foreach($matriculas as $matricula) {
+            if($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo) {
+                $seccion = $this->Seccion->findByIdseccion($matricula["Seccion"]["idseccion"]);
+                $asignacion = $this->Asignacion->find("first", array(
+                   "conditions" => array("Asignacion.idseccion" => $seccion["Seccion"]["idseccion"], "Asignacion.idcurso" => $idcurso)
+                ));
+                if(!empty($asignacion)) {
+                    $this->Detallenota->recursive = 2;
+                    $detallenotas = $this->Detallenota->find("all", array(
+                       "conditions" => array("Nota.idasignacion" => $asignacion["Asignacion"]["idasignacion"]) 
+                    ));
+                }
+            }
+        }
+        $this->Curso->recursive = 2;
+        $this->set("curso", $this->Curso->findByIdcurso($idcurso));
+        $this->set("bimestres", $this->Bimestre->find("all", array("Bimestre.estado" => 1)));
+        $this->set(compact("detallenotas"));
     }
 }
