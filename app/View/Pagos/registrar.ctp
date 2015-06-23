@@ -2,7 +2,8 @@
 <?php 
     $this->extend("/Common/view");
     $this->assign("titulo", "Registrar Pago");
-
+    $this->assign("accion3", "Administrar Pagos");
+    
     $this->Html->addCrumb('Pagos', '/Pagos');
     $this->Html->addCrumb('Registrar', '/Pagos/registrar');
     
@@ -32,21 +33,22 @@
     echo "<div id='form-pagos'></div>";
     
     echo $this->Form->end();
-?>  
+?>
 <?php
-    $this->Js->get('#PagoIdpago')->event('change', 
-        $this->Js->request(array(
-            "controller" => "Pagos",
-            "action" => "getFormPagos"
-        ), array(
-            "update" => "#form-pagos",
-            "async" => true,
-            "method" => 'post',
-            "dataExpression" => true,
-            "data" => $this->Js->serializeForm(array(
-                "isForm" => true,
-                "inline" => true
-            ))
+    $getFormPagos = $this->Js->request(array(
+        "controller" => "Pagos",
+        "action" => "getFormPagos"
+    ), array(
+        "update" => "#form-pagos",
+        "async" => true,
+        "method" => 'post',
+        "dataExpression" => true,
+        "data" => $this->Js->get("#PagoRegistrarForm")->serializeForm(array(
+            "isForm" => false,
+            "inline" => true
         ))
-    );
+    ));
+    
+    $this->Js->get('#PagoIdpago')->event('change', $getFormPagos);
+    $this->Js->buffer($getFormPagos);
 ?>

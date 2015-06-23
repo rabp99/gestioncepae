@@ -88,6 +88,7 @@ class MatriculasController extends AppController {
                 $idmatricula = $this->Matricula->id;
                 foreach($this->request->data["Pago"] as $key => $pago) {
                     $this->request->data["Pago"][$key]["idmatricula"] = $idmatricula;
+                    $this->request->data["Pago"][$key]["deuda"] = $this->request->data["Pago"][$key]["monto"];
                 }
                 if($this->Matricula->Pago->saveMany($this->request->data["Pago"])) {
                     $ds->commit();
@@ -122,9 +123,5 @@ class MatriculasController extends AppController {
             $this->Session->setFlash(__("La Matrícula de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
             return $this->redirect(array("action" => "index"));
         }
-    }
-    
-    public function getMatriculas() {
-        $this->layout = "ajax";
     }
 }

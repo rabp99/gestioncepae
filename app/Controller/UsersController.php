@@ -36,7 +36,6 @@ class UsersController extends AppController {
     }
 
     public function index() {
-        $this->layout = "admin";
         
         $this->set("users", $this->User->find("all", array(
             'conditions' => array('User.estado' => '1')
@@ -54,8 +53,6 @@ class UsersController extends AppController {
     }
 
     public function add() {
-        $this->layout = "admin";
-        
         $this->set("groups", $this->User->Group->find("list", array(
             "fields" => array("Group.idgroup", "Group.descripcion")
         )));

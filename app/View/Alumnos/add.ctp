@@ -6,6 +6,11 @@
     
     $this->Html->addCrumb('Alumnos', '/Alumnos');
     $this->Html->addCrumb('Crear', '/Alumnos/add');
+    
+    echo $this->Html->css("jquery-ui.min");
+    echo $this->Html->css("jquery-ui.structure.min");
+    echo $this->Html->css("jquery-ui.theme.min");
+    echo $this->Html->script("jquery-ui.min", array("inline" => false));
 ?>
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
@@ -50,7 +55,8 @@
                         "empty" => "Seleccionar uno"
                     ));
                     echo $this->Form->input("fechaNac", array(
-                        "label" => "Fecha de Nacimiento"
+                        "label" => "Fecha de Nacimiento",
+                        "type" => "text"
                     ));
                     echo $this->Form->input("lugarNac", array(
                         "label" => "Lugar de Nacimiento"
@@ -435,3 +441,8 @@
         ))  
     );
 ?>
+<?php echo $this->Html->scriptStart(array('inline' => false)); ?>
+    $(document).ready(function() {
+        $("#AlumnoFechaNac").datepicker();
+    });
+<?php echo $this->Html->scriptEnd(); ?>

@@ -28,12 +28,26 @@ class PagosController extends AppController {
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
         
+        $this->Paginator->paginate();
+        $matriculas = array();
+        
         if($this->request->is(array("post", "put"))) {
             $this->paginate["conditions"]["Seccion.idaniolectivo"] = $this->request->data["Pago"]["idaniolectivo"];
+            $busqueda = $this->request->data["Pago"]["nombreCompleto"];
+            $this->paginate["conditions"]["OR"] = array(
+                "Alumno.nombres LIKE" => "%" . $busqueda . "%",
+                "Alumno.apellidoPaterno LIKE" => "%" . $busqueda . "%",
+                "Alumno.apellidoMaterno LIKE" => "%" . $busqueda . "%",
+                "CONCAT(Alumno.apellidoPaterno, ' ', Alumno.apellidoMaterno, ', ', Alumno.nombres) LIKE" => "%" . $busqueda . "%",
+                "CONCAT(Alumno.nombres, ' ', Alumno.apellidoPaterno, ' ', Alumno.apellidoMaterno) LIKE" => "%" . $busqueda . "%",
+                "CONCAT(Alumno.nombres, ' ', Alumno.apellidoPaterno) LIKE" => "%" . $busqueda . "%",
+                "CONCAT(Alumno.apellidoPaterno, ' ', Alumno.apellidoMaterno) LIKE" => "%" . $busqueda . "%",
+            );
+            
             $this->Paginator->settings = $this->paginate;
             $matriculas = $this->Paginator->paginate("Matricula");
-            $this->set(compact("matriculas"));
         }
+        $this->set(compact("matriculas"));
     }
     
     public function registrar($idmatricula = null) {
@@ -72,18 +86,20 @@ class PagosController extends AppController {
         $this->layout = "admin";
                 
         if (!$id) {
-            throw new NotFoundException(__("Nivel inválido"));
+            throw new NotFoundException(__("Matrícula inválida"));
         }
-        $nivel = $this->Nivel->findByIdnivel($id);
-        if (!$nivel) {
-            throw new NotFoundException(__("Nivel inválido"));
+        $this->Matricula->recursive = 3; 
+        $matricula = $this->Matricula->findByIdmatricula($id);
+        if (!$matricula) {
+            throw new NotFoundException(__("Matrícula inválido"));
         } 
-        $this->set(compact("nivel"));
+        $this->set(compact("matricula"));
     }
     
     public function getFormPagos() {
         $this->layout = "ajax";
         
+        if(empty($this->request->data["Pago"]["idpago"])) die();
         $this->set("pago", $this->Pago->findByIdpago($this->request->data["Pago"]["idpago"]));
     }
 }

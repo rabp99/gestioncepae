@@ -17,13 +17,14 @@
     echo $this->Form->input("nombreCompleto", array(
         "label" => "Nombre de Alumno",
         "type" => "search"
-    )); 
+    ));
+    echo $this->Form->button("Buscar", array("class" => "btn btn-primary btn-large"));
     $this->end();
 ?>
 <table id="tblMatriculas" class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idmatricula", "ID Nivel <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idmatricula", "ID Matricula <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c1"><?php echo $this->Paginator->sort("Alumno.nombreCompleto", "Alumno <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c2">Grado</th>
             <th id="user-grid_c3">Nivel</th>
@@ -50,25 +51,3 @@
     } ?>
     </tbody>
 </table>
-<?php
-    $this->Js->get("#PagoNombreCompleto")->event("keyup", 
-        $this->Js->request(array(
-            "controller" => "Matriculas",
-            "action" => "getMatriculas"
-        ), array(
-            "update" => "#tblMatriculas",
-            "async" => true,
-            "method" => 'post',
-            "dataExpression" => true,
-            "data" => $this->Js->serializeForm(array(
-                "isForm" => false,
-                "inline" => true
-            ))
-        ))
-    );
-?>
-<?php
-    $this->Js->get('#PagoIdaniolectivo')->event('change', 
-        "$('#PagoIndexForm').submit();"
-    );
-?>

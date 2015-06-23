@@ -31,7 +31,9 @@
 </table>
 <?php
     echo $this->Form->input("Detallepago.monto", array(
-        "label" => "Monto a pagar"
+        "label" => "Monto a pagar",
+        "min" => 0,
+        "max" => $pago["Pago"]["deuda"]
     ));
     echo $this->Form->button("Registrar Pago", array("class" => "btn btn-primary btn-large"));
 ?>
