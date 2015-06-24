@@ -7,6 +7,11 @@
     $this->Html->addCrumb('Años Lectivos', '/Aniolectivos');
     $this->Html->addCrumb('Crear', '/Aniolectivos/add');
     
+    echo $this->Html->css("jquery-ui.min");
+    echo $this->Html->css("jquery-ui.structure.min");
+    echo $this->Html->css("jquery-ui.theme.min");
+    echo $this->Html->script("jquery-ui.min", array("inline" => false));
+    echo $this->Html->script("datepicker-es", array("inline" => false));
 ?>
 <?php 
     echo $this->Form->create("Aniolectivo", array("class" => "form-vertical"));
@@ -17,11 +22,27 @@
         "autofocus" => "autofocus"
     ));
     echo $this->Form->input("fechainicio", array(
-        "label" => "Fecha de Inicio"
+        "label" => "Fecha de Inicio",
+        "type" => "text"
     ));
     echo $this->Form->input("fechafin", array(
-        "label" => "Fecha Final"
+        "label" => "Fecha Final",
+        "type" => "text"
     ));  
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();
 ?>
+<?php echo $this->Html->scriptStart(array('inline' => false)); ?>
+    $(document).ready(function() {
+        $("#AniolectivoFechainicio").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
+        $("#AniolectivoFechafin").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
+    });
+<?php echo $this->Html->scriptEnd(); ?>

@@ -9,7 +9,12 @@
         
     $this->Html->addCrumb('Docentes', '/Docentes');
     $this->Html->addCrumb('Editar', '/Docentes/edit');
-    
+          
+    echo $this->Html->css("jquery-ui.min");
+    echo $this->Html->css("jquery-ui.structure.min");
+    echo $this->Html->css("jquery-ui.theme.min");
+    echo $this->Html->script("jquery-ui.min", array("inline" => false));
+    echo $this->Html->script("datepicker-es", array("inline" => false));
 ?>
 <?php 
     echo $this->Form->create("Docente", array("class" => "form-vertical"));
@@ -41,7 +46,8 @@
         "label" => "Teléfono 2"
     ));
     echo $this->Form->input("fecha", array(
-        "label" => "Fecha"
+        "label" => "Fecha",
+        "type" => "text"
     ));
     echo $this->Form->input("User.idgroup", array(
         "type" => "hidden",
@@ -56,3 +62,12 @@
     echo $this->Form->button("Editar", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();
 ?>
+<?php echo $this->Html->scriptStart(array('inline' => false)); ?>
+    $(document).ready(function() {
+        $("#DocenteFecha").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
+    });
+<?php echo $this->Html->scriptEnd(); ?>

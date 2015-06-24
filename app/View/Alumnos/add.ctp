@@ -11,6 +11,7 @@
     echo $this->Html->css("jquery-ui.structure.min");
     echo $this->Html->css("jquery-ui.theme.min");
     echo $this->Html->script("jquery-ui.min", array("inline" => false));
+    echo $this->Html->script("datepicker-es", array("inline" => false));
 ?>
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
@@ -170,7 +171,8 @@
                                 "label" => "Teléfono 2"
                             ));
                             echo $this->Form->input("Padre.0.fechaNac", array(
-                                "label" => "Fecha de Nacimiento"
+                                "label" => "Fecha de Nacimiento",
+                                "type" => "text"
                             ));
                             echo $this->Form->input("Padre.0.email", array(
                                 "label" => "Email"
@@ -214,7 +216,8 @@
                                 "label" => "Teléfono 2"
                             ));
                             echo $this->Form->input("Padre.1.fechaNac", array(
-                                "label" => "Fecha de Nacimiento"
+                                "label" => "Fecha de Nacimiento",
+                                "type" => "text"
                             ));
                             echo $this->Form->input("Padre.1.email", array(
                                 "label" => "Email"
@@ -308,6 +311,11 @@
         "           <option value='Profesional'>Profesional</option>" .
         "       </select>\"" .
         "   );" .
+        "$(\"#Padre2FechaNac\").datepicker({" .
+        "   changeMonth: true," .
+        "   changeYear: true," .
+        "   dateFormat: \"yy-mm-dd\"".
+        "});".
         "}" .
         "else {" .
         "   $('fieldset.otro').html('');" .
@@ -443,6 +451,20 @@
 ?>
 <?php echo $this->Html->scriptStart(array('inline' => false)); ?>
     $(document).ready(function() {
-        $("#AlumnoFechaNac").datepicker();
+        $("#AlumnoFechaNac").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
+        $("#Padre0FechaNac").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
+        $("#Padre1FechaNac").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
     });
 <?php echo $this->Html->scriptEnd(); ?>

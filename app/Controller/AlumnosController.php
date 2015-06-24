@@ -5,6 +5,11 @@
  * @author admin
  */
 class AlumnosController extends AppController {
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow("datos_apoderado");
+    }
+    
     public $components = array("Paginator");
     
     public $paginate = array(
@@ -73,7 +78,7 @@ class AlumnosController extends AppController {
                             if($r) {
                                 $ds->commit();
                                 $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
-                                return $this->redirect(array("action" => "index"));
+                                // return $this->redirect(array("action" => "index"));
                             }
                         }
                     }
@@ -81,7 +86,7 @@ class AlumnosController extends AppController {
                 $this->Alumno->User->create();
                 if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
                     $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
-                    $this->Alumno->create();
+                    $this->Alumno->create();  
                     if($this->Alumno->save($this->request->data["Alumno"])) {
                         $this->request->data["Alumno"]["idalumno"] = $this->Alumno->id;
                         $r = true;
@@ -255,5 +260,16 @@ class AlumnosController extends AppController {
         $alumno = $this->Alumno->findByIduser($user["iduser"]);
         
         return $alumno;
+    } 
+    
+    public function datos_apoderado() {
+        if(empty($this->request->params["requested"])) {
+            throw new ForbiddenException();
+        }
+
+        $user = $this->Auth->user();
+        $padre = $this->Alumno->Padre->findByIduser($user["iduser"]);
+        
+        return $padre;
     }
 }
