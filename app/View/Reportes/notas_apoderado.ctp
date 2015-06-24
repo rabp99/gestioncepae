@@ -1,4 +1,4 @@
-<!-- File: /app/View/Reportes/notas.ctp -->
+<!-- File: /app/View/Reportes/notas_apoderado.ctp -->
 <?php 
     $this->extend("/Common/view");
     $this->assign("titulo", "Boleta de Notas");  
@@ -7,6 +7,11 @@
 ?>
 <?php
     echo $this->Form->create("Reporte", array("class" => "form-horizontal", "action" => "notas_post"));
+    echo $this->Form->input("idalumno", array(
+        "label" => "Alumno",
+        "options" => $alumnos,
+        "empty" => "Selecciona uno"
+    ));
     echo $this->Form->input("idaniolectivo", array(
         "label" => "Año Lectivo",
         "options" => $aniolectivos,

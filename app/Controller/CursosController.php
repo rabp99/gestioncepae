@@ -5,6 +5,11 @@
  * @author Roberto
  */
 class CursosController extends AppController {
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow("cursosByApoderado", "view_apoderado");
+    }
+    
     public $uses = array("Curso", "Asignacion", "Docente", "Alumno", "Matricula");
 
     public $components = array("Paginator");
@@ -197,6 +202,57 @@ class CursosController extends AppController {
     
     public function view_alumno($id = null) {
         $this->layout = "alumno";
+                
+        if (!$id) {
+            throw new NotFoundException(__("Curso inválido"));
+        }
+        $this->Curso->recursive = 2;
+        $curso = $this->Curso->findByIdcurso($id);
+        if (!$curso) {
+            throw new NotFoundException(__("Curso inválido"));
+        } 
+        $this->set(compact("curso"));
+    }
+    
+    public function cursosByApoderado() {
+        $this->layout = "apoderado";
+
+        $user = $this->Auth->user();
+        $padre = $this->Alumno->Padre->findByIduser($user["iduser"]);
+                
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        $this->set("alumnos", Set::combine($padre["Alumno"], "{n}.idalumno", "{n}.nombreCompleto"));
+        
+        $cursos = array();
+        $matricula_seleccionada = null;
+        
+        if($this->request->is(array("post", "put"))) {
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"]) && !empty($this->request->data["Alumno"]["idalumno"])) {
+                $this->Matricula->recursive = 3;
+                $matriculas = $this->Matricula->find("all", array(
+                   "conditions" => array("Matricula.idalumno" => $this->request->data["Alumno"]["idalumno"]) 
+                ));
+                foreach($matriculas as $matricula) {
+                    if($matricula["Seccion"]["idaniolectivo"] == $this->request->data["Aniolectivo"]["idaniolectivo"]) {
+                        $matricula_seleccionada = $matricula;
+                        $grado = $matricula["Seccion"]["Grado"];
+                        $this->Curso->recursive = 2;
+                        $cursos = $this->Curso->find("all", array(
+                            "conditions" => array("Curso.idgrado" => $grado["idgrado"])
+                        ));
+                    }
+                }
+            }
+        }
+        $this->set(compact("matricula_seleccionada"));
+        $this->set(compact("cursos"));
+    }
+    
+    public function view_apoderado($id = null) {
+        $this->layout = "apoderado";
                 
         if (!$id) {
             throw new NotFoundException(__("Curso inválido"));

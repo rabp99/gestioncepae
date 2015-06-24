@@ -5,6 +5,10 @@
  * @author admin
  */
 class NotasController extends AppController {
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow("index_apoderado", "view_apoderado");
+    }
     public $uses = array("Bimestre", "Docente", "Curso", "Asignacion", "Nota", "Detallenota", "Alumno", "Matricula", "Seccion");
         
     public function index() {
@@ -154,6 +158,73 @@ class NotasController extends AppController {
         $this->Matricula->recursive = 3;
         $matriculas = $this->Matricula->find("all", array(
            "conditions" => array("Matricula.idalumno" => $alumno["Alumno"]["idalumno"]) 
+        ));
+        
+        $detallenotas = array();
+        
+        foreach($matriculas as $matricula) {
+            if($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo) {
+                $seccion = $this->Seccion->findByIdseccion($matricula["Seccion"]["idseccion"]);
+                $asignacion = $this->Asignacion->find("first", array(
+                   "conditions" => array("Asignacion.idseccion" => $seccion["Seccion"]["idseccion"], "Asignacion.idcurso" => $idcurso)
+                ));
+                if(!empty($asignacion)) {
+                    $this->Detallenota->recursive = 2;
+                    $detallenotas = $this->Detallenota->find("all", array(
+                       "conditions" => array("Nota.idasignacion" => $asignacion["Asignacion"]["idasignacion"]) 
+                    ));
+                }
+            }
+        }
+        $this->Curso->recursive = 2;
+        $this->set("curso", $this->Curso->findByIdcurso($idcurso));
+        $this->set("bimestres", $this->Bimestre->find("all", array("Bimestre.estado" => 1)));
+        $this->set(compact("detallenotas"));
+    }
+        
+    public function index_apoderado() {
+        $this->layout = "apoderado";
+
+        $user = $this->Auth->user();
+        $padre = $this->Alumno->Padre->findByIduser($user["iduser"]);
+                
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        $this->set("alumnos", Set::combine($padre["Alumno"], "{n}.idalumno", "{n}.nombreCompleto"));
+        
+        $cursos = array();
+        $matricula_seleccionada = null;
+        
+        if($this->request->is(array("post", "put"))) {
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"]) && !empty($this->request->data["Alumno"]["idalumno"])) {
+                $this->Matricula->recursive = 3;
+                $matriculas = $this->Matricula->find("all", array(
+                   "conditions" => array("Matricula.idalumno" => $this->request->data["Alumno"]["idalumno"]) 
+                ));
+                foreach($matriculas as $matricula) {
+                    if($matricula["Seccion"]["idaniolectivo"] == $this->request->data["Aniolectivo"]["idaniolectivo"]) {
+                        $matricula_seleccionada = $matricula;
+                        $grado = $matricula["Seccion"]["Grado"];
+                        $this->Curso->recursive = 2;
+                        $cursos = $this->Curso->find("all", array(
+                            "conditions" => array("Curso.idgrado" => $grado["idgrado"])
+                        ));
+                    }
+                }
+            }
+        }
+        $this->set(compact("matricula_seleccionada"));
+        $this->set(compact("cursos"));
+    }
+       
+    public function view_apoderado($idcurso = null, $idaniolectivo = null, $idalumno) {
+        $this->layout = "apoderado";
+
+        $this->Matricula->recursive = 3;
+        $matriculas = $this->Matricula->find("all", array(
+           "conditions" => array("Matricula.idalumno" => $idalumno) 
         ));
         
         $detallenotas = array();

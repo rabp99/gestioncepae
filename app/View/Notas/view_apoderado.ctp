@@ -1,10 +1,10 @@
-<!-- File: /app/View/Notas/view_alumno.ctp -->
+<!-- File: /app/View/Notas/view_apoderado.ctp -->
 <?php 
     $this->extend("/Common/view");
     $this->assign("titulo", "Detalle Notas - " . $curso["Curso"]["descripcion"]);  
     
-    $this->Html->addCrumb("Notas", '/Notas/index_alumno');
-    $this->Html->addCrumb("Detalle Notas", '/Notas/view_alumno');
+    $this->Html->addCrumb("Notas", "/Notas/index_apoderado");
+    $this->Html->addCrumb("Detalle Notas", '/Notas/view_apoderado');
 ?>
 <h3>Curso</h3>
 <dl class="dl-horizontal">
@@ -30,4 +30,4 @@
 <?php   } ?>
 </dl>
 <?php } ?>
-<?php echo $this->Html->link("Regresar", array("action" => "index_alumno")); ?>
+<?php echo $this->Html->link("Regresar", array("action" => "index_apoderado")); ?>

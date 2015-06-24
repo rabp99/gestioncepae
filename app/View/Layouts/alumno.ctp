@@ -106,7 +106,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Reportes", "action" => "notas")) ?>">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Reportes", "action" => "notas_alumno")) ?>">
                                 <span class="modernpics icons16 icons-white">4</span>
                                 Boleta de Notas
                             </a>

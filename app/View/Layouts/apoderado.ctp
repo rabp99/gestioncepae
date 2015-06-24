@@ -100,7 +100,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Notas", "action" => "index_apoderado")) ?>">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Notas", "action" => "notas_apoderado")) ?>">
                                 <span class="modernpics icons16 icons-white">V</span>
                                 Notas
                             </a>
@@ -129,7 +129,7 @@
                     "lastClass" => "active",
                     "separator" => "<span class='divider'>/</span>"
                 ),
-                array("text" => "Home", "url" => array("controller" => "Pages", "action" => "alumno"))
+                array("text" => "Home", "url" => array("controller" => "Pages", "action" => "apoderado"))
             ); ?>
         </div>
         
