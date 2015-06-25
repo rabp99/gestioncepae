@@ -66,6 +66,11 @@ class ReportesController extends AppController {
         
         $bimestre = $this->Bimestre->findByIdbimestre($idbimestre);
         
+        if(!isset($matricula["Seccion"])) {
+            $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
+            return $this->redirect(array("action" => "notas_apoderado"));
+        }
+        
         $this->Curso->recursive = -1;
         $cursos = $this->Curso->find("all", array(
             "conditions" => array("Curso.idgrado" => $matricula["Seccion"]["Grado"]["idgrado"])
@@ -92,7 +97,7 @@ class ReportesController extends AppController {
                     ));
                     if(!isset($asignacion["Asignacion"])) {
                         $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
-                        return $this->redirect(array("action" => "notas"));
+                        return $this->redirect(array("action" => "notas_alumno"));
                     }
                     $notas = $this->Nota->Detallenota->find("all", array(
                         "conditions" => array(
@@ -126,9 +131,6 @@ class ReportesController extends AppController {
         
         $idbimestre = $this->request->data["Reporte"]["idbimestre"];
         
-        $user = $this->Auth->user();
-        $alumno = $this->Alumno->findByIduser($user["iduser"]);
-        
         // Recuperación de información
         $this->Matricula->recursive = 3;
         $matricula = $this->Matricula->find("first", array(
@@ -136,6 +138,11 @@ class ReportesController extends AppController {
         ));
         
         $bimestre = $this->Bimestre->findByIdbimestre($idbimestre);
+        
+        if(!isset($matricula["Seccion"])) {
+            $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
+            return $this->redirect(array("action" => "notas_apoderado"));
+        }
         
         $this->Curso->recursive = -1;
         $cursos = $this->Curso->find("all", array(
@@ -163,7 +170,7 @@ class ReportesController extends AppController {
                     ));
                     if(!isset($asignacion["Asignacion"])) {
                         $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
-                        return $this->redirect(array("action" => "notas"));
+                        return $this->redirect(array("action" => "notas_apoderado"));
                     }
                     $notas = $this->Nota->Detallenota->find("all", array(
                         "conditions" => array(

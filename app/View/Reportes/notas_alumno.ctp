@@ -6,7 +6,7 @@
     $this->Html->addCrumb("Boleta de Notas", "/Reportes/notas");
 ?>
 <?php
-    echo $this->Form->create("Reporte", array("class" => "form-horizontal", "action" => "notas_post"));
+    echo $this->Form->create("Reporte", array("class" => "form-horizontal", "action" => "notas_alumno_post"));
     echo $this->Form->input("idaniolectivo", array(
         "label" => "Año Lectivo",
         "options" => $aniolectivos,
