@@ -352,6 +352,7 @@
             "$('#Padre0ApellidoMaterno').val('');" .
             "$('#Padre0Telefono1').val('');" .
             "$('#Padre0Telefono2').val('');" .
+            "$('#Padre0FechaNac').val('');" .
             "$('#Padre0Email').val('');" .
             "$('#Padre0Profesion').val('');" .
             "$('#Padre0Nivelestudio').val('');" .
@@ -361,6 +362,7 @@
             "$('#Padre0ApellidoMaterno').prop('readonly', false);" .
             "$('#Padre0Telefono1').prop('readonly', false);" .
             "$('#Padre0Telefono2').prop('readonly', false);" .
+            "$('#Padre0FechaNac').prop('readonly', false);" .
             "$('#Padre0Email').prop('readonly', false);" .
             "$('#Padre0Profesion').prop('readonly', false);" .
             "$('#Padre0Nivelestudio').prop('disabled', false);" .
@@ -374,6 +376,7 @@
             "   $('#Padre0ApellidoMaterno').val(padre.Padre.apellidoMaterno);" .
             "   $('#Padre0Telefono1').val(padre.Padre.telefono1);" .
             "   $('#Padre0Telefono2').val(padre.Padre.telefono2);" .
+            "   $('#Padre0FechaNac').val(padre.Padre.fechaNac);" .
             "   $('#Padre0Email').val(padre.Padre.email);" .
             "   $('#Padre0Profesion').val(padre.Padre.profesion);" .
             "   $('#Padre0Nivelestudio').val(padre.Padre.nivelestudio);" .
@@ -383,6 +386,7 @@
             "   $('#Padre0ApellidoMaterno').prop('readonly', true);" .
             "   $('#Padre0Telefono1').prop('readonly', true);" .
             "   $('#Padre0Telefono2').prop('readonly', true);" .
+            "   $('#Padre0FechaNac').prop('readonly', true);" .
             "   $('#Padre0Email').prop('readonly', true);" .
             "   $('#Padre0Profesion').prop('readonly', true);" .
             "   $('#Padre0Nivelestudio').prop('disabled', true);" .
@@ -410,6 +414,7 @@
             "$('#Padre1ApellidoMaterno').val('');" .
             "$('#Padre1Telefono1').val('');" .
             "$('#Padre1Telefono2').val('');" .
+            "$('#Padre1FechaNac').val('');" .
             "$('#Padre1Email').val('');" .
             "$('#Padre1Profesion').val('');" .
             "$('#Padre1Nivelestudio').val('');" .
@@ -419,6 +424,7 @@
             "$('#Padre1ApellidoMaterno').prop('readonly', false);" .
             "$('#Padre1Telefono1').prop('readonly', false);" .
             "$('#Padre1Telefono2').prop('readonly', false);" .
+            "$('#Padre1FechaNac').prop('readonly', false);" .
             "$('#Padre1Email').prop('readonly', false);" .
             "$('#Padre1Profesion').prop('readonly', false);" .
             "$('#Padre1Nivelestudio').prop('disabled', false);" .
@@ -426,12 +432,13 @@
             "$('#Padre1idpadre').remove();" . 
             "if(data.length > 2) {" .
             "   var padre = JSON.parse(data);" .
-            "   $('#Padre1').append(\"<input type='hidden' id=\'Padre1idpadre\' name=\'data[Padre][0][idpadre]\' value=\'\" + padre.Padre.idpadre + \"\' />\");" .
+            "   $('#Padre1').append(\"<input type='hidden' id=\'Padre1idpadre\' name=\'data[Padre][1][idpadre]\' value=\'\" + padre.Padre.idpadre + \"\' />\");" .
             "   $('#Padre1Nombres').val(padre.Padre.nombres);" .
             "   $('#Padre1ApellidoPaterno').val(padre.Padre.apellidoPaterno);" .
             "   $('#Padre1ApellidoMaterno').val(padre.Padre.apellidoMaterno);" .
             "   $('#Padre1Telefono1').val(padre.Padre.telefono1);" .
             "   $('#Padre1Telefono2').val(padre.Padre.telefono2);" .
+            "   $('#Padre1FechaNac').val(padre.Padre.fechaNac);" .
             "   $('#Padre1Email').val(padre.Padre.email);" .
             "   $('#Padre1Profesion').val(padre.Padre.profesion);" .
             "   $('#Padre1Nivelestudio').val(padre.Padre.nivelestudio);" .
@@ -441,6 +448,7 @@
             "   $('#Padre1ApellidoMaterno').prop('readonly', true);" .
             "   $('#Padre1Telefono1').prop('readonly', true);" .
             "   $('#Padre1Telefono2').prop('readonly', true);" .
+            "   $('#Padre1FechaNac').prop('readonly', true);" .
             "   $('#Padre1Email').prop('readonly', true);" .
             "   $('#Padre1Profesion').prop('readonly', true);" .
             "   $('#Padre1Nivelestudio').prop('disabled', true);" .
