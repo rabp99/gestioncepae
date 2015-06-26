@@ -94,9 +94,13 @@ class AlumnosController extends AppController {
                             $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
                             $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
                             $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
-        
+                            
+                            $this->Alumno->User->create();
+                            if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
+                                $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
+                                $r = true;
+                            }
                         }
-                        
                         $this->Alumno->Padre->id = $this->request->data["Padre"][$i_apoderado]["idpadre"];
                         if($this->Alumno->Padre->saveField("apoderado", 1)) {
                             
