@@ -89,7 +89,7 @@ class AlumnosController extends AppController {
                         $i_apoderado = $this->request->data["Auxiliar"]["aux"];
                         $padre = $this->Alumno->Padre->findByIdpadre($this->request->data["Padre"][$i_apoderado]["idpadre"]);
                         
-                        if($padre["Padre"]["idsuer"] == null) {
+                        if($padre["Padre"]["iduser"] == null) {
                             // Crear Usuario para Apoderado
                             $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
                             $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
@@ -98,16 +98,12 @@ class AlumnosController extends AppController {
                             $this->Alumno->User->create();
                             if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
                                 $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
-                                $r = true;
+                                if($this->Alumno->Padre->save($this->request->data["Padre"][$i_apoderado])) {
+                                    $ds->commit();
+                                    $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                    return $this->redirect(array("action" => "index"));
+                                }
                             }
-                        }
-                        $this->Alumno->Padre->id = $this->request->data["Padre"][$i_apoderado]["idpadre"];
-                        if($this->Alumno->Padre->saveField("apoderado", 1)) {
-                            
-                            
-                            $ds->commit();
-                            $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
-                            return $this->redirect(array("action" => "index"));
                         }
                     } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 1 && !isset($this->request->data["Padre"][1]["ipadre"])) || (isset($this->request->data["Padre"][1]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 0  && !isset($this->request->data["Padre"][0]["ipadre"]))) {
                         debug("caso 3");
