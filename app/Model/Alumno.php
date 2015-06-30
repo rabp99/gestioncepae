@@ -19,16 +19,11 @@ class Alumno extends AppModel {
     
     public $hasMany = array(
         "Matricula" => array(
-            "foreignKey" => "idAlumno",
-            "conditions" => array("Matricula.estado" => 1)
-        )
-    );
-    
-    public $hasAndBelongsToMany = array(
-        "Padre" => array(
             "foreignKey" => "idalumno",
-            "associationForeignKey" => "idpadre",
-            "joinTable" => "alumnos_padres"
+            "conditions" => array("Matricula.estado" => 1)
+        ),
+        "AlumnosPadre" => array(
+            "foreignKey" => "idalumno"
         )
     );
     

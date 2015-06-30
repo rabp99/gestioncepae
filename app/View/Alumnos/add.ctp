@@ -152,6 +152,10 @@
                                 "type" => "hidden",
                                 "value" => "Padre"
                             ));  
+                            echo $this->Form->input("Padre.0.apoderado", array(
+                                "type" => "hidden",
+                                "value" => "0"
+                            ));  
                             echo $this->Form->input("Padre.0.dni", array(
                                 "label" => "DNI"
                             ));
@@ -196,6 +200,10 @@
                             echo $this->Form->input("Padre.1.parentesco", array(
                                 "type" => "hidden",
                                 "value" => "Madre"
+                            ));  
+                            echo $this->Form->input("Padre.1.apoderado", array(
+                                "type" => "hidden",
+                                "value" => "0"
                             ));  
                             echo $this->Form->input("Padre.1.dni", array(
                                 "label" => "DNI"
@@ -244,7 +252,7 @@
                             "required" => true
                         ));
                     ?>
-                    <fieldset class="otro">
+                    <fieldset class="otro" id="Padre2">
                     </fieldset>
                 </div>
             </div> 
@@ -254,13 +262,16 @@
         ?>
     </div>
 </div>
-<?php echo $this->element("sql_dump"); ?>
 
 <?php 
     $otro = "<legend>Otro</legend>" .
         $this->Form->input("Padre.2.parentesco", array(
             "type" => "hidden",
             "value" => "Otro"
+        )) .
+        $this->Form->input("Padre.2.apoderado", array(
+            "type" => "hidden",
+            "value" => "0"
         )) .
         $this->Form->input("Padre.2.dni", array(
             "label" => "DNI"
@@ -455,6 +466,70 @@
             "   $('#Padre1Ocupacion').prop('readonly', true);" .
             "}"
         ))  
+    );
+?>
+<?php
+    $this->Js->buffer(
+        "$('body').on('keyup', '#Padre2Dni', function() {" .
+            $this->Js->request(array(
+                "controller" => "Alumnos",
+                "action" => "getPadre2ByDni"
+            ), array(
+                "async" => true,
+                "method" => 'post',
+                "dataExpression" => true,
+                "data" => $this->Js->get("#Padre2Dni")->serializeForm(array(
+                    "isForm" => true,
+                    "inline" => true
+                )),
+                "success" =>
+                "$('#Padre2Nombres').val('');" .
+                "$('#Padre2ApellidoPaterno').val('');" .
+                "$('#Padre2ApellidoMaterno').val('');" .
+                "$('#Padre2Telefono1').val('');" .
+                "$('#Padre2Telefono2').val('');" .
+                "$('#Padre2FechaNac').val('');" .
+                "$('#Padre2Email').val('');" .
+                "$('#Padre2Profesion').val('');" .
+                "$('#Padre2Nivelestudio').val('');" .
+                "$('#Padre2Ocupacion').val('');" .
+                "$('#Padre2Nombres').prop('readonly', false);" .
+                "$('#Padre2ApellidoPaterno').prop('readonly', false);" .
+                "$('#Padre2ApellidoMaterno').prop('readonly', false);" .
+                "$('#Padre2Telefono1').prop('readonly', false);" .
+                "$('#Padre2Telefono2').prop('readonly', false);" .
+                "$('#Padre2FechaNac').prop('readonly', false);" .
+                "$('#Padre2Email').prop('readonly', false);" .
+                "$('#Padre2Profesion').prop('readonly', false);" .
+                "$('#Padre2Nivelestudio').prop('disabled', false);" .
+                "$('#Padre2Ocupacion').prop('readonly', false);" .
+                "$('#Padre2idpadre').remove();" . 
+                "if(data.length > 2) {" .
+                "   var padre = JSON.parse(data);" .
+                "   $('#Padre2').append(\"<input type='hidden' id=\'Padre2idpadre\' name=\'data[Padre][2][idpadre]\' value=\'\" + padre.Padre.idpadre + \"\' />\");" .
+                "   $('#Padre2Nombres').val(padre.Padre.nombres);" .
+                "   $('#Padre2ApellidoPaterno').val(padre.Padre.apellidoPaterno);" .
+                "   $('#Padre2ApellidoMaterno').val(padre.Padre.apellidoMaterno);" .
+                "   $('#Padre2Telefono1').val(padre.Padre.telefono1);" .
+                "   $('#Padre2Telefono2').val(padre.Padre.telefono2);" .
+                "   $('#Padre2FechaNac').val(padre.Padre.fechaNac);" .
+                "   $('#Padre2Email').val(padre.Padre.email);" .
+                "   $('#Padre2Profesion').val(padre.Padre.profesion);" .
+                "   $('#Padre2Nivelestudio').val(padre.Padre.nivelestudio);" .
+                "   $('#Padre2Ocupacion').val(padre.Padre.ocupacion);" .
+                "   $('#Padre2Nombres').prop('readonly', true);" .
+                "   $('#Padre2ApellidoPaterno').prop('readonly', true);" .
+                "   $('#Padre2ApellidoMaterno').prop('readonly', true);" .
+                "   $('#Padre2Telefono1').prop('readonly', true);" .
+                "   $('#Padre2Telefono2').prop('readonly', true);" .
+                "   $('#Padre2FechaNac').prop('readonly', true);" .
+                "   $('#Padre2Email').prop('readonly', true);" .
+                "   $('#Padre2Profesion').prop('readonly', true);" .
+                "   $('#Padre2Nivelestudio').prop('disabled', true);" .
+                "   $('#Padre2Ocupacion').prop('readonly', true);" .
+                "}"
+            )) .  
+        "});"
     );
 ?>
 <?php echo $this->Html->scriptStart(array('inline' => false)); ?>

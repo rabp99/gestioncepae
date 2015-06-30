@@ -4,13 +4,8 @@
  * CakePHP CursosController
  * @author Roberto
  */
-class CursosController extends AppController {
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("cursosByApoderado", "view_apoderado");
-    }
-    
-    public $uses = array("Curso", "Asignacion", "Docente", "Alumno", "Matricula");
+class CursosController extends AppController { 
+    public $uses = array("Curso", "Asignacion", "Docente", "Alumno", "Matricula", "Padre");
 
     public $components = array("Paginator");
 
@@ -218,13 +213,14 @@ class CursosController extends AppController {
         $this->layout = "apoderado";
 
         $user = $this->Auth->user();
-        $padre = $this->Alumno->Padre->findByIduser($user["iduser"]);
-                
+        $this->Padre->recursive = 2;
+        $padre = $this->Padre->findByIduser($user["iduser"]);
+        
         $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
-        $this->set("alumnos", Set::combine($padre["Alumno"], "{n}.idalumno", "{n}.nombreCompleto"));
+        $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
         
         $cursos = array();
         $matricula_seleccionada = null;

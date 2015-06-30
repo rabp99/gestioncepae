@@ -100,7 +100,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Notas", "action" => "notas_apoderado")) ?>">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Notas", "action" => "index_apoderado")) ?>">
                                 <span class="modernpics icons16 icons-white">V</span>
                                 Notas
                             </a>

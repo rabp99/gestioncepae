@@ -85,79 +85,115 @@
         </div> 
         <div id="yw0_tab_1" class="tab-pane fade">
             <div class="info-panel">
+                <?php
+                    $apoderado = null;
+                    foreach($alumno["AlumnosPadre"] as $alumno_padre) {
+                        if($alumno_padre["apoderado"] == 1) {
+                            $apoderado = $alumno_padre["parentesco"];
+                        }
+                    }
+                ?>
+                <dl class="dl-horizontal">
+                    <dt>Apoderado</dt>
+                    <dd><?php echo $apoderado; ?></dd>
+                </dl>
                 <fieldset>
-                    <legend>Padre</legend>       
+                    <?php
+                        $padre = null;
+                        foreach($alumno["AlumnosPadre"] as $alumno_padre) {
+                            if($alumno_padre["parentesco"] == "Padre") {
+                                $padre = $alumno_padre["Padre"];
+                            }
+                        }
+                    ?>
+                    <legend>Padre</legend>
                     <dl class="dl-horizontal">
                         <dt>Código</dt>
-                        <dd><?php echo $alumno["Padre"][0]["idpadre"]; ?></dd>
+                        <dd><?php echo !empty($padre["idpadre"]) ? $padre["idpadre"] : "..."; ?></dd>
                         <dt>Nombre Completo</dt>
-                        <dd><?php echo $alumno["Padre"][0]["nombreCompleto"]; ?></dd>
+                        <dd><?php echo !empty($padre["nombreCompleto"]) ? $padre["nombreCompleto"] : "..."; ?></dd>
                         <dt>DNI</dt>
-                        <dd><?php echo $alumno["Padre"][0]["dni"]; ?></dd>
+                        <dd><?php echo !empty($padre["dni"]) ? $padre["dni"] : ""; ?></dd>
                         <dt>Teléfono 1</dt>
-                        <dd><?php echo $alumno["Padre"][0]["telefono1"]; ?></dd>
+                        <dd><?php echo !empty($padre["telefono1"]) ? $padre["telefono1"] : "..."; ?></dd>
                         <dt>Teléfono 2</dt>
-                        <dd><?php echo $alumno["Padre"][0]["telefono2"]; ?></dd>
+                        <dd><?php echo !empty($padre["telefono2"]) ? $padre["telefono2"] : "..."; ?></dd>
                         <dt>Fecha de Nacimiento</dt>
-                        <dd><?php echo $alumno["Padre"][0]["fechaNac"]; ?></dd>
+                        <dd><?php echo !empty($padre["fechaNac"]) ? $padre["fechaNac"] : "..."; ?></dd>
                         <dt>Email</dt>
-                        <dd><?php echo $alumno["Padre"][0]["email"]; ?></dd>
+                        <dd><?php echo !empty($padre["email"]) ? $padre["email"] : "..."; ?></dd>
                         <dt>Profesión</dt>
-                        <dd><?php echo $alumno["Padre"][0]["profesion"]; ?></dd>
+                        <dd><?php echo !empty($padre["profesion"]) ? $padre["profesion"] : "..."; ?></dd>
                         <dt>Nivel de Estudio</dt>
-                        <dd><?php echo $alumno["Padre"][0]["nivelestudio"]; ?></dd>
+                        <dd><?php echo !empty($padre["nivelestudio"]) ? $padre["nivelestudio"] : "..."; ?></dd>
                         <dt>Ocupación</dt>
-                        <dd><?php echo $alumno["Padre"][0]["ocupacion"]; ?></dd>
+                        <dd><?php echo !empty($padre["ocupacion"]) ? $padre["ocupacion"] : "..."; ?></dd>
                     </dl>
                 </fieldset>
                 <fieldset>
+                    <?php
+                        $madre = null;
+                        foreach($alumno["AlumnosPadre"] as $alumno_padre) {
+                            if($alumno_padre["parentesco"] == "Madre") {
+                                $madre = $alumno_padre["Padre"];
+                            }
+                        }
+                    ?>
                     <legend>Madre</legend>
                     <dl class="dl-horizontal">
                         <dt>Código</dt>
-                        <dd><?php echo $alumno["Padre"][1]["idpadre"]; ?></dd>
+                        <dd><?php echo !empty($madre["idpadre"]) ? $madre["idpadre"] : "..."; ?></dd>
                         <dt>Nombre Completo</dt>
-                        <dd><?php echo $alumno["Padre"][1]["nombreCompleto"]; ?></dd>
+                        <dd><?php echo !empty($madre["nombreCompleto"]) ? $madre["nombreCompleto"] : "..."; ?></dd>
                         <dt>DNI</dt>
-                        <dd><?php echo $alumno["Padre"][1]["dni"]; ?></dd>
+                        <dd><?php echo !empty($madre["dni"]) ? $madre["dni"] : ""; ?></dd>
                         <dt>Teléfono 1</dt>
-                        <dd><?php echo $alumno["Padre"][1]["telefono1"]; ?></dd>
+                        <dd><?php echo !empty($madre["telefono1"]) ? $madre["telefono1"] : "..."; ?></dd>
                         <dt>Teléfono 2</dt>
-                        <dd><?php echo $alumno["Padre"][1]["telefono2"]; ?></dd>
+                        <dd><?php echo !empty($madre["telefono2"]) ? $madre["telefono2"] : "..."; ?></dd>
                         <dt>Fecha de Nacimiento</dt>
-                        <dd><?php echo $alumno["Padre"][1]["fechaNac"]; ?></dd>
+                        <dd><?php echo !empty($madre["fechaNac"]) ? $madre["fechaNac"] : "..."; ?></dd>
                         <dt>Email</dt>
-                        <dd><?php echo $alumno["Padre"][1]["email"]; ?></dd>
+                        <dd><?php echo !empty($madre["email"]) ? $madre["email"] : "..."; ?></dd>
                         <dt>Profesión</dt>
-                        <dd><?php echo $alumno["Padre"][1]["profesion"]; ?></dd>
+                        <dd><?php echo !empty($madre["profesion"]) ? $madre["profesion"] : "..."; ?></dd>
                         <dt>Nivel de Estudio</dt>
-                        <dd><?php echo $alumno["Padre"][1]["nivelestudio"]; ?></dd>
+                        <dd><?php echo !empty($madre["nivelestudio"]) ? $madre["nivelestudio"] : "..."; ?></dd>
                         <dt>Ocupación</dt>
-                        <dd><?php echo $alumno["Padre"][1]["ocupacion"]; ?></dd>
+                        <dd><?php echo !empty($madre["ocupacion"]) ? $madre["ocupacion"] : "..."; ?></dd>
                     </dl>
                 </fieldset>
                 <fieldset>
-                    <legend>Apoderado</legend>
+                    <?php
+                        $otro = null;
+                        foreach($alumno["AlumnosPadre"] as $alumno_padre) {
+                            if($alumno_padre["parentesco"] == "Otro") {
+                                $otro = $alumno_padre["Padre"];
+                            }
+                        }
+                    ?>
+                    <legend>Otro</legend>
                     <dl class="dl-horizontal">
                         <dt>Código</dt>
-                        <dd><?php echo $alumno["Padre"][2]["idpadre"]; ?></dd>
+                        <dd><?php echo !empty($otro["idpadre"]) ? $otro["idpadre"] : "..."; ?></dd>
                         <dt>Nombre Completo</dt>
-                        <dd><?php echo $alumno["Padre"][2]["nombreCompleto"]; ?></dd>
+                        <dd><?php echo !empty($otro["nombreCompleto"]) ? $otro["nombreCompleto"] : "..."; ?></dd>
                         <dt>DNI</dt>
-                        <dd><?php echo $alumno["Padre"][2]["dni"]; ?></dd>
+                        <dd><?php echo !empty($otro["dni"]) ? $otro["dni"] : ""; ?></dd>
                         <dt>Teléfono 1</dt>
-                        <dd><?php echo $alumno["Padre"][2]["telefono1"]; ?></dd>
+                        <dd><?php echo !empty($otro["telefono1"]) ? $otro["telefono1"] : "..."; ?></dd>
                         <dt>Teléfono 2</dt>
-                        <dd><?php echo $alumno["Padre"][2]["telefono2"]; ?></dd>
+                        <dd><?php echo !empty($otro["telefono2"]) ? $otro["telefono2"] : "..."; ?></dd>
                         <dt>Fecha de Nacimiento</dt>
-                        <dd><?php echo $alumno["Padre"][2]["fechaNac"]; ?></dd>
+                        <dd><?php echo !empty($otro["fechaNac"]) ? $otro["fechaNac"] : "..."; ?></dd>
                         <dt>Email</dt>
-                        <dd><?php echo $alumno["Padre"][2]["email"]; ?></dd>
+                        <dd><?php echo !empty($otro["email"]) ? $otro["email"] : "..."; ?></dd>
                         <dt>Profesión</dt>
-                        <dd><?php echo $alumno["Padre"][2]["profesion"]; ?></dd>
+                        <dd><?php echo !empty($otro["profesion"]) ? $otro["profesion"] : "..."; ?></dd>
                         <dt>Nivel de Estudio</dt>
-                        <dd><?php echo $alumno["Padre"][2]["nivelestudio"]; ?></dd>
+                        <dd><?php echo !empty($otro["nivelestudio"]) ? $otro["nivelestudio"] : "..."; ?></dd>
                         <dt>Ocupación</dt>
-                        <dd><?php echo $alumno["Padre"][2]["ocupacion"]; ?></dd>
+                        <dd><?php echo !empty($otro["ocupacion"]) ? $otro["ocupacion"] : "..."; ?></dd>
                     </dl>
                 </fieldset>
             </div>

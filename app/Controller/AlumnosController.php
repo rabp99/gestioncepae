@@ -5,10 +5,7 @@
  * @author admin
  */
 class AlumnosController extends AppController {
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("datos_apoderado");
-    }
+    public $uses = array("Alumno", "Padre");
     
     public $components = array("Paginator");
     
@@ -53,42 +50,42 @@ class AlumnosController extends AppController {
                         $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
                         $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
                 
+                        $r = true;
                         $this->Alumno->User->create();
                         if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
                             $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
-                            $r = true;
-                            
-                            $alumnos_padres = array();
-                            foreach($this->request->data["Padre"] as $key => $padre) {
-                                $this->Alumno->Padre->create();
-                                if($this->Alumno->Padre->save($padre)) {
-                                    $this->request->data["Padre"][$key]["idpadre"] = $this->Alumno->Padre->id;
-                                    $alumnos_padres[] = array(
-                                        "Alumno" => array("idalumno" => $this->request->data["Alumno"]["idalumno"]),
-                                        "Padre" => array("idpadre" => $this->request->data["Padre"][$key]["idpadre"]),
-                                    );
-                                } else {
-                                    $r = false;
-                                }
-                            }
-                        
-                            unset($this->request->data["Auxiliar"]);
-                            unset($this->request->data["User"]);
-                            unset($this->request->data["Padre"][$i_apoderado]["User"]);
-                        
-                            if($this->Alumno->Padre->saveAll($alumnos_padres)) {
-                                if($r) {
-                                    $ds->commit();
-                                    $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
-                                    return $this->redirect(array("action" => "index"));
-                                }
+                            foreach($this->request->data["Padre"] as $k_padre => $padre) {
+                                $this->Padre->create();
+                                if($this->Padre->save($padre)) {
+                                    $this->request->data["Padre"][$k_padre]["idpadre"] = $this->Padre->id;
+                                } else $r = false;    
                             }
                         }
-                    } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 0 && !isset($this->request->data["Padre"][1]["ipadre"])) || (isset($this->request->data["Padre"][1]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 1  && !isset($this->request->data["Padre"][0]["ipadre"]))) {
+                        if($r) {
+                            $alumnos_padre = array();
+                            foreach($this->request->data["Padre"] as $key => $padre) {
+                                $alumnos_padre[] = array(
+                                    "AlumnosPadre" => array(
+                                        "idpadre" => $padre["idpadre"],
+                                        "idalumno" => $this->request->data["Alumno"]["idalumno"],
+                                        "parentesco" => $padre["parentesco"],
+                                        "apoderado" => $padre["apoderado"]
+                                    )
+                                );
+                            }
+                            if($this->Alumno->AlumnosPadre->saveMany($alumnos_padre)) {
+                                $ds->commit();
+                                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                return $this->redirect(array("action" => "index"));
+                            }
+                        }
+                    } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 0 && !isset($this->request->data["Padre"][1]["idpadre"])) || (isset($this->request->data["Padre"][1]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 1  && !isset($this->request->data["Padre"][0]["idpadre"]))) {
                         debug("caso 2");
                         $i_apoderado = $this->request->data["Auxiliar"]["aux"];
-                        $padre = $this->Alumno->Padre->findByIdpadre($this->request->data["Padre"][$i_apoderado]["idpadre"]);
+                        $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                        $padre = $this->Padre->findByIdpadre($this->request->data["Padre"][$i_apoderado]["idpadre"]);
                         
+                        $r = true;
                         if($padre["Padre"]["iduser"] == null) {
                             // Crear Usuario para Apoderado
                             $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
@@ -98,26 +95,392 @@ class AlumnosController extends AppController {
                             $this->Alumno->User->create();
                             if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
                                 $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
-                                if($this->Alumno->Padre->save($this->request->data["Padre"][$i_apoderado])) {
+                                $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                                $this->Padre->id = $padre["Padre"]["idpadre"];
+                                if($this->Padre->save($this->request->data["Padre"][$i_apoderado]))
+                                    $r = true;
+                                else 
+                                    $r = false;
+                            }
+                        }
+                        if($r) {
+                            $this->Padre->create();
+                            $i_otro = $i_apoderado == 0 ? 1 : 0;
+                            if($this->Padre->save($this->request->data["Padre"][$i_otro])) {
+                                // Preparar para el many to many
+                                $this->request->data["Padre"][$i_apoderado]["idpadre"] = $padre["Padre"]["idpadre"];
+                                $this->request->data["Padre"][$i_otro]["idpadre"] = $this->Padre->id;
+                                
+                                $alumnos_padre = array();
+                                foreach($this->request->data["Padre"] as $key => $padre) {
+                                    $alumnos_padre[] = array(
+                                        "AlumnosPadre" => array(
+                                            "idpadre" => $padre["idpadre"],
+                                            "idalumno" => $this->request->data["Alumno"]["idalumno"],
+                                            "parentesco" => $padre["parentesco"],
+                                            "apoderado" => $padre["apoderado"]
+                                        )
+                                    );
+                                }
+                                if($this->Alumno->AlumnosPadre->saveMany($alumnos_padre)) {
                                     $ds->commit();
                                     $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
                                     return $this->redirect(array("action" => "index"));
                                 }
                             }
                         }
-                    } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 1 && !isset($this->request->data["Padre"][1]["ipadre"])) || (isset($this->request->data["Padre"][1]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 0  && !isset($this->request->data["Padre"][0]["ipadre"]))) {
+                    } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 1 && !isset($this->request->data["Padre"][1]["idpadre"])) || (isset($this->request->data["Padre"][1]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 0  && !isset($this->request->data["Padre"][0]["idpadre"]))) {
                         debug("caso 3");
-                    } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 0 && isset($this->request->data["Padre"][1]["ipadre"])) || (isset($this->request->data["Padre"][1]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 1  && isset($this->request->data["Padre"][0]["ipadre"]))) {
+                        $i_apoderado = $this->request->data["Auxiliar"]["aux"];
+                        $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                        
+                        // Crear Usuario para Apoderado
+                        $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                        $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                        $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
+
+                        $this->Alumno->User->create();
+                        if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
+                            $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
+                            $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                            $this->Padre->create();
+                            if($this->Padre->save($this->request->data["Padre"][$i_apoderado])) {
+                                $i_otro = $i_apoderado == 0 ? 1 : 0;
+                                $padre = $this->Padre->findByDni($this->request->data["Padre"][$i_otro]["dni"]);
+                                $this->request->data["Padre"][$i_apoderado]["idpadre"] = $this->Padre->id;
+                                $this->request->data["Padre"][$i_otro]["idpadre"] = $padre["Padre"]["idpadre"];
+                                
+                                $alumnos_padre = array();
+                                foreach($this->request->data["Padre"] as $key => $padre) {
+                                    $alumnos_padre[] = array(
+                                        "AlumnosPadre" => array(
+                                            "idpadre" => $padre["idpadre"],
+                                            "idalumno" => $this->request->data["Alumno"]["idalumno"],
+                                            "parentesco" => $padre["parentesco"],
+                                            "apoderado" => $padre["apoderado"]
+                                        )
+                                    );
+                                }
+                                if($this->Alumno->AlumnosPadre->saveMany($alumnos_padre)) {
+                                    $ds->commit();
+                                    $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                    return $this->redirect(array("action" => "index"));
+                                }
+                            }
+                        }
+                        
+                    } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 0 && isset($this->request->data["Padre"][1]["idpadre"])) || (isset($this->request->data["Padre"][1]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 1  && isset($this->request->data["Padre"][0]["idpadre"]))) {
                         debug("caso 4");
-                    } elseif(isset($this->request->data["Padre"][0]["idpadre"]) && isset($this->request->data["Padre"][1]["ipadre"]) && !isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2) {
+                        $i_apoderado = $this->request->data["Auxiliar"]["aux"];
+                        $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                        $padre = $this->Padre->findByIdpadre($this->request->data["Padre"][$i_apoderado]["idpadre"]);
+                        
+                        $r = true;
+                        if($padre["Padre"]["iduser"] == null) {
+                            // Crear Usuario para Apoderado
+                            $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                            $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                            $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
+                            
+                            $this->Alumno->User->create();
+                            if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
+                                $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
+                                $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                                $this->Padre->id = $padre["Padre"]["idpadre"];
+                                if($this->Padre->save($this->request->data["Padre"][$i_apoderado]))
+                                    $r = true;
+                                else 
+                                    $r = false;
+                            }
+                        }
+                        if($r) {
+                            $i_otro = $i_apoderado == 0 ? 1 : 0;
+                            // Preparar para el many to many
+                            $this->request->data["Padre"][$i_apoderado]["idpadre"] = $padre["Padre"]["idpadre"];
+                            $padre = $this->Padre->findByDni($this->request->data["Padre"][$i_otro]["dni"]);
+                            $this->request->data["Padre"][$i_otro]["idpadre"] = $padre["Padre"]["idpadre"];
+                                               
+                            $alumnos_padre = array();
+                            foreach($this->request->data["Padre"] as $key => $padre) {
+                                $alumnos_padre[] = array(
+                                    "AlumnosPadre" => array(
+                                        "idpadre" => $padre["idpadre"],
+                                        "idalumno" => $this->request->data["Alumno"]["idalumno"],
+                                        "parentesco" => $padre["parentesco"],
+                                        "apoderado" => $padre["apoderado"]
+                                    )
+                                );
+                            }
+                            if($this->Alumno->AlumnosPadre->saveMany($alumnos_padre)) {
+                                $ds->commit();
+                                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                return $this->redirect(array("action" => "index"));
+                            }
+                        }
+                    } elseif(isset($this->request->data["Padre"][0]["idpadre"]) && isset($this->request->data["Padre"][1]["idpadre"]) && !isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2) {
                         debug("caso 5");
-                    } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && !isset($this->request->data["Padre"][1]["ipadre"]) && !isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2) || (!isset($this->request->data["Padre"][0]["idpadre"]) && isset($this->request->data["Padre"][1]["ipadre"]) && !isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2)) {
+                                               
+                        $i_apoderado = $this->request->data["Auxiliar"]["aux"];
+                        $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                        // Crear Usuario para Apoderado
+                        $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                        $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                        $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
+                        
+                        $r = true;
+                        $this->Alumno->User->create();
+                        if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
+                            $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
+                            $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                            $this->Padre->create();
+                            if($this->Padre->save($this->request->data["Padre"][$i_apoderado])) {
+                                $this->request->data["Padre"][$i_apoderado]["idpadre"] = $this->Padre->id;
+                                $r = true;
+                            } else 
+                                $r = false;
+                        }
+                        if($r) {
+                            // Preparar para el many to many
+                            $padre = $this->Padre->findByDni($this->request->data["Padre"][0]["dni"]);
+                            $this->request->data["Padre"][0]["idpadre"] = $padre["Padre"]["idpadre"];
+                            $padre = $this->Padre->findByDni($this->request->data["Padre"][1]["dni"]);
+                            $this->request->data["Padre"][1]["idpadre"] = $padre["Padre"]["idpadre"];
+                                                                               
+                            $alumnos_padre = array();
+                            foreach($this->request->data["Padre"] as $key => $padre) {
+                                $alumnos_padre[] = array(
+                                    "AlumnosPadre" => array(
+                                        "idpadre" => $padre["idpadre"],
+                                        "idalumno" => $this->request->data["Alumno"]["idalumno"],
+                                        "parentesco" => $padre["parentesco"],
+                                        "apoderado" => $padre["apoderado"]
+                                    )
+                                );
+                            }
+                            if($this->Alumno->AlumnosPadre->saveMany($alumnos_padre)) {
+                                $ds->commit();
+                                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                return $this->redirect(array("action" => "index"));
+                            }
+                        }
+                    } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && !isset($this->request->data["Padre"][1]["idpadre"]) && !isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2) || (!isset($this->request->data["Padre"][0]["idpadre"]) && isset($this->request->data["Padre"][1]["idpadre"]) && !isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2)) {
                         debug("caso 6");
-                    } elseif(isset($this->request->data["Padre"][0]["idpadre"]) && isset($this->request->data["Padre"][1]["ipadre"]) && isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2) {
+                                                                       
+                        $i_apoderado = $this->request->data["Auxiliar"]["aux"];
+                        $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                        
+                        // Crear Usuario para Apoderado
+                        $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                        $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                        $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
+                        
+                        $r = true;
+                        $this->Alumno->User->create();
+                        if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
+                            $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
+                            $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                            $this->Padre->create();
+                            if($this->Padre->save($this->request->data["Padre"][$i_apoderado])) {
+                                $this->request->data["Padre"][$i_apoderado]["idpadre"] = $this->Padre->id;
+                                $r = true;
+                            }
+                            else 
+                                $r = false;
+                        }
+                        if($r) {
+                            if(isset($this->request->data["Padre"][0]["idpadre"])) {
+                                $this->Padre->create();
+                                if($this->Padre->save($this->request->data["Padre"][1])) {
+                                    $this->request->data["Padre"][1]["idpadre"] = $this->Padre->id;
+                                    $r = true;
+                                }
+                                else $r = false;
+                            } elseif(isset($this->request->data["Padre"][1]["idpadre"])) {
+                                $this->Padre->create();
+                                if($this->Padre->save($this->request->data["Padre"][0])) {
+                                    $this->request->data["Padre"][0]["idpadre"] = $this->Padre->id;
+                                    $r = true;
+                                }
+                                else $r = false;
+                            }
+                                                                               
+                            $alumnos_padre = array();
+                            foreach($this->request->data["Padre"] as $key => $padre) {
+                                $alumnos_padre[] = array(
+                                    "AlumnosPadre" => array(
+                                        "idpadre" => $padre["idpadre"],
+                                        "idalumno" => $this->request->data["Alumno"]["idalumno"],
+                                        "parentesco" => $padre["parentesco"],
+                                        "apoderado" => $padre["apoderado"]
+                                    )
+                                );
+                            }
+                            if($this->Alumno->AlumnosPadre->saveMany($alumnos_padre)) {
+                                $ds->commit();
+                                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                return $this->redirect(array("action" => "index"));
+                            }
+                        }
+                    } elseif(isset($this->request->data["Padre"][0]["idpadre"]) && isset($this->request->data["Padre"][1]["idpadre"]) && isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2) {
                         debug("caso 7");
+                        
+                        $i_apoderado = $this->request->data["Auxiliar"]["aux"];
+                        $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                        $padre = $this->Padre->findByIdpadre($this->request->data["Padre"][$i_apoderado]["idpadre"]);
+                        
+                        $r = true;
+                        if($padre["Padre"]["iduser"] == null) {
+                            // Crear Usuario para Apoderado
+                            $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                            $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                            $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
+                            
+                            $this->Alumno->User->create();
+                            if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
+                                $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
+                                $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                                $this->Padre->id = $padre["Padre"]["idpadre"];
+                                if($this->Padre->save($this->request->data["Padre"][$i_apoderado]))
+                                    $r = true;
+                                else 
+                                    $r = false;
+                            }
+                        }
+                        if($r) {
+                            $alumnos_padre = array();
+                            foreach($this->request->data["Padre"] as $key => $padre) {
+                                $alumnos_padre[] = array(
+                                    "AlumnosPadre" => array(
+                                        "idpadre" => $padre["idpadre"],
+                                        "idalumno" => $this->request->data["Alumno"]["idalumno"],
+                                        "parentesco" => $padre["parentesco"],
+                                        "apoderado" => $padre["apoderado"]
+                                    )
+                                );
+                            }
+                            if($this->Alumno->AlumnosPadre->saveMany($alumnos_padre)) {
+                                $ds->commit();
+                                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                return $this->redirect(array("action" => "index"));
+                            }
+                        }
+                    } elseif(!isset($this->request->data["Padre"][0]["idpadre"]) && !isset($this->request->data["Padre"][1]["idpadre"]) && isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2) {
+                        debug("caso 8");
+                                             
+                        $i_apoderado = $this->request->data["Auxiliar"]["aux"];
+                        $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                        $padre = $this->Padre->findByIdpadre($this->request->data["Padre"][$i_apoderado]["idpadre"]);
+                        
+                        $r = true;
+                        if($padre["Padre"]["iduser"] == null) {
+                            // Crear Usuario para Apoderado
+                            $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                            $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                            $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
+                            
+                            $this->Alumno->User->create();
+                            if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
+                                $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
+                                $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                                $this->Padre->id = $padre["Padre"]["idpadre"];
+                                if($this->Padre->save($this->request->data["Padre"][$i_apoderado]))
+                                    $r = true;
+                                else 
+                                    $r = false;
+                            }
+                        }
+                        if($r) {
+                            foreach($this->request->data["Padre"] as $key => $padre) {
+                                $this->Padre->create();
+                                if($this->Padre->save($padre)) {
+                                    $this->request->data["Padre"][$key]["idpadre"] = $this->Padre->id;
+                                } else {
+                                    $r = false;
+                                }
+                            }
+                        }
+                        if($r) {
+                            $alumnos_padre = array();
+                            foreach($this->request->data["Padre"] as $key => $padre) {
+                                $alumnos_padre[] = array(
+                                    "AlumnosPadre" => array(
+                                        "idpadre" => $padre["idpadre"],
+                                        "idalumno" => $this->request->data["Alumno"]["idalumno"],
+                                        "parentesco" => $padre["parentesco"],
+                                        "apoderado" => $padre["apoderado"]
+                                    )
+                                );
+                            }
+                            if($this->Alumno->AlumnosPadre->saveMany($alumnos_padre)) {
+                                $ds->commit();
+                                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                return $this->redirect(array("action" => "index"));
+                            }
+                        }
+                    } elseif((isset($this->request->data["Padre"][0]["idpadre"]) && !isset($this->request->data["Padre"][1]["idpadre"]) && isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2) || (isset($this->request->data["Padre"][1]["idpadre"]) && !isset($this->request->data["Padre"][0]["idpadre"]) && isset($this->request->data["Padre"][2]["idpadre"]) && $this->request->data["Auxiliar"]["aux"] == 2)) {
+                        debug("caso 9"); 
+                        
+                        $i_apoderado = $this->request->data["Auxiliar"]["aux"];
+                        $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                        $padre = $this->Padre->findByIdpadre($this->request->data["Padre"][$i_apoderado]["idpadre"]);
+                       
+                        $r = true;
+                        if($padre["Padre"]["iduser"] == null) {
+                            // Crear Usuario para Apoderado
+                            $this->request->data["Padre"][$i_apoderado]["User"]["username"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                            $this->request->data["Padre"][$i_apoderado]["User"]["password"] = $this->request->data["Padre"][$i_apoderado]["dni"];
+                            $this->request->data["Padre"][$i_apoderado]["User"]["idgroup"] = 3; // Padre
+                            
+                            $this->Alumno->User->create();
+                            if($this->Alumno->User->save($this->request->data["Padre"]["$i_apoderado"]["User"])) {
+                                $this->request->data["Padre"][$i_apoderado]["iduser"] = $this->Alumno->User->id;
+                                $this->request->data["Padre"][$i_apoderado]["apoderado"] = 1;
+                                $this->Padre->id = $padre["Padre"]["idpadre"];
+                                if($this->Padre->save($this->request->data["Padre"][$i_apoderado]))
+                                    $r = true;
+                                else 
+                                    $r = false;
+                            }
+                        }
+                        if($r) {
+                            if(isset($this->request->data["Padre"][0]["idpadre"])) {
+                                $this->Padre->create();
+                                if($this->Padre->save($this->request->data["Padre"][1])) {
+                                    $this->request->data["Padre"][1]["idpadre"] = $this->Padre->id;
+                                    $r = true;
+                                }
+                                else $r = false;
+                            } elseif(isset($this->request->data["Padre"][1]["idpadre"])) {
+                                $this->Padre->create();
+                                if($this->Padre->save($this->request->data["Padre"][0])) {
+                                    $this->request->data["Padre"][0]["idpadre"] = $this->Padre->id;
+                                    $r = true;
+                                }
+                                else $r = false;
+                            }
+                        }
+                        if($r) {
+                            $alumnos_padre = array();
+                            foreach($this->request->data["Padre"] as $key => $padre) {
+                                $alumnos_padre[] = array(
+                                    "AlumnosPadre" => array(
+                                        "idpadre" => $padre["idpadre"],
+                                        "idalumno" => $this->request->data["Alumno"]["idalumno"],
+                                        "parentesco" => $padre["parentesco"],
+                                        "apoderado" => $padre["apoderado"]
+                                    )
+                                );
+                            }
+                            if($this->Alumno->AlumnosPadre->saveMany($alumnos_padre)) {
+                                $ds->commit();
+                                $this->Session->setFlash(__("El alumno ha sido registrado correctamente."), "flash_bootstrap");
+                                return $this->redirect(array("action" => "index"));
+                            }
+                        }
                     }
                 }
             }
+            $this->Session->setFlash(__("No fue posible registrar el alumno."), "flash_bootstrap");
         }
     }
 
@@ -127,6 +490,7 @@ class AlumnosController extends AppController {
         if (!$id) {
             throw new NotFoundException(__("Alumno inválido"));
         }
+        $this->Alumno->recursive = 2;
         $alumno = $this->Alumno->findByIdalumno($id);
         if (!$alumno) {
             throw new NotFoundException(__("Alumno inválido"));
@@ -146,24 +510,9 @@ class AlumnosController extends AppController {
         }
         
         if ($this->request->is(array("post", "put"))) {      
-            if($this->request->data["Padre"]["2"]["dni"] == "") {
-                unset($this->request->data["Padre"][2]);
-                if($this->request->data["Auxiliar"]["aux"] == 2) {
-                    $this->Session->setFlash(__("Seleccione un Remitente válido."), "flash_bootstrap");
-                    return;
-                }
-            } else {
-                $this->request->data["Padre"]["2"]["condicion"] = 0;
-            }
-            
-            // Condicion
-            $this->request->data["Padre"]["0"]["condicion"] = 0;
-            $this->request->data["Padre"]["1"]["condicion"] = 0;
-            $this->request->data["Padre"][$this->request->data["Auxiliar"]["aux"]]["condicion"] = 1;
-            unset($this->request->data["Auxiliar"]);
             
             $this->Alumno->id = $id;
-            if ($this->Alumno->saveAssociated($this->request->data)) {     
+            if ($this->Alumno->save($this->request->data)) {     
                 $this->Session->setFlash(__("El Alumno ha sido actualizado."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
@@ -171,11 +520,6 @@ class AlumnosController extends AppController {
         }
         if (!$this->request->data) {
             $this->request->data = $alumno;
-            // Remitente
-            for($i = 0; $i < sizeof($alumno["Padre"]); $i++) {
-                $padre = $alumno["Padre"][$i];
-                if($padre["condicion"]) $this->request->data["Auxiliar"]["aux"] = $i;
-            }
         }
     }
     
@@ -187,7 +531,7 @@ class AlumnosController extends AppController {
         if ($this->Alumno->saveField("estado", 2)) {
             $fields = array("Padre.estado" => 2);
             $conditions = array("Padre.idalumno" => $id);
-            if($this->Alumno->Padre->updateAll($fields, $conditions)) {
+            if($this->Padre->updateAll($fields, $conditions)) {
                 $this->Session->setFlash(__("El Alumno de código: %s ha sido Deshabilitado.", h($id)), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
@@ -233,7 +577,7 @@ class AlumnosController extends AppController {
     public function getPadre0ByDni() {
         $this->layout = "ajax";
         
-        $padre = $this->Alumno->Padre->findByDni($this->request->data["Padre"][0]["dni"]);
+        $padre = $this->Padre->findByDni($this->request->data["Padre"][0]["dni"]);
         
         echo json_encode($padre);;
         
@@ -243,7 +587,17 @@ class AlumnosController extends AppController {
     public function getPadre1ByDni() {
         $this->layout = "ajax";
         
-        $padre = $this->Alumno->Padre->findByDni($this->request->data["Padre"][1]["dni"]);
+        $padre = $this->Padre->findByDni($this->request->data["Padre"][1]["dni"]);
+        
+        echo json_encode($padre);;
+        
+        die();
+    }
+    
+    public function getPadre2ByDni() {
+        $this->layout = "ajax";
+        
+        $padre = $this->Padre->findByDni($this->request->data["Padre"][2]["dni"]);
         
         echo json_encode($padre);;
         
@@ -267,7 +621,7 @@ class AlumnosController extends AppController {
         }
 
         $user = $this->Auth->user();
-        $padre = $this->Alumno->Padre->findByIduser($user["iduser"]);
+        $padre = $this->Padre->findByIduser($user["iduser"]);
         
         return $padre;
     }

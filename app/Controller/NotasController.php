@@ -5,11 +5,7 @@
  * @author admin
  */
 class NotasController extends AppController {
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("index_apoderado", "view_apoderado");
-    }
-    public $uses = array("Bimestre", "Docente", "Curso", "Asignacion", "Nota", "Detallenota", "Alumno", "Matricula", "Seccion");
+    public $uses = array("Bimestre", "Docente", "Curso", "Asignacion", "Nota", "Detallenota", "Alumno", "Matricula", "Seccion", "Padre");
         
     public function index() {
         $this->layout = "docente";
@@ -186,13 +182,14 @@ class NotasController extends AppController {
         $this->layout = "apoderado";
 
         $user = $this->Auth->user();
-        $padre = $this->Alumno->Padre->findByIduser($user["iduser"]);
+        $this->Padre->recursive = 2;
+        $padre = $this->Padre->findByIduser($user["iduser"]);
                 
         $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
-        $this->set("alumnos", Set::combine($padre["Alumno"], "{n}.idalumno", "{n}.nombreCompleto"));
+        $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
         
         $cursos = array();
         $matricula_seleccionada = null;

@@ -20,7 +20,14 @@ class UsersController extends AppController {
 
         // Alumno
         $group->id = 2;
-        $this->Acl->allow($group, 'controllers');
+        $this->Acl->deny($group, 'controllers');
+        $this->Acl->allow($group, 'controllers/Pages/alumno');
+        $this->Acl->allow($group, 'controllers/Cursos/cursosByAlumno');
+        $this->Acl->allow($group, 'controllers/Cursos/view_alumno');
+        $this->Acl->allow($group, 'controllers/Notas/index_alumno');
+        $this->Acl->allow($group, 'controllers/Notas/view_alumno');
+        $this->Acl->allow($group, 'controllers/Reportes/notas_alumno');
+        $this->Acl->allow($group, 'controllers/Reportes/notas_alumno_post');
         
         // Apoderado
         $group->id = 3;
@@ -149,24 +156,23 @@ class UsersController extends AppController {
 
         return $user;
     }
-        
-    public function manage_usuario() {
-        if(empty($this->request->params["requested"])) {
-            throw new ForbiddenException();
-        }
-        
+      
+    public function change_pass() {
         $user = $this->Auth->user();
-        return $user;
-    }
-    
-    public function change_password() {
-        $this->layout = "admin";       
-        
+        if($user["idgroup"] == 1) {
+            $this->layout = "admin";
+        } elseif($user["idgroup"] == 2) {
+            $this->layout = "alumno";
+        } elseif($user["idgroup"] == 3) {
+            $this->layout = "apoderado";
+        } elseif($user["idgroup"] == 4) {
+            $this->layout = "docente";
+        }
         if ($this->request->is(array("post", "put"))) {
             
             $user = $this->User->find("first", array(
                 "conditions" => array(
-                    "User.id" => $this->Auth->user()["id"]
+                    "User.iduser" => $this->Auth->user()["iduser"]
                 ),
                 "fields" => array("password")
             ));
@@ -177,13 +183,33 @@ class UsersController extends AppController {
                     $this->Session->setFlash(__("Los password ingresados no coinciden"), "flash_bootstrap");
                     return;
                 }
-                $this->User->id = $this->Auth->user()["id"];
+                $this->User->id = $this->Auth->user()["iduser"];
                 if ($this->User->saveField("password", $this->request->data["User"]["new_password"]) ) {
                     $this->Session->setFlash(__("El password ha sido actualizado correctamente."), "flash_bootstrap");
-                    return $this->redirect(array("controller" => "Pages", "action" => "display", "home"));
+                    return $this->redirect(array("controller" => "Users", "action" => "change_pass"));
                 }
             }
             $this->Session->setFlash(__("El password anterior no coincide"), "flash_bootstrap");
+        }
+    }
+    
+    public function datos() {
+        $user = $this->Auth->user();
+        if($user["Group"]["descripcion"] == "Administrador") {
+            $this->set("admin", $user);
+            $this->layout = "admin";
+        } elseif($user["Group"]["descripcion"] == "Alumno") {
+            $alumno = $this->User->Alumno->findByIduser($user["iduser"]);
+            $this->set("alumno", $alumno);
+            $this->layout = "alumno";
+        } elseif($user["Group"]["descripcion"] == "Apoderado") {
+            $apoderado = $this->User->Padre->findByIduser($user["iduser"]);
+            $this->set("apoderado", $apoderado);
+            $this->layout = "apoderado";
+        } elseif($user["Group"]["descripcion"] == "Docente") {
+            $docente = $this->User->Docente->findByIduser($user["iduser"]);
+            $this->set("docente", $docente);
+            $this->layout = "docente";
         }
     }
 }

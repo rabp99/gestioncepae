@@ -5,12 +5,7 @@
  * @author admin
  */
 class ReportesController extends AppController {
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("notas_alumno", "notas_apoderado", "notas_alumno_post", "notas_apoderado_post");
-    }
-
-    public $uses = array("User", "Alumno", "Matricula", "Bimestre", "Nota", "Curso", "Area", "Asignacion");
+    public $uses = array("User", "Alumno", "Matricula", "Bimestre", "Nota", "Curso", "Area", "Asignacion", "Padre");
         
     public function notas_alumno() {
         $this->layout = "alumno";
@@ -30,13 +25,14 @@ class ReportesController extends AppController {
         $this->layout = "apoderado";
         
         $user = $this->Auth->user();
-        $padre = $this->Alumno->Padre->findByIduser($user["iduser"]);
+        $this->Padre->recursive = 2;
+        $padre = $this->Padre->findByIduser($user["iduser"]);
                 
         $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
-        $this->set("alumnos", Set::combine($padre["Alumno"], "{n}.idalumno", "{n}.nombreCompleto"));
+        $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
         
         $this->set("bimestres", $this->Bimestre->find("list", array(
             "fields" => array("Bimestre.idbimestre", "Bimestre.descripcion"),
@@ -68,7 +64,7 @@ class ReportesController extends AppController {
         
         if(!isset($matricula["Seccion"])) {
             $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
-            return $this->redirect(array("action" => "notas_apoderado"));
+            return $this->redirect(array("action" => "notas_alumno"));
         }
         
         $this->Curso->recursive = -1;

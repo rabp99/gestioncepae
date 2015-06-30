@@ -8,14 +8,16 @@
     $this->assign("id", $this->request->data["Alumno"]["idalumno"]);
         
     $this->Html->addCrumb('Alumnos', '/Alumnos');
-    $this->Html->addCrumb('Editar', '/Alumnos/edit');
-    debug($this->request->data);
+    $this->Html->addCrumb('Editar', '/Alumnos/edit');    
+    
+    echo $this->Html->css("jquery-ui.min");
+    echo $this->Html->css("jquery-ui.structure.min");
+    echo $this->Html->css("jquery-ui.theme.min");
+    echo $this->Html->script("jquery-ui.min", array("inline" => false));
+    echo $this->Html->script("datepicker-es", array("inline" => false));
 ?>
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
-        <li>
-            <a data-toggle="tab" href="#yw0_tab_1"><span class="modernpics">g</span> Padres de Familia</a>
-        </li>
         <li>
             <a data-toggle="tab" href="#yw0_tab_2"><span class="modernpics">~</span> Otros</a>
         </li>
@@ -57,7 +59,8 @@
                         "empty" => "Seleccionar uno"
                     ));
                     echo $this->Form->input("fechaNac", array(
-                        "label" => "Fecha de Nacimiento"
+                        "label" => "Fecha de Nacimiento",
+                        "type" => "text"
                     ));
                     echo $this->Form->input("lugarNac", array(
                         "label" => "Lugar de Nacimiento"
@@ -133,178 +136,19 @@
                     ));    
                 ?>
                 </div>
-            </div> 
-            <div id="yw0_tab_1" class="tab-pane fade">
-                <div class="info-panel">        
-                    <?php
-                        echo $this->Form->label("Auxiliar.aux", "En caso de Emergencia remitir a ");
-                        echo $this->Form->select("Auxiliar.aux", array(
-                            "0" => "Padre", "1" => "Madre", "2" => "Apoderado"
-                        ), array(
-                            "empty" => "Selecciona Uno",
-                            "required" => true
-                        ));
-                    ?>
-                    <fieldset>
-                        <legend>Padre</legend>
-                        <?php 
-                            echo $this->Form->input("Padre.0.parentesco", array(
-                                "type" => "hidden",
-                                "value" => "Padre"
-                            ));  
-                            echo $this->Form->input("Padre.0.idpadre", array(
-                                "type" => "hidden"
-                            ));  
-                            echo $this->Form->input("Padre.0.nombres", array(
-                                "label" => "Nombres"
-                            ));  
-                            echo $this->Form->input("Padre.0.apellidoPaterno", array(
-                                "label" => "Apellido Paterno"
-                            ));  
-                            echo $this->Form->input("Padre.0.apellidoMaterno", array(
-                                "label" => "Apellido Materno"
-                            ));
-                            echo $this->Form->input("Padre.0.dni", array(
-                                "label" => "DNI"
-                            ));
-                            echo $this->Form->input("Padre.0.telefono1", array(
-                                "label" => "Teléfono 1"
-                            ));
-                            echo $this->Form->input("Padre.0.telefono2", array(
-                                "label" => "Teléfono 2"
-                            ));
-                            echo $this->Form->input("Padre.0.fechaNac", array(
-                                "label" => "Fecha de Nacimiento"
-                            ));
-                            echo $this->Form->input("Padre.0.email", array(
-                                "label" => "Email"
-                            ));
-                            echo $this->Form->input("Padre.0.profesion", array(
-                                "label" => "Profesión"
-                            ));
-                            echo $this->Form->input("Padre.0.nivelestudio", array(
-                                "label" => "Nivel de Estudio",
-                                "options" => array("Sin estudios" => "Sin estudios", "Primaria" => "Pimaria", "Secundaria" => "Secundaria", "Profesional" => "Profesional"),
-                                "empty" => "Selecciona uno"
-                            ));
-                            echo $this->Form->input("Padre.0.ocupacion", array(
-                                "label" => "Ocupación"
-                            ));
-                            echo $this->Form->input("Padre.0.condicion", array(
-                                "label" => "Condición"
-                            ));
-                        ?>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Madre</legend>
-                        <?php 
-                            echo $this->Form->input("Padre.1.parentesco", array(
-                                "type" => "hidden",
-                                "value" => "Madre"
-                            ));  
-                            echo $this->Form->input("Padre.1.idpadre", array(
-                                "type" => "hidden"
-                            ));  
-                            echo $this->Form->input("Padre.1.nombres", array(
-                                "label" => "Nombres"
-                            ));  
-                            echo $this->Form->input("Padre.1.apellidoPaterno", array(
-                                "label" => "Apellido Paterno"
-                            ));  
-                            echo $this->Form->input("Padre.1.apellidoMaterno", array(
-                                "label" => "Apellido Materno"
-                            ));
-                            echo $this->Form->input("Padre.1.dni", array(
-                                "label" => "DNI"
-                            ));
-                            echo $this->Form->input("Padre.1.telefono1", array(
-                                "label" => "Teléfono 1"
-                            ));
-                            echo $this->Form->input("Padre.1.telefono2", array(
-                                "label" => "Teléfono 2"
-                            ));
-                            echo $this->Form->input("Padre.1.fechaNac", array(
-                                "label" => "Fecha de Nacimiento"
-                            ));
-                            echo $this->Form->input("Padre.1.email", array(
-                                "label" => "Email"
-                            ));
-                            echo $this->Form->input("Padre.1.profesion", array(
-                                "label" => "Profesión"
-                            ));
-                            echo $this->Form->input("Padre.1.nivelestudio", array(
-                                "label" => "Nivel de Estudio",
-                                "options" => array("Sin estudios" => "Sin estudios", "Primaria" => "Pimaria", "Secundaria" => "Secundaria", "Profesional" => "Profesional"),
-                                "empty" => "Selecciona uno"
-                            ));
-                            echo $this->Form->input("Padre.1.ocupacion", array(
-                                "label" => "Ocupación"
-                            ));
-                            echo $this->Form->input("Padre.1.condicion", array(
-                                "label" => "Condición"
-                            ));
-                        ?>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Apoderado</legend>
-                        <?php 
-                            echo $this->Form->input("Padre.2.parentesco", array(
-                                "type" => "hidden",
-                                "value" => "Apoderado"
-                            ));  
-                            echo $this->Form->input("Padre.2.idpadre", array(
-                                "type" => "hidden"
-                            ));  
-                            echo $this->Form->input("Padre.2.nombres", array(
-                                "label" => "Nombres",
-                                "required" => false
-                            ));  
-                            echo $this->Form->input("Padre.2.apellidoPaterno", array(
-                                "label" => "Apellido Paterno",
-                                "required" => false
-                            ));  
-                            echo $this->Form->input("Padre.2.apellidoMaterno", array(
-                                "label" => "Apellido Materno",
-                                "required" => false
-                            ));
-                            echo $this->Form->input("Padre.2.dni", array(
-                                "label" => "DNI",
-                                "required" => false
-                            ));
-                            echo $this->Form->input("Padre.2.telefono1", array(
-                                "label" => "Teléfono 1"
-                            ));
-                            echo $this->Form->input("Padre.2.telefono2", array(
-                                "label" => "Teléfono 2"
-                            ));
-                            echo $this->Form->input("Padre.2.fechaNac", array(
-                                "label" => "Fecha de Nacimiento",
-                                "required" => false
-                            ));
-                            echo $this->Form->input("Padre.2.email", array(
-                                "label" => "Email"
-                            ));
-                            echo $this->Form->input("Padre.2.profesion", array(
-                                "label" => "Profesión"
-                            ));
-                            echo $this->Form->input("Padre.2.nivelestudio", array(
-                                "label" => "Nivel de Estudio",
-                                "options" => array("Sin estudios" => "Sin estudios", "Primaria" => "Pimaria", "Secundaria" => "Secundaria", "Profesional" => "Profesional"),
-                                "empty" => "Selecciona uno"
-                            ));
-                            echo $this->Form->input("Padre.2.ocupacion", array(
-                                "label" => "Ocupación"
-                            ));
-                            echo $this->Form->input("Padre.2.condicion", array(
-                                "label" => "Condición"
-                            ));
-                        ?>
-                    </fieldset>
-                </div>
-            </div> 
+            </div>
         <?php   
             echo $this->Form->button("Editar", array("class" => "btn btn-primary btn-large"));
             echo $this->Form->end();
         ?>
     </div>
 </div>
+<?php echo $this->Html->scriptStart(array('inline' => false)); ?>
+    $(document).ready(function() {
+        $("#AlumnoFechaNac").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
+    });
+<?php echo $this->Html->scriptEnd(); ?>
