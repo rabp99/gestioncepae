@@ -33,7 +33,7 @@ CREATE TABLE `acos` (
   PRIMARY KEY (`id`),
   KEY `idx_acos_lft_rght` (`lft`,`rght`),
   KEY `idx_acos_alias` (`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `acos` (
 
 LOCK TABLES `acos` WRITE;
 /*!40000 ALTER TABLE `acos` DISABLE KEYS */;
-INSERT INTO `acos` VALUES (1,NULL,NULL,NULL,'controllers',1,264),(2,1,NULL,NULL,'Alumnos',2,21),(3,2,NULL,NULL,'index',3,4),(4,2,NULL,NULL,'add',5,6),(5,2,NULL,NULL,'view',7,8),(6,2,NULL,NULL,'edit',9,10),(7,2,NULL,NULL,'delete',11,12),(8,2,NULL,NULL,'getAlumnos',13,14),(9,2,NULL,NULL,'getPadre0ByDni',15,16),(10,2,NULL,NULL,'getPadre1ByDni',17,18),(11,2,NULL,NULL,'datos_alumno',19,20),(12,1,NULL,NULL,'Aniolectivos',22,33),(13,12,NULL,NULL,'index',23,24),(14,12,NULL,NULL,'add',25,26),(15,12,NULL,NULL,'view',27,28),(16,12,NULL,NULL,'edit',29,30),(17,12,NULL,NULL,'delete',31,32),(18,1,NULL,NULL,'Areas',34,45),(19,18,NULL,NULL,'index',35,36),(20,18,NULL,NULL,'add',37,38),(21,18,NULL,NULL,'view',39,40),(22,18,NULL,NULL,'edit',41,42),(23,18,NULL,NULL,'delete',43,44),(24,1,NULL,NULL,'Asignaciones',46,57),(25,24,NULL,NULL,'index',47,48),(26,24,NULL,NULL,'registrar',49,50),(27,24,NULL,NULL,'modificar',51,52),(28,24,NULL,NULL,'view',53,54),(29,24,NULL,NULL,'getAsignaciones',55,56),(30,1,NULL,NULL,'Bimestres',58,69),(31,30,NULL,NULL,'index',59,60),(32,30,NULL,NULL,'add',61,62),(33,30,NULL,NULL,'view',63,64),(34,30,NULL,NULL,'edit',65,66),(35,30,NULL,NULL,'delete',67,68),(36,1,NULL,NULL,'Conceptos',70,83),(37,36,NULL,NULL,'index',71,72),(38,36,NULL,NULL,'add',73,74),(39,36,NULL,NULL,'view',75,76),(40,36,NULL,NULL,'edit',77,78),(41,36,NULL,NULL,'delete',79,80),(42,36,NULL,NULL,'getFormByAniolectivo',81,82),(43,1,NULL,NULL,'Cursos',84,103),(44,43,NULL,NULL,'index',85,86),(45,43,NULL,NULL,'add',87,88),(46,43,NULL,NULL,'view',89,90),(47,43,NULL,NULL,'edit',91,92),(48,43,NULL,NULL,'delete',93,94),(49,43,NULL,NULL,'cursosByDocente',95,96),(50,43,NULL,NULL,'view_docente',97,98),(51,43,NULL,NULL,'cursosByAlumno',99,100),(52,43,NULL,NULL,'view_alumno',101,102),(53,1,NULL,NULL,'Docentes',104,119),(54,53,NULL,NULL,'index',105,106),(55,53,NULL,NULL,'add',107,108),(56,53,NULL,NULL,'view',109,110),(57,53,NULL,NULL,'edit',111,112),(58,53,NULL,NULL,'delete',113,114),(59,53,NULL,NULL,'datos_docente',115,116),(60,53,NULL,NULL,'getDocentes',117,118),(61,1,NULL,NULL,'Grados',120,133),(62,61,NULL,NULL,'index',121,122),(63,61,NULL,NULL,'add',123,124),(64,61,NULL,NULL,'view',125,126),(65,61,NULL,NULL,'edit',127,128),(66,61,NULL,NULL,'delete',129,130),(67,61,NULL,NULL,'getByIdnivel',131,132),(68,1,NULL,NULL,'Groups',134,141),(69,68,NULL,NULL,'index',135,136),(70,68,NULL,NULL,'view',137,138),(71,68,NULL,NULL,'add',139,140),(72,1,NULL,NULL,'Matriculas',142,153),(73,72,NULL,NULL,'index',143,144),(74,72,NULL,NULL,'add',145,146),(75,72,NULL,NULL,'view',147,148),(76,72,NULL,NULL,'delete',149,150),(77,72,NULL,NULL,'getMatriculas',151,152),(78,1,NULL,NULL,'Niveles',154,165),(79,78,NULL,NULL,'index',155,156),(80,78,NULL,NULL,'add',157,158),(81,78,NULL,NULL,'view',159,160),(82,78,NULL,NULL,'edit',161,162),(83,78,NULL,NULL,'delete',163,164),(84,1,NULL,NULL,'Notas',166,181),(85,84,NULL,NULL,'index',167,168),(86,84,NULL,NULL,'administrar',169,170),(87,84,NULL,NULL,'registrar',171,172),(88,84,NULL,NULL,'getFormNotas',173,174),(89,84,NULL,NULL,'getFormRegistro',175,176),(90,84,NULL,NULL,'index_alumno',177,178),(91,84,NULL,NULL,'view_alumno',179,180),(92,1,NULL,NULL,'Pages',182,191),(93,92,NULL,NULL,'admin',183,184),(94,92,NULL,NULL,'alumno',185,186),(95,92,NULL,NULL,'docente',187,188),(96,92,NULL,NULL,'prohibido',189,190),(97,1,NULL,NULL,'Pagos',192,201),(98,97,NULL,NULL,'index',193,194),(99,97,NULL,NULL,'registrar',195,196),(100,97,NULL,NULL,'view',197,198),(101,97,NULL,NULL,'getFormPagos',199,200),(102,1,NULL,NULL,'Reportes',202,209),(103,102,NULL,NULL,'index',203,204),(104,102,NULL,NULL,'notas',205,206),(105,102,NULL,NULL,'notas_post',207,208),(106,1,NULL,NULL,'Secciones',210,225),(107,106,NULL,NULL,'index',211,212),(108,106,NULL,NULL,'add',213,214),(109,106,NULL,NULL,'view',215,216),(110,106,NULL,NULL,'edit',217,218),(111,106,NULL,NULL,'delete',219,220),(112,106,NULL,NULL,'getByIdgrado',221,222),(113,106,NULL,NULL,'getNextSeccion',223,224),(114,1,NULL,NULL,'Turnos',226,237),(115,114,NULL,NULL,'index',227,228),(116,114,NULL,NULL,'add',229,230),(117,114,NULL,NULL,'view',231,232),(118,114,NULL,NULL,'edit',233,234),(119,114,NULL,NULL,'delete',235,236),(120,1,NULL,NULL,'Users',238,261),(121,120,NULL,NULL,'initDB',239,240),(122,120,NULL,NULL,'index',241,242),(123,120,NULL,NULL,'view',243,244),(124,120,NULL,NULL,'add',245,246),(125,120,NULL,NULL,'edit',247,248),(126,120,NULL,NULL,'delete',249,250),(127,120,NULL,NULL,'login',251,252),(128,120,NULL,NULL,'logout',253,254),(129,120,NULL,NULL,'datos_admin',255,256),(130,120,NULL,NULL,'manage_usuario',257,258),(131,120,NULL,NULL,'change_password',259,260),(132,1,NULL,NULL,'AclExtras',262,263);
+INSERT INTO `acos` VALUES (1,NULL,NULL,NULL,'controllers',1,278),(2,1,NULL,NULL,'Alumnos',2,25),(3,2,NULL,NULL,'index',3,4),(4,2,NULL,NULL,'add',5,6),(5,2,NULL,NULL,'view',7,8),(6,2,NULL,NULL,'edit',9,10),(7,2,NULL,NULL,'delete',11,12),(8,2,NULL,NULL,'getAlumnos',13,14),(9,2,NULL,NULL,'getPadre0ByDni',15,16),(10,2,NULL,NULL,'getPadre1ByDni',17,18),(11,2,NULL,NULL,'getPadre2ByDni',19,20),(12,2,NULL,NULL,'datos_alumno',21,22),(13,2,NULL,NULL,'datos_apoderado',23,24),(14,1,NULL,NULL,'Aniolectivos',26,37),(15,14,NULL,NULL,'index',27,28),(16,14,NULL,NULL,'add',29,30),(17,14,NULL,NULL,'view',31,32),(18,14,NULL,NULL,'edit',33,34),(19,14,NULL,NULL,'delete',35,36),(20,1,NULL,NULL,'Areas',38,49),(21,20,NULL,NULL,'index',39,40),(22,20,NULL,NULL,'add',41,42),(23,20,NULL,NULL,'view',43,44),(24,20,NULL,NULL,'edit',45,46),(25,20,NULL,NULL,'delete',47,48),(26,1,NULL,NULL,'Asignaciones',50,61),(27,26,NULL,NULL,'index',51,52),(28,26,NULL,NULL,'registrar',53,54),(29,26,NULL,NULL,'modificar',55,56),(30,26,NULL,NULL,'view',57,58),(31,26,NULL,NULL,'getAsignaciones',59,60),(32,1,NULL,NULL,'Bimestres',62,73),(33,32,NULL,NULL,'index',63,64),(34,32,NULL,NULL,'add',65,66),(35,32,NULL,NULL,'view',67,68),(36,32,NULL,NULL,'edit',69,70),(37,32,NULL,NULL,'delete',71,72),(38,1,NULL,NULL,'Conceptos',74,87),(39,38,NULL,NULL,'index',75,76),(40,38,NULL,NULL,'add',77,78),(41,38,NULL,NULL,'view',79,80),(42,38,NULL,NULL,'edit',81,82),(43,38,NULL,NULL,'delete',83,84),(44,38,NULL,NULL,'getFormByAniolectivo',85,86),(45,1,NULL,NULL,'Cursos',88,111),(46,45,NULL,NULL,'index',89,90),(47,45,NULL,NULL,'add',91,92),(48,45,NULL,NULL,'view',93,94),(49,45,NULL,NULL,'edit',95,96),(50,45,NULL,NULL,'delete',97,98),(51,45,NULL,NULL,'cursosByDocente',99,100),(52,45,NULL,NULL,'view_docente',101,102),(53,45,NULL,NULL,'cursosByAlumno',103,104),(54,45,NULL,NULL,'view_alumno',105,106),(55,45,NULL,NULL,'cursosByApoderado',107,108),(56,45,NULL,NULL,'view_apoderado',109,110),(57,1,NULL,NULL,'Docentes',112,127),(58,57,NULL,NULL,'index',113,114),(59,57,NULL,NULL,'add',115,116),(60,57,NULL,NULL,'view',117,118),(61,57,NULL,NULL,'edit',119,120),(62,57,NULL,NULL,'delete',121,122),(63,57,NULL,NULL,'datos_docente',123,124),(64,57,NULL,NULL,'getDocentes',125,126),(65,1,NULL,NULL,'Grados',128,141),(66,65,NULL,NULL,'index',129,130),(67,65,NULL,NULL,'add',131,132),(68,65,NULL,NULL,'view',133,134),(69,65,NULL,NULL,'edit',135,136),(70,65,NULL,NULL,'delete',137,138),(71,65,NULL,NULL,'getByIdnivel',139,140),(72,1,NULL,NULL,'Groups',142,149),(73,72,NULL,NULL,'index',143,144),(74,72,NULL,NULL,'view',145,146),(75,72,NULL,NULL,'add',147,148),(76,1,NULL,NULL,'Matriculas',150,159),(77,76,NULL,NULL,'index',151,152),(78,76,NULL,NULL,'add',153,154),(79,76,NULL,NULL,'view',155,156),(80,76,NULL,NULL,'delete',157,158),(81,1,NULL,NULL,'Niveles',160,171),(82,81,NULL,NULL,'index',161,162),(83,81,NULL,NULL,'add',163,164),(84,81,NULL,NULL,'view',165,166),(85,81,NULL,NULL,'edit',167,168),(86,81,NULL,NULL,'delete',169,170),(87,1,NULL,NULL,'Notas',172,191),(88,87,NULL,NULL,'index',173,174),(89,87,NULL,NULL,'administrar',175,176),(90,87,NULL,NULL,'registrar',177,178),(91,87,NULL,NULL,'getFormNotas',179,180),(92,87,NULL,NULL,'getFormRegistro',181,182),(93,87,NULL,NULL,'index_alumno',183,184),(94,87,NULL,NULL,'view_alumno',185,186),(95,87,NULL,NULL,'index_apoderado',187,188),(96,87,NULL,NULL,'view_apoderado',189,190),(97,1,NULL,NULL,'Pages',192,203),(98,97,NULL,NULL,'admin',193,194),(99,97,NULL,NULL,'alumno',195,196),(100,97,NULL,NULL,'apoderado',197,198),(101,97,NULL,NULL,'docente',199,200),(102,97,NULL,NULL,'prohibido',201,202),(103,1,NULL,NULL,'Pagos',204,213),(104,103,NULL,NULL,'index',205,206),(105,103,NULL,NULL,'registrar',207,208),(106,103,NULL,NULL,'view',209,210),(107,103,NULL,NULL,'getFormPagos',211,212),(108,1,NULL,NULL,'Reportes',214,223),(109,108,NULL,NULL,'notas_alumno',215,216),(110,108,NULL,NULL,'notas_apoderado',217,218),(111,108,NULL,NULL,'notas_alumno_post',219,220),(112,108,NULL,NULL,'notas_apoderado_post',221,222),(113,1,NULL,NULL,'Secciones',224,239),(114,113,NULL,NULL,'index',225,226),(115,113,NULL,NULL,'add',227,228),(116,113,NULL,NULL,'view',229,230),(117,113,NULL,NULL,'edit',231,232),(118,113,NULL,NULL,'delete',233,234),(119,113,NULL,NULL,'getByIdgrado',235,236),(120,113,NULL,NULL,'getNextSeccion',237,238),(121,1,NULL,NULL,'Turnos',240,251),(122,121,NULL,NULL,'index',241,242),(123,121,NULL,NULL,'add',243,244),(124,121,NULL,NULL,'view',245,246),(125,121,NULL,NULL,'edit',247,248),(126,121,NULL,NULL,'delete',249,250),(127,1,NULL,NULL,'Users',252,275),(128,127,NULL,NULL,'initDB',253,254),(129,127,NULL,NULL,'index',255,256),(130,127,NULL,NULL,'view',257,258),(131,127,NULL,NULL,'add',259,260),(132,127,NULL,NULL,'edit',261,262),(133,127,NULL,NULL,'delete',263,264),(134,127,NULL,NULL,'login',265,266),(135,127,NULL,NULL,'logout',267,268),(136,127,NULL,NULL,'datos_admin',269,270),(137,127,NULL,NULL,'change_pass',271,272),(138,127,NULL,NULL,'datos',273,274),(139,1,NULL,NULL,'AclExtras',276,277);
 /*!40000 ALTER TABLE `acos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,9 +96,12 @@ DROP TABLE IF EXISTS `alumnos_padres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `alumnos_padres` (
+  `idalumno_padre` int(11) NOT NULL AUTO_INCREMENT,
   `idpadre` int(11) NOT NULL,
   `idalumno` int(11) NOT NULL,
-  PRIMARY KEY (`idpadre`,`idalumno`),
+  `parentesco` varchar(10) NOT NULL,
+  `apoderado` char(1) NOT NULL,
+  PRIMARY KEY (`idalumno_padre`,`idpadre`,`idalumno`),
   KEY `fk_padres_has_alumnos_alumnos1_idx` (`idalumno`),
   KEY `fk_padres_has_alumnos_padres1_idx` (`idpadre`),
   CONSTRAINT `fk_padres_has_alumnos_padres1` FOREIGN KEY (`idpadre`) REFERENCES `padres` (`idpadre`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -155,7 +158,7 @@ CREATE TABLE `areas` (
   `importancia` int(10) unsigned DEFAULT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idarea`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,6 +167,7 @@ CREATE TABLE `areas` (
 
 LOCK TABLES `areas` WRITE;
 /*!40000 ALTER TABLE `areas` DISABLE KEYS */;
+INSERT INTO `areas` VALUES (1,'GENERAL',0,'1');
 /*!40000 ALTER TABLE `areas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +220,7 @@ CREATE TABLE `aros_acos` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`),
   KEY `idx_aco_id` (`aco_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,7 +229,6 @@ CREATE TABLE `aros_acos` (
 
 LOCK TABLES `aros_acos` WRITE;
 /*!40000 ALTER TABLE `aros_acos` DISABLE KEYS */;
-INSERT INTO `aros_acos` VALUES (1,1,1,'1','1','1','1'),(2,2,1,'1','1','1','1'),(3,3,1,'1','1','1','1'),(4,4,1,'1','1','1','1');
 /*!40000 ALTER TABLE `aros_acos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -602,8 +605,6 @@ CREATE TABLE `padres` (
   `profesion` varchar(50) DEFAULT NULL,
   `nivelestudio` varchar(50) DEFAULT NULL,
   `ocupacion` varchar(50) DEFAULT NULL,
-  `parentesco` varchar(10) NOT NULL,
-  `apoderado` char(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idpadre`),
   UNIQUE KEY `dni_UNIQUE` (`dni`),
   KEY `fk_padres_users1_idx` (`iduser`),
@@ -726,7 +727,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `fk_users_groups1_idx` (`idgroup`),
   CONSTRAINT `fk_users_groups1` FOREIGN KEY (`idgroup`) REFERENCES `groups` (`idgroup`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -735,6 +736,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,1,'admin','$2a$10$/lZMNRTkfW8Nh5uAumN6JuPThpjlwKRgETjw1hpHzqBJ0R/U/tFu6','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -747,4 +749,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-22 11:22:45
+-- Dump completed on 2015-06-30 14:18:45
