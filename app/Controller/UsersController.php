@@ -28,14 +28,41 @@ class UsersController extends AppController {
         $this->Acl->allow($group, 'controllers/Notas/view_alumno');
         $this->Acl->allow($group, 'controllers/Reportes/notas_alumno');
         $this->Acl->allow($group, 'controllers/Reportes/notas_alumno_post');
+        $this->Acl->allow($group, 'controllers/Users/datos');
+        $this->Acl->allow($group, 'controllers/Users/change_pass');
+        $this->Acl->allow($group, 'controllers/Users/logout');
+        $this->Acl->allow($group, 'controllers/Alumnos/datos_alumno');
         
         // Apoderado
         $group->id = 3;
-        $this->Acl->allow($group, 'controllers');
+        $this->Acl->deny($group, 'controllers');
+        $this->Acl->allow($group, 'controllers/Pages/apoderado');
+        $this->Acl->allow($group, 'controllers/Cursos/cursosByApoderado');
+        $this->Acl->allow($group, 'controllers/Cursos/view_apoderado');
+        $this->Acl->allow($group, 'controllers/Notas/index_apoderado');
+        $this->Acl->allow($group, 'controllers/Notas/view_apoderado');
+        $this->Acl->allow($group, 'controllers/Reportes/notas_apoderado');
+        $this->Acl->allow($group, 'controllers/Reportes/notas_apoderado_post');
+        $this->Acl->allow($group, 'controllers/Users/datos');
+        $this->Acl->allow($group, 'controllers/Users/change_pass');
+        $this->Acl->allow($group, 'controllers/Users/logout');
+        $this->Acl->allow($group, 'controllers/Alumnos/datos_apoderado');
         
         // Docente
         $group->id = 4;
-        $this->Acl->allow($group, 'controllers');
+        $this->Acl->deny($group, 'controllers');
+        $this->Acl->allow($group, 'controllers/Pages/docente');
+        $this->Acl->allow($group, 'controllers/Cursos/cursosByDocente');
+        $this->Acl->allow($group, 'controllers/Cursos/view_docente');
+        $this->Acl->allow($group, 'controllers/Notas/index');
+        $this->Acl->allow($group, 'controllers/Notas/administrar');
+        $this->Acl->allow($group, 'controllers/Notas/registrar');
+        $this->Acl->allow($group, 'controllers/Notas/getFormNotas');
+        $this->Acl->allow($group, 'controllers/Notas/getFormRegistro');
+        $this->Acl->allow($group, 'controllers/Users/datos');
+        $this->Acl->allow($group, 'controllers/Users/change_pass');
+        $this->Acl->allow($group, 'controllers/Users/logout');
+        $this->Acl->allow($group, 'controllers/Docentes/datos_docente');
         
         // we add an exit to avoid an ugly "missing views" error message
         echo "all done";
