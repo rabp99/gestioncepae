@@ -16,11 +16,11 @@ class Detallenota extends AppModel {
     public $validate = array(
         "valor" => array(
             "mayor" => array(
-                "rule" => array("comparison", ">", 0),
+                "rule" => array("comparison", ">=", 0),
                 "message" => "Debe ser un valor mayor a 0"
             ),       
             "menor" => array(
-                "rule" => array("comparison", "<", 20),
+                "rule" => array("comparison", "<=", 20),
                 "message" => "Debe ser un valor menor a 20"
             ),
         )

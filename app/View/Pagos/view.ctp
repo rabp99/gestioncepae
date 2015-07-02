@@ -16,3 +16,4 @@
     <?php } ?>
 </dl>
 <?php } ?>
+<?php echo $this->Html->link("Regresar", array("action" => "index")); ?>

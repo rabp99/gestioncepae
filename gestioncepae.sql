@@ -220,7 +220,7 @@ CREATE TABLE `aros_acos` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`),
   KEY `idx_aco_id` (`aco_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,6 +229,7 @@ CREATE TABLE `aros_acos` (
 
 LOCK TABLES `aros_acos` WRITE;
 /*!40000 ALTER TABLE `aros_acos` DISABLE KEYS */;
+INSERT INTO `aros_acos` VALUES (1,1,1,'1','1','1','1'),(2,2,1,'-1','-1','-1','-1'),(3,2,99,'1','1','1','1'),(4,2,53,'1','1','1','1'),(5,2,54,'1','1','1','1'),(6,2,93,'1','1','1','1'),(7,2,94,'1','1','1','1'),(8,2,109,'1','1','1','1'),(9,2,111,'1','1','1','1'),(10,2,138,'1','1','1','1'),(11,2,137,'1','1','1','1'),(12,2,135,'1','1','1','1'),(13,2,12,'1','1','1','1'),(14,3,1,'-1','-1','-1','-1'),(15,3,100,'1','1','1','1'),(16,3,55,'1','1','1','1'),(17,3,56,'1','1','1','1'),(18,3,95,'1','1','1','1'),(19,3,96,'1','1','1','1'),(20,3,110,'1','1','1','1'),(21,3,112,'1','1','1','1'),(22,3,138,'1','1','1','1'),(23,3,137,'1','1','1','1'),(24,3,135,'1','1','1','1'),(25,3,13,'1','1','1','1'),(26,4,1,'-1','-1','-1','-1'),(27,4,101,'1','1','1','1'),(28,4,51,'1','1','1','1'),(29,4,52,'1','1','1','1'),(30,4,88,'1','1','1','1'),(31,4,89,'1','1','1','1'),(32,4,90,'1','1','1','1'),(33,4,91,'1','1','1','1'),(34,4,92,'1','1','1','1'),(35,4,138,'1','1','1','1'),(36,4,137,'1','1','1','1'),(37,4,135,'1','1','1','1'),(38,4,63,'1','1','1','1');
 /*!40000 ALTER TABLE `aros_acos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -736,7 +737,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,'admin','$2a$10$/lZMNRTkfW8Nh5uAumN6JuPThpjlwKRgETjw1hpHzqBJ0R/U/tFu6','1');
+INSERT INTO `users` VALUES (1,1,'admin','$2a$10$GDzncd0idQ4R5u4it.l9rOcTtep1BO0nNjftOcqGfem92ttte4qXO','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -749,4 +750,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-30 14:18:45
+-- Dump completed on 2015-07-01 16:04:49
