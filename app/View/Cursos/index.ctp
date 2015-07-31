@@ -10,7 +10,7 @@
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idcurso", "ID Curso <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idcurso", "Código <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c1"><?php echo $this->Paginator->sort("descripcion", "Descripción <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c3"><?php echo $this->Paginator->sort("Area.descripcion", "Área <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c4"><?php echo $this->Paginator->sort("Grado.descripcion", "Grado <span class='caret'></span>", array("escape" => false)); ?></th>

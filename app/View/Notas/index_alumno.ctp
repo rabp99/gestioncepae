@@ -10,7 +10,8 @@
     echo $this->Form->input("idaniolectivo", array(
         "label" => "Año Lectivo",
         "options" => $aniolectivos,
-        "empty" => "Selecciona uno"
+        "empty" => "Selecciona uno",
+        "value" => $idaniolectivo
     ));
     echo $this->Form->end();
 ?>
@@ -40,7 +41,7 @@
                 $curso["Area"]["descripcion"],
                 $curso["Grado"]["Nivel"]["descripcion"],
                 $curso["Grado"]["descripcion"],
-                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view_alumno", $curso["Curso"]["idcurso"], $this->request->data["Aniolectivo"]["idaniolectivo"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip"))
+                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view_alumno", $curso["Curso"]["idcurso"], $idaniolectivo), array("escape" => false, "title" => "Detalle", "rel" => "tooltip"))
             ), array(
                 "class" => "odd"
             ), array(

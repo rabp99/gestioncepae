@@ -13,7 +13,8 @@
     echo $this->Form->input("idaniolectivo", array(
         "label" => "Año Lectivo",
         "options" => $aniolectivos,
-        "empty" => "Selecciona uno"
+        "empty" => "Selecciona uno",
+        "value" => $idaniolectivo
     ));
     echo $this->Form->end();
     $this->end();
@@ -21,7 +22,7 @@
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idconcepto", "ID Concepto de Pago <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idconcepto", "Código <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c1"><?php echo $this->Paginator->sort("descripcion", "Descripción <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c2"><?php echo $this->Paginator->sort("monto", "Monto <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c3"><?php echo $this->Paginator->sort("Aniolectivo.descripcion", "Año Lectivo <span class='caret'></span>", array("escape" => false)); ?></th>
@@ -38,7 +39,7 @@
                 $concepto["Aniolectivo"]["descripcion"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $concepto["Concepto"]["idconcepto"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $concepto["Concepto"]["idconcepto"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
-                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $concepto["Concepto"]["idconcepto"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $concepto["Concepto"]["idconcepto"]), array("confirm" => "¿Estás seguro? Se canceleran todas las deudas referidas a este Conecpto de Pago de todos los alumnos ", "escape" => false, "title" => "Deshabilitar"))
             ), array(
                 "class" => "odd"
             ), array(

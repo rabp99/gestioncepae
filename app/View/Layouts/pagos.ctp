@@ -38,7 +38,7 @@
                     </div>
                     <a href="<?php echo $this->Html->url(array(
                         "controller" => "Pages",
-                        "action" => "apoderado"
+                        "action" => "pagos"
                     )); ?>" class="aqua-well-mini">
                         <h1 class="aqua-slogan">Sistema de Gestión Académica</h1>
                         <h2 class="aqua-slogan">Colegio CEPAE</h2>
@@ -46,7 +46,7 @@
                     <div class="aqua-well-mini pull-right">
                         <div class="aqua-user">
 
-                            <span class="aqua-user-name"><?php echo $this->requestAction("/Alumnos/datos_apoderado")["Padre"]["nombreCompleto"]; ?></span>
+                            <span class="aqua-user-name"><?php echo $this->requestAction("/Users/datos_pagos")["username"]; ?></span>
 
                             <div class="btn-group">
                                 <a href="<?php echo $this->Html->url(array("controller" => "Users", "action" => "datos")); ?>" class="btn btn-small"><span class="icon-cog"></span></a>
@@ -65,7 +65,7 @@
                         </div>
                         <span class="aqua-avatar">
                             <?php echo $this->Html->image("images/user.png", array(
-                                "alt" => "apoderado",
+                                "alt" => "docente",
                                 "width" => 46,
                                 "height" => 45
                             )); ?>
@@ -88,31 +88,13 @@
                         <li class="active">
                             <a href="<?php echo $this->Html->url(array(
                                 "controller" => "Pages",
-                                "action" => "apoderado"
+                                "action" => "pagos"
                             )); ?>">
                                 <i class="icon-home icon-white"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Cursos", "action" => "cursosByApoderado")) ?>">
-                                <span class="modernpics icons16 icons-white">a</span>
-                                Cursos
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Notas", "action" => "index_apoderado")) ?>">
-                                <span class="modernpics icons16 icons-white">V</span>
-                                Notas
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Reportes", "action" => "notas_apoderado")) ?>">
-                                <span class="modernpics icons16 icons-white">4</span>
-                                Boleta de Notas
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Pagos", "action" => "index_apoderado")) ?>">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Pagos", "action" => "index_pagos")) ?>">
                                 <span class="modernpics icons16 icons-white">#</span>
                                 Pagos
                             </a>
@@ -135,7 +117,7 @@
                     "lastClass" => "active",
                     "separator" => "<span class='divider'>/</span>"
                 ),
-                array("text" => "Home", "url" => array("controller" => "Pages", "action" => "apoderado"))
+                array("text" => "Home", "url" => array("controller" => "Pages", "action" => "docente"))
             ); ?>
         </div>
         

@@ -26,7 +26,6 @@
                     "min" => 0, 
                     "max" => 20,
                     "step" => 0.50,
-                    "readonly" => isset($nota["Detallenota"][$k_matricula]["valor"]) ? true : false,
                     "value" => isset($nota["Detallenota"][$k_matricula]["valor"]) ? $nota["Detallenota"][$k_matricula]["valor"] : "")
                 );
                 $detallenota .= $this->Form->input("Detallenota." . $n . ".idnota", array("type" => "hidden", "value" => $nota["Nota"]["idnota"]));
@@ -45,6 +44,5 @@
     </tbody>
 </table>
 <?php
-    if(!isset($notas[0]["Detallenota"][0]))
-        echo $this->Form->button("Registrar Notas", array("class" => "btn btn-primary btn-large"));
+    echo $this->Form->button("Registrar Notas", array("class" => "btn btn-primary btn-large"));
 ?>

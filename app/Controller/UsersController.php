@@ -6,9 +6,11 @@
  */
 
 class UsersController extends AppController {
+    public $components = array("Paginator");
+    
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow("index", "initDB", "add", "login");
+        $this->Auth->allow("index", "initDB", "add", "login", "datos_pagos");
     }
 
     public function initDB() {
@@ -26,6 +28,7 @@ class UsersController extends AppController {
         $this->Acl->allow($group, 'controllers/Cursos/view_alumno');
         $this->Acl->allow($group, 'controllers/Notas/index_alumno');
         $this->Acl->allow($group, 'controllers/Notas/view_alumno');
+        $this->Acl->allow($group, 'controllers/Pagos/index_alumno');
         $this->Acl->allow($group, 'controllers/Reportes/notas_alumno');
         $this->Acl->allow($group, 'controllers/Reportes/notas_alumno_post');
         $this->Acl->allow($group, 'controllers/Users/datos');
@@ -41,6 +44,7 @@ class UsersController extends AppController {
         $this->Acl->allow($group, 'controllers/Cursos/view_apoderado');
         $this->Acl->allow($group, 'controllers/Notas/index_apoderado');
         $this->Acl->allow($group, 'controllers/Notas/view_apoderado');
+        $this->Acl->allow($group, 'controllers/Pagos/index_apoderado');
         $this->Acl->allow($group, 'controllers/Reportes/notas_apoderado');
         $this->Acl->allow($group, 'controllers/Reportes/notas_apoderado_post');
         $this->Acl->allow($group, 'controllers/Users/datos');
@@ -64,34 +68,62 @@ class UsersController extends AppController {
         $this->Acl->allow($group, 'controllers/Users/logout');
         $this->Acl->allow($group, 'controllers/Docentes/datos_docente');
         
+        // Pagos
+        $group->id = 5;
+        $this->Acl->allow($group, 'controllers');
+        $this->Acl->allow($group, 'controllers/Pages/pagos');
+        $this->Acl->allow($group, 'controllers/Users/datos_pagos');
+        $this->Acl->allow($group, 'controllers/Users/datos');
+        $this->Acl->allow($group, 'controllers/Pagos/index_pagos');
+        $this->Acl->allow($group, 'controllers/Pagos/view_pagos');
+        $this->Acl->allow($group, 'controllers/Pagos/registrar_pagos');
+        
         // we add an exit to avoid an ugly "missing views" error message
         echo "all done";
         exit;
     }
 
+    public $paginate = array(
+        "limit" => 10,
+        "order" => array(
+            "User.username" => "asc"
+        ),
+        "conditions" => array(
+            "User.estado" => 1,
+            "User.idgroup" => array(1, 5)
+        )
+    );
+    
     public function index() {
+        $this->layout = "admin";
         
-        $this->set("users", $this->User->find("all", array(
-            'conditions' => array('User.estado' => '1')
-        )));
+        $this->Paginator->settings = $this->paginate;
+        $users = $this->Paginator->paginate();
+        $this->set(compact("users"));
     }
 
     public function view($id = null) {
         $this->layout = "admin";
-
-        $this->User->id = $id;
-        if (!$this->User->exists()) {
-            throw new NotFoundException(__('Usuario inválido'));
+                
+        if (!$id) {
+            throw new NotFoundException(__("Usuario inválido"));
         }
-        $this->set('user', $this->User->read(null, $id));
+        $user = $this->User->findByIduser($id);
+        if (!$user) {
+            throw new NotFoundException(__("Usuario inválido"));
+        } 
+        $this->set(compact("user"));
     }
 
     public function add() {
+        $this->layout = "admin";
+        
         $this->set("groups", $this->User->Group->find("list", array(
-            "fields" => array("Group.idgroup", "Group.descripcion")
+            "fields" => array("Group.idgroup", "Group.descripcion"),
+            "conditions" => array("Group.idgroup" => array(1, 5))
         )));
 
-        if ($this->request->is('post')) {
+        if ($this->request->is(array("post", "put"))) {
             $this->User->create();
             if ($this->User->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__('El usuario ha sido registrado correctamente'));
@@ -158,6 +190,9 @@ class UsersController extends AppController {
                     case "Docente":
                         return $this->redirect("/Pages/docente");
                         break;
+                    case "Pagos":
+                        return $this->redirect("/Pages/pagos");
+                        break;
                 }
             }
             $this->Session->setFlash(__('Nombre de Usuario o password incorrecto, inténtelo nuevamente'), "flash_bootstrap");
@@ -183,6 +218,16 @@ class UsersController extends AppController {
 
         return $user;
     }
+    
+    public function datos_pagos() {
+        if(empty($this->request->params["requested"])) {
+            throw new ForbiddenException();
+        }
+
+        $user = $this->Auth->user();
+
+        return $user;
+    }
       
     public function change_pass() {
         $user = $this->Auth->user();
@@ -194,6 +239,8 @@ class UsersController extends AppController {
             $this->layout = "apoderado";
         } elseif($user["idgroup"] == 4) {
             $this->layout = "docente";
+        } elseif($user["idgroup"] == 5) {
+            $this->layout = "pagos";
         }
         if ($this->request->is(array("post", "put"))) {
             
@@ -237,6 +284,9 @@ class UsersController extends AppController {
             $docente = $this->User->Docente->findByIduser($user["iduser"]);
             $this->set("docente", $docente);
             $this->layout = "docente";
+        } elseif($user["Group"]["descripcion"] == "Pagos") {
+            $this->set("pagos", $user);
+            $this->layout = "pagos";
         }
     }
 }

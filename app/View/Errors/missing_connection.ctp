@@ -12,7 +12,7 @@
                     <?php echo $this->Html->image("images/error.png", array("alt" => "error", "width" => 226, "height" => 250)); ?>
                 </div>
                 <div class="span4">
-                    ¡Se perdió la conexión!        
+                    ¡Página no encontrada!        
                     <div class="clear"><br><br></div>
                     <span class="error-code">Error 404</span>
                 </div>

@@ -10,7 +10,7 @@
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idnivel", "ID Nivel <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idnivel", "Código <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c1"><?php echo $this->Paginator->sort("descripcion", "Descripción <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c2">Acciones</th>
         </tr>

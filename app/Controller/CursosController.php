@@ -128,20 +128,25 @@ class CursosController extends AppController {
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
+        
         $asignaciones = array();
         
+        $idaniolectivo = 0;
         if($this->request->is(array("post", "put"))) {
-            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
-                $conditions["Seccion.idaniolectivo"] = $this->request->data["Aniolectivo"]["idaniolectivo"];
-                $conditions["Asignacion.estado"] = 1;
-                $conditions["Asignacion.iddocente"] = $docente["Docente"]["iddocente"];    
-                $this->Asignacion->recursive = 3;
-                $asignaciones = $this->Asignacion->find("all", array(
-                    "conditions" => $conditions
-                ));            
-            }       
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"]))
+                $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
+        } else {
+            $idaniolectivo = $this->Asignacion->Seccion->Aniolectivo->getAniolectivoActual();
         }
+        $conditions["Seccion.idaniolectivo"] = $idaniolectivo;
+        $conditions["Asignacion.estado"] = 1;
+        $conditions["Asignacion.iddocente"] = $docente["Docente"]["iddocente"];    
+        $this->Asignacion->recursive = 3;
+        $asignaciones = $this->Asignacion->find("all", array(
+            "conditions" => $conditions
+        ));   
         
+        $this->set(compact("idaniolectivo"));
         $this->set(compact("asignaciones"));
     }  
     
@@ -173,24 +178,29 @@ class CursosController extends AppController {
         $cursos = array();
         $matricula_seleccionada = null;
         
+        $idaniolectivo = 0;
         if($this->request->is(array("post", "put"))) {
-            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
-                $this->Matricula->recursive = 3;
-                $matriculas = $this->Matricula->find("all", array(
-                   "conditions" => array("Matricula.idalumno" => $alumno["Alumno"]["idalumno"]) 
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) 
+                $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
+        } else {
+            $idaniolectivo = $this->Asignacion->Seccion->Aniolectivo->getAniolectivoActual();
+        }
+        
+        $this->Matricula->recursive = 3;
+        $matriculas = $this->Matricula->find("all", array(
+           "conditions" => array("Matricula.idalumno" => $alumno["Alumno"]["idalumno"]) 
+        ));
+        foreach($matriculas as $matricula) {
+            if($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo) {
+                $matricula_seleccionada = $matricula;
+                $grado = $matricula["Seccion"]["Grado"];
+                $this->Curso->recursive = 2;
+                $cursos = $this->Curso->find("all", array(
+                    "conditions" => array("Curso.idgrado" => $grado["idgrado"])
                 ));
-                foreach($matriculas as $matricula) {
-                    if($matricula["Seccion"]["idaniolectivo"] == $this->request->data["Aniolectivo"]["idaniolectivo"]) {
-                        $matricula_seleccionada = $matricula;
-                        $grado = $matricula["Seccion"]["Grado"];
-                        $this->Curso->recursive = 2;
-                        $cursos = $this->Curso->find("all", array(
-                            "conditions" => array("Curso.idgrado" => $grado["idgrado"])
-                        ));
-                    }
-                }
             }
         }
+        $this->set(compact("idaniolectivo"));
         $this->set(compact("matricula_seleccionada"));
         $this->set(compact("cursos"));
     }
@@ -225,7 +235,8 @@ class CursosController extends AppController {
         $cursos = array();
         $matricula_seleccionada = null;
         
-        if($this->request->is(array("post", "put"))) {
+        if($this->request->is(array("post", "put"))) {              
+            $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
             if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"]) && !empty($this->request->data["Alumno"]["idalumno"])) {
                 $this->Matricula->recursive = 3;
                 $matriculas = $this->Matricula->find("all", array(
@@ -242,7 +253,9 @@ class CursosController extends AppController {
                     }
                 }
             }
-        }
+        } else
+            $idaniolectivo = $this->Asignacion->Seccion->Aniolectivo->getAniolectivoActual();
+        $this->set(compact("idaniolectivo"));
         $this->set(compact("matricula_seleccionada"));
         $this->set(compact("cursos"));
     }

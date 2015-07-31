@@ -15,6 +15,9 @@ class AsignacionesController extends AppController {
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
         
+        $idaniolectivo = $this->Aniolectivo->getAniolectivoActual();
+        $this->set(compact("idaniolectivo"));
+        
         $this->set("niveles", $this->Nivel->find("list", array(
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
             "conditions" => array("Nivel.estado" => 1)
@@ -75,19 +78,20 @@ class AsignacionesController extends AppController {
            "conditions" => array("Curso.estado" => 1, "Curso.idgrado" => $this->request->data["Grado"]["idgrado"]) 
         ));
         $seccion = $this->Seccion->findByIdseccion($this->request->data["Asignacion"]["idseccion"]);
-        
-        foreach($cursos as $k_curso => $curso) {
-            $cursos[$k_curso]["Seccion"] = $seccion["Seccion"];
-            
-            $asignaciones = $curso["Asignacion"];
-            unset($cursos[$k_curso]["Asignacion"]);
-                    
-            foreach($asignaciones as $k_asignacion => $asignacion) {
-                if($asignacion["idseccion"] == $this->request->data["Asignacion"]["idseccion"] && $asignacion["Seccion"]["idaniolectivo"] == $this->request->data["Aniolectivo"]["idaniolectivo"]) {
-                    $cursos[$k_curso]["Asignacion"][0] = $asignacion;
+        if(!empty($seccion)) {
+            foreach($cursos as $k_curso => $curso) {
+                $cursos[$k_curso]["Seccion"] = $seccion["Seccion"];
+
+                $asignaciones = $curso["Asignacion"];
+                unset($cursos[$k_curso]["Asignacion"]);
+
+                foreach($asignaciones as $k_asignacion => $asignacion) {
+                    if($asignacion["idseccion"] == $this->request->data["Asignacion"]["idseccion"] && $asignacion["Seccion"]["idaniolectivo"] == $this->request->data["Aniolectivo"]["idaniolectivo"]) {
+                        $cursos[$k_curso]["Asignacion"][0] = $asignacion;
+                    }
                 }
             }
+            $this->set(compact("cursos"));
         }
-        $this->set(compact("cursos"));
     }
 }

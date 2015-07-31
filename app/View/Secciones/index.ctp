@@ -13,7 +13,8 @@
     echo $this->Form->input("idaniolectivo", array(
         "label" => "Año Lectivo",
         "options" => $aniolectivos,
-        "empty" => "Selecciona uno"
+        "empty" => "Selecciona uno",
+        "value" => $idaniolectivo
     ));
     echo $this->Form->end();
     $this->end();

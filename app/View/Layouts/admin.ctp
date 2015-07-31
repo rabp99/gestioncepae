@@ -128,6 +128,12 @@
                                         Turnos
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Users")) ?>">
+                                        <i class="icon-user"></i>
+                                        Usuarios
+                                    </a>
+                                </li>
                                 <li class="divider"></li>
                                 <li>
                                     <a href="<?php echo $this->Html->url(array("controller" => "Conceptos")) ?>">

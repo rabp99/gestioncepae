@@ -41,8 +41,8 @@
                 $matricula["Seccion"]["descripcion"],
                 $matricula["Seccion"]["Grado"]["descripcion"],
                 $matricula["Seccion"]["Grado"]["Nivel"]["descripcion"],
-                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $matricula["Matricula"]["idmatricula"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
-                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "registrar", $matricula["Matricula"]["idmatricula"]), array("escape" => false, "title" => "Registrar", "rel" => "tooltip"))
+                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view_pagos", $matricula["Matricula"]["idmatricula"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
+                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "registrar_pagos", $matricula["Matricula"]["idmatricula"]), array("escape" => false, "title" => "Registrar", "rel" => "tooltip"))
             ), array(
                 "class" => "odd"
             ), array(

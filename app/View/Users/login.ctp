@@ -23,7 +23,28 @@
         <meta name="description" content="">
         <meta name="author" content="">
     </head>
-    <body>
+    <body>      
+        <header>
+            <div id="aqua-header">
+                <div class="aqua-container">
+                    <div class=" pull-left">
+                        <center>
+                            <?php
+                                echo $this->Html->image("images/insifon.png", array(
+                                    "alt" => "user",
+                                    "width" => 60,
+                                    "height" => 60
+                                ))
+                            ?>
+                        </center>
+                    </div>
+                    <a href="" class="aqua-well-mini">
+                        <h1 class="aqua-slogan">Sistema de Gestión Académica</h1>
+                        <h2 class="aqua-slogan">Colegio CEPAE</h2>
+                    </a>
+                </div>
+            </div>
+        </header>
         <div id="yw0"></div>
         <div class="aqua-container">
             <div class="span3 offset2">

@@ -1,72 +1,37 @@
 <!-- File: /app/View/Users/index.ctp -->
 <?php 
-    $this->assign("title", "Usuarios - Lista");
+    $this->extend("/Common/index");
+    $this->assign("titulo", "Administrar Usuarios");
+    $this->assign("accion", "Crear Usuario");
+    
+    $this->Html->addCrumb("Usuarios", "/Usuarios");
+    $this->Html->addCrumb('Adiministrar', '/Usuarios/index');
 ?>
-
-<h2>Usuarios <small>Lista</small></h2>
-
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Grupo</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($users as $user) { ?>
-            <tr>
-                <td><?php echo $user["User"]["idgroup"]; ?></td>
-                <td><?php echo $user["User"]["username"]; ?></td>
-                <td><?php echo $user["Group"]["descripcion"]; ?></td>
-                <td>
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-th-list"></span> Acción
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation">
-                                <?php
-                                    echo $this->Html->link(
-                                        $this->Html->tag("span", "", array("class" => "glyphicon glyphicon-zoom-in")) .
-                                        " Ver",
-                                        array("controller" => "Users", "action" => "view", $user["User"]["id"]),
-                                        array("escape" => false)
-                                    );
-                                ?>
-                            </li>
-                            <li role="presentation">
-                                <?php
-                                    echo $this->Html->link(
-                                        $this->Html->tag("span", "", array("class" => "glyphicon glyphicon-pencil")) .
-                                        " Editar",
-                                        array("controller" => "Users", "action" => "edit", $user["User"]["id"]),
-                                        array("escape" => false)
-                                    );
-                                ?>
-                            </li>
-                            <li role="presentation">
-                                <?php
-                                    echo $this->Form->postLink($this->Html->tag("span", "", array(
-                                        "class" => "glyphicon glyphicon-trash")) . " Eliminar",
-                                        array("controller" => "Users", "action" => "delete", $user["User"]["id"]),
-                                        array("confirm" => "¿Estás seguro?", "escape" => false)
-                                    );
-                                ?>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-</div>    
-<?php
-    echo $this->Html->link("Nuevo Usuario", array(
-        "controller" => "Users", "action" => "add"
-    ));
-?>
+<table class="items table table-striped table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th id="user-grid_c0"><?php echo $this->Paginator->sort("iduser", "Código <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c1"><?php echo $this->Paginator->sort("username", "Nombre de Usuario <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c2"><?php echo $this->Paginator->sort("idgroup", "Grupo <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c3">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($users as $user) { 
+        echo $this->Html->tableCells(
+            array(
+                $user["User"]["iduser"],
+                $user["User"]["username"],
+                $user["Group"]["descripcion"],
+                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $user["User"]["iduser"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
+                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $user["User"]["iduser"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
+                $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $user["User"]["iduser"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))
+            ), array(
+                "class" => "odd"
+            ), array(
+                "class" => "even"
+            )
+        );
+    } ?>
+    </tbody>
+</table>

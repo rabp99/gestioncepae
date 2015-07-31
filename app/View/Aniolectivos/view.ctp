@@ -12,7 +12,7 @@
     $this->Html->addCrumb('Detalle', '/Aniolectivos/view');
 ?>
 
-<dl class="dl-horizontal">
+<dl class="dl-horizontal">  
     <dt>Código</dt>
     <dd><?php echo $aniolectivo["Aniolectivo"]["idaniolectivo"]; ?></dd>
     <dt>Descripción</dt>

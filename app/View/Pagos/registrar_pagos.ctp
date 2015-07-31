@@ -4,7 +4,7 @@
     $this->assign("titulo", "Registrar Pago");
     $this->assign("accion3", "Administrar Pagos");
     
-    $this->Html->addCrumb('Pagos', '/Pagos');
+    $this->Html->addCrumb('Pagos', '/Pagos/index_pagos');
     $this->Html->addCrumb('Registrar', '/Pagos/registrar');
     
 ?>
@@ -43,7 +43,7 @@
         "async" => true,
         "method" => 'post',
         "dataExpression" => true,
-        "data" => $this->Js->get("#PagoRegistrarForm")->serializeForm(array(
+        "data" => $this->Js->get("#PagoRegistrarPagosForm")->serializeForm(array(
             "isForm" => false,
             "inline" => true
         ))
@@ -52,7 +52,7 @@
     $this->Js->get('#PagoIdpago')->event('change', $getFormPagos);
     $this->Js->buffer($getFormPagos);
 ?>
-<?php $this->Js->get('#PagoRegistrarForm')->event("submit", 
+<?php $this->Js->get('#PagoRegistrarPagosForm')->event("submit", 
         "if(confirm('¿Estás seguro de continuar?')) return true; else return false;"
     );
 ?>

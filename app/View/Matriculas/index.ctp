@@ -13,7 +13,8 @@
     echo $this->Form->input("Aniolectivo.idaniolectivo", array(
         "label" => "Año Lectivo",
         "options" => $aniolectivos,
-        "empty" => "Selecciona uno"
+        "empty" => "Selecciona uno",
+        "value" => $idaniolectivo
     ));
     echo $this->Form->input("Nivel.idnivel", array(
         "label" => "Nivel",
@@ -36,7 +37,7 @@
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idmatricula", "ID Matrícula <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idmatricula", "Código <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c1"><?php echo $this->Paginator->sort("Alumno.nombreCompleto", "Alumno <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c2"><?php echo $this->Paginator->sort("Seccion.descripcion", "Sección <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c2"><?php echo $this->Paginator->sort("Seccion.idgrado", "Grado <span class='caret'></span>", array("escape" => false)); ?></th>

@@ -1,32 +1,28 @@
 <!-- File: /app/View/Users/add.ctp -->
 <?php 
-    $this->assign("title", "Usuarios - Nuevo");
+    $this->extend("/Common/add");
+    $this->assign("titulo", "Crear Usuario");
+    $this->assign("accion", "Administrar Usuarios");
+    
+    $this->Html->addCrumb("Usuarios", "/Users");
+    $this->Html->addCrumb('Crear', '/Users/add');
 ?>
-
-<h2>Usuarios <small>Nuevo</small></h2>
-
-<?php
-    echo $this->Form->create("User");
-    echo $this->Html->para("lead", "Ingrese los datos del Usuario:");
+<?php 
+    echo $this->Form->create("User", array("class" => "form-vertical"));
+    $this->Form->inputDefaults(array("class" => "span4"));
+    echo $this->Html->para("help-block", "Los campos con <span class='required'>*</span> son requeridos");
     echo $this->Form->input("username", array(
         "label" => "Username",
-        "div" => "form-group",
-        "class" => "form-control",
         "autofocus" => "autofocus"
     ));
     echo $this->Form->input("password", array(
-        "label" => "Password",
-        "div" => "form-group",
-        "class" => "form-control"
+        "label" => "Password"
     ));
     echo $this->Form->input("idgroup", array(
         "label" => "Grupos",
-        "div" => "form-group",
-        "class" => "form-control",
         "options" => $groups,
         "empty" => "Selecciona uno"
     ));
-    echo $this->Form->button($this->Html->tag("span", "", array("class" => "glyphicon glyphicon-ok")) . " Registrar", array("class" => "btn btn-default"));
+    echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();
-    echo $this->Html->link("Regresar a Lista Usuarios", array("controller" => "Users", "action" => "index"));
 ?>

@@ -28,10 +28,19 @@ class SeccionesController extends AppController {
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
         
+        $idaniolectivo = 0;
         if($this->request->is(array("post", "put"))) {
-            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"]))
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
                 $this->paginate["conditions"]["Seccion.idaniolectivo"] = $this->request->data["Aniolectivo"]["idaniolectivo"];
+                $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
+            }
+        } else {
+            $idaniolectivo = $this->Seccion->Aniolectivo->getAniolectivoActual();
+            if($idaniolectivo != 0)
+                $this->paginate["conditions"]["Seccion.idaniolectivo"] = $idaniolectivo;
         }
+        $this->set(compact("idaniolectivo"));
+        
         $this->Paginator->settings = $this->paginate;
         $secciones = $this->Paginator->paginate();
         $this->set(compact("secciones"));
@@ -55,6 +64,7 @@ class SeccionesController extends AppController {
             "conditions" => array("Turno.estado" => 1)
         )));
         
+        $this->set("idaniolectivo", $this->Seccion->Aniolectivo->getAniolectivoActual());
         if ($this->request->is(array("post", "put"))) {
             $this->Seccion->create();
             if ($this->Seccion->save($this->request->data)) {

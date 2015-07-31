@@ -36,10 +36,12 @@ class MatriculasController extends AppController {
         $this->Paginator->paginate();
         $matriculas = array();
         
+        $idaniolectivo = 0;
         if($this->request->is(array("post", "put"))) {
-            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"]))
+            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
                 $this->paginate["conditions"]["Seccion.idaniolectivo"] = $this->request->data["Aniolectivo"]["idaniolectivo"];
-            
+                $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
+            }
             if(isset($this->request->data["Grado"]["idgrado"])) {
                 $idgrado = $this->request->data["Grado"]["idgrado"];
                 $this->paginate["conditions"]["Seccion.idgrado"] = $idgrado;
@@ -51,7 +53,10 @@ class MatriculasController extends AppController {
             }
             $this->Paginator->settings = $this->paginate;
             $matriculas = $this->Paginator->paginate();
+        } else {
+            $idaniolectivo = $this->Matricula->Seccion->Aniolectivo->getAniolectivoActual();
         }
+        $this->set(compact("idaniolectivo"));
         $this->set(compact("matriculas"));
     }
     
@@ -68,6 +73,8 @@ class MatriculasController extends AppController {
             "conditions" => array("Nivel.estado" => 1)
         )));
         
+        $idaniolectivo = $this->Matricula->Seccion->Aniolectivo->getAniolectivoActual();
+        $this->set(compact("idaniolectivo"));
         if ($this->request->is(array("post", "put"))) {
             // Si no hay cupos disponibles
             $grado = $this->Matricula->Seccion->Grado->findByIdgrado($this->request->data["Grado"]["idgrado"]);

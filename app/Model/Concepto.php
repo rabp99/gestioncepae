@@ -31,6 +31,12 @@ class Concepto extends AppModel {
                 "rule" => "notEmpty",
                 "message" => "No puede estar vacio"
             )
+        ),
+        "idaniolectivo" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
         )
     );
 }

@@ -15,6 +15,10 @@ class ReportesController extends AppController {
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
         
+        $idaniolectivo = $this->Matricula->Seccion->Aniolectivo->getAniolectivoActual();
+        
+        $this->set(compact("idaniolectivo"));
+        
         $this->set("bimestres", $this->Bimestre->find("list", array(
             "fields" => array("Bimestre.idbimestre", "Bimestre.descripcion"),
             "conditions" => array("Bimestre.estado" => 1)
@@ -33,6 +37,10 @@ class ReportesController extends AppController {
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
         $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
+        
+        $idaniolectivo = $this->Matricula->Seccion->Aniolectivo->getAniolectivoActual();
+        
+        $this->set(compact("idaniolectivo"));
         
         $this->set("bimestres", $this->Bimestre->find("list", array(
             "fields" => array("Bimestre.idbimestre", "Bimestre.descripcion"),

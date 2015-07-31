@@ -55,3 +55,13 @@
     <dd><?php echo $docente["User"]["username"]; ?></dd>
 </dl>
 <?php } ?>
+<?php if(isset($pagos)) { ?>
+<dl class="dl-horizontal">
+    <dt>Código de Usuario</dt>
+    <dd><?php echo $pagos["iduser"]; ?></dd>
+    <dt>Grupo</dt>
+    <dd><?php echo $pagos["Group"]["descripcion"]; ?></dd>
+    <dt>Nombre de Usuario</dt>
+    <dd><?php echo $pagos["username"]; ?></dd>
+</dl>
+<?php } ?>

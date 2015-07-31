@@ -111,6 +111,12 @@
                                 Boleta de Notas
                             </a>
                         </li>
+                        <li>
+                            <a href="<?php echo $this->Html->url(array("controller" => "Pagos", "action" => "index_alumno")) ?>">
+                                <span class="modernpics icons16 icons-white">#</span>
+                                Pagos
+                            </a>
+                        </li>
                     </ul>
       
 

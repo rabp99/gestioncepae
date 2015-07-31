@@ -29,7 +29,12 @@ App::uses('AppController', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
  */
 class PagesController extends AppController {
-/**
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow("pagos");
+    }
+
+    /**
  * This controller does not use a model
  *
  * @var array
@@ -57,6 +62,10 @@ class PagesController extends AppController {
         
 	public function docente() {
             $this->layout = "docente";
+        }
+        
+	public function pagos() {
+            $this->layout = "pagos";
         }
         
         public function prohibido() {

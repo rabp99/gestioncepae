@@ -10,7 +10,7 @@
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idaniolectivo", "ID Año Lectivo <span class='caret'></span>", array("escape" => false)); ?></th>
+            <th id="user-grid_c0"><?php echo $this->Paginator->sort("idaniolectivo", "Código <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c1"><?php echo $this->Paginator->sort("descripcion", "Descripción <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c2"><?php echo $this->Paginator->sort("fechainicio", "Fecha de Inicio <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c3"><?php echo $this->Paginator->sort("fechafin", "Fecha Final <span class='caret'></span>", array("escape" => false)); ?></th>
@@ -20,7 +20,7 @@
     <tbody>
     <?php foreach ($aniolectivos as $aniolectivo) {
         echo $this->Html->tableCells(
-            array(
+            array(   
                 $aniolectivo["Aniolectivo"]["idaniolectivo"],
                 $aniolectivo["Aniolectivo"]["descripcion"],
                 $aniolectivo["Aniolectivo"]["fechainicio"],
