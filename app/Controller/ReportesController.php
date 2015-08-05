@@ -5,7 +5,12 @@
  * @author admin
  */
 class ReportesController extends AppController {
-    public $uses = array("User", "Alumno", "Matricula", "Bimestre", "Nota", "Curso", "Area", "Asignacion", "Padre");
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow("pagos", "pagos_post");
+    }
+
+    public $uses = array("User", "Alumno", "Matricula", "Bimestre", "Nota", "Curso", "Area", "Asignacion", "Padre", "Detallepago");
         
     public function notas_alumno() {
         $this->layout = "alumno";
@@ -221,5 +226,48 @@ class ReportesController extends AppController {
         $promediofinal = $subpromedio / sizeof($area["Curso"]);
         
         return CakeNumber::precision($promediofinal, 2);
+    }
+    
+    public function pagos() {
+        $this->layout = "pagos";    
+        
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
+        $this->set("meses", array("1" => "Enero", "2" => "Febrero", "3" => "Marzo", "4" => "Abril", "5" => "Mayo", "6" => "Junio",
+            "7" => "Julio", "8" => "Agosto", "9" => "Setiembre", "10" => "Octubre", "11" => "Noviembre", "12" => "Diciembre"
+        ));
+    }
+    
+    public function pagos_post() {
+        App::import("Vendor", "Fpdf", array("file" => "fpdf/fpdf.php"));
+        $this->layout = 'pdf'; //this will use the pdf.ctp layout
+
+        $this->set("fpdf", new FPDF("P","mm","A4"));
+        
+        // Inicialización de variables
+        $tipo = $this->request->data["Reporte"]["tipo"];
+        $iduser = $this->Auth->user()["iduser"];
+        // Recuperación de información
+        switch($tipo) {
+            case 1:
+                $fechadia = $this->request->data["Reporte"]["fechadia"];
+                $detallepagos = $this->Detallepago->find("all", array(
+                    "conditions" => array("Detallepago.iduser" => $iduser, "Detallepago.created" => $fechadia)
+                ));
+                debug(date("Y-m-d"));
+
+                debug($detallepagos);
+            break;
+        }
+        
+        // Salida de la Información
+        $this->set(compact("matricula"));
+        $this->set(compact("bimestre"));
+        $this->set(compact("areas"));
+        
+        //$this->response->type("application/pdf");
     }
 }

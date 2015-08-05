@@ -6,7 +6,12 @@
     
     $this->Html->addCrumb('Conceptos de Pago', '/Conceptos');
     $this->Html->addCrumb('Crear', '/Conceptos/add');
-    
+      
+    echo $this->Html->css("jquery-ui.min");
+    echo $this->Html->css("jquery-ui.structure.min");
+    echo $this->Html->css("jquery-ui.theme.min");
+    echo $this->Html->script("jquery-ui.min", array("inline" => false));
+    echo $this->Html->script("datepicker-es", array("inline" => false));
 ?>
 <?php 
     echo $this->Form->create("Concepto", array("class" => "form-vertical"));
@@ -26,7 +31,20 @@
     echo $this->Form->input("monto", array(
         "label" => "Monto"
     ));
+    echo $this->Form->input("fechalimite", array(
+        "label" => "Fecha Limite",
+        "type" => "text"
+    ));
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
     
     echo $this->Form->end();
 ?>
+<?php echo $this->Html->scriptStart(array('inline' => false)); ?>
+    $(document).ready(function() {
+        $("#ConceptoFechalimite").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
+    });
+<?php echo $this->Html->scriptEnd(); ?>

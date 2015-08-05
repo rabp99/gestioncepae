@@ -11,6 +11,7 @@
         <tr>
             <th id="user-grid_c0">Monto</th>
             <th id="user-grid_c1">Fecha</th>
+            <th id="user-grid_c1">Acción</th>
         </tr>
     </thead>    
     <tbody>
@@ -19,7 +20,8 @@
         echo $this->Html->tableCells(
             array(
                 $detallepago["monto"],
-                $detallepago["created"]
+                $detallepago["created"], 
+                $this->Html->link("<i class='icon-remove'></i>", array("action" => "cancelar", $detallepago["iddetallepago"]), array("escape" => false, "title" => "Cancelar", "rel" => "tooltip"))
             ), array(
                 "class" => "odd"
             ), array(

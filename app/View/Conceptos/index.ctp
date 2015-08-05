@@ -38,7 +38,6 @@
                 $concepto["Concepto"]["monto"],
                 $concepto["Aniolectivo"]["descripcion"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $concepto["Concepto"]["idconcepto"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
-                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $concepto["Concepto"]["idconcepto"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
                 $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $concepto["Concepto"]["idconcepto"]), array("confirm" => "¿Estás seguro? Se canceleran todas las deudas referidas a este Conecpto de Pago de todos los alumnos ", "escape" => false, "title" => "Deshabilitar"))
             ), array(
                 "class" => "odd"

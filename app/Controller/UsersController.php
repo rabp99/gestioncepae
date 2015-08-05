@@ -77,6 +77,9 @@ class UsersController extends AppController {
         $this->Acl->allow($group, 'controllers/Pagos/index_pagos');
         $this->Acl->allow($group, 'controllers/Pagos/view_pagos');
         $this->Acl->allow($group, 'controllers/Pagos/registrar_pagos');
+        $this->Acl->allow($group, 'controllers/Pagos/cancelar');
+        $this->Acl->allow($group, 'controllers/Reportes/pagos');
+        $this->Acl->allow($group, 'controllers/Reportes/pagos_post');
         
         // we add an exit to avoid an ugly "missing views" error message
         echo "all done";

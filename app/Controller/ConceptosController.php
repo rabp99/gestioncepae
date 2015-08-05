@@ -70,7 +70,13 @@ class ConceptosController extends AppController {
                         $pagos[$k_matricula]["descripcion"] = $this->request->data["Concepto"]["descripcion"];
                         $pagos[$k_matricula]["monto"] = $this->request->data["Concepto"]["monto"];
                         $pagos[$k_matricula]["deuda"] = $this->request->data["Concepto"]["monto"];
+                        $pagos[$k_matricula]["fechalimite"] = $this->request->data["Concepto"]["fechalimite"];
                     }
+                }
+                if(empty($pagos)) {
+                    $ds->commit();
+                    $this->Session->setFlash(__("El Concepto de Pago ha sido registrado correctamente."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "index"));
                 }
                 if ($this->Concepto->Pago->saveMany($pagos)) {
                     $ds->commit();

@@ -23,7 +23,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
     </head>
-    <body>      
+    <body>
         <header>
             <div id="aqua-header">
                 <div class="aqua-container">

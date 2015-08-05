@@ -99,6 +99,12 @@
                                 Pagos
                             </a>
                         </li>
+                        <li>
+                            <a href="<?php echo $this->Html->url(array("controller" => "Reportes", "action" => "pagos")) ?>">
+                                <span class="modernpics icons16 icons-white">K</span>
+                                Reporte de Pagos
+                            </a>
+                        </li>
                     </ul>
       
 

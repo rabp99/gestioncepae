@@ -15,7 +15,10 @@ class Pago extends AppModel {
         
     public $hasMany = array(
         "Detallepago" => array(
-            "foreignKey" => "idpago"
+            "foreignKey" => "idpago",
+            "conditions" => array(
+                "estado" => 1
+            )
         )
     );
     

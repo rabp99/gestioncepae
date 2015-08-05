@@ -4,6 +4,7 @@
         <tr>
             <th id="user-grid_c0">Concepto de Pago</th>
             <th id="user-grid_c1">Monto a Pagar</th>
+            <th id="user-grid_c2">Fecha Limite</th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,16 @@
                         "label" => false,
                         "value" => $concepto["Concepto"]["monto"]
                     ));
+                ?>
+            </td>
+            <td>
+                <?php 
+                    echo $this->Form->input("Pago." . $key . ".fechalimite", array(
+                        "label" => false,
+                        "type" => "text",
+                        "readonly" => true,
+                        "value" => $concepto["Concepto"]["fechalimite"]
+                    )); 
                 ?>
             </td>
         </tr>

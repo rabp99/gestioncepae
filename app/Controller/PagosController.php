@@ -4,13 +4,15 @@
  * CakePHP PagosController
  * @author admin
  */
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
+
 class PagosController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow("index_alumno", "index_apoderado", "index_pagos", "view_pagos", "registrar_pagos");
+        $this->Auth->allow("index_alumno", "index_apoderado", "index_pagos", "view_pagos", "registrar_pagos", "cancelar");
     }
 
-    public $uses = array("Pago", "Matricula", "Aniolectivo", "Padre");
+    public $uses = array("Pago", "Matricula", "Aniolectivo", "Padre", "User");
 
     public $components = array("Paginator");
 
@@ -112,12 +114,17 @@ class PagosController extends AppController {
         if($this->request->is(array("post", "put"))) {
             $ds = $this->Pago->getDataSource();
             $ds->begin();
+                 
+            $admin = $this->Auth->user();
+                
             $this->Pago->Detallepago->create();
             $this->request->data["Detallepago"]["idpago"] = $this->request->data["Pago"]["idpago"];
+            $this->request->data["Detallepago"]["iduser"] = $admin["iduser"];
+            $this->request->data["Detallepago"]["created"] = date("Y-m-d");
             if($this->Pago->Detallepago->save($this->request->data)) {
                 $pago = $this->Pago->findByIdpago($this->request->data["Pago"]["idpago"]);
                 $this->Pago->id = $pago["Pago"]["idpago"];
-                if($this->Pago->saveField("deuda", $pago["Pago"]["deuda"]- $this->request->data["Detallepago"]["monto"])) {
+                if($this->Pago->saveField("deuda", $pago["Pago"]["deuda"] - $this->request->data["Detallepago"]["monto"])) {
                     $ds->commit();
                     $this->Session->setFlash(__("El Pago ha sido registrado correctamente."), "flash_bootstrap");
                     return;
@@ -144,8 +151,13 @@ class PagosController extends AppController {
         if($this->request->is(array("post", "put"))) {
             $ds = $this->Pago->getDataSource();
             $ds->begin();
+            
+            $pago = $this->Auth->user();
+            
             $this->Pago->Detallepago->create();
             $this->request->data["Detallepago"]["idpago"] = $this->request->data["Pago"]["idpago"];
+            $this->request->data["Detallepago"]["iduser"] = $pago["iduser"];
+            $this->request->data["Detallepago"]["created"] = date("Y-m-d");
             if($this->Pago->Detallepago->save($this->request->data)) {
                 $pago = $this->Pago->findByIdpago($this->request->data["Pago"]["idpago"]);
                 $this->Pago->id = $pago["Pago"]["idpago"];
@@ -262,5 +274,47 @@ class PagosController extends AppController {
         
         if(empty($this->request->data["Pago"]["idpago"])) die();
         $this->set("pago", $this->Pago->findByIdpago($this->request->data["Pago"]["idpago"]));
+    }
+    
+    public function cancelar($iddetallepago) {
+        $this->layout = false;
+        
+        if($this->request->is(array("post", "put"))) {
+            $user = $this->User->find("first", array(
+                "conditions" => array(
+                    "User.username" => $this->request->data["User"]["username"]
+                )
+            ));
+            if(!empty($user)) {
+                $passwordHasher = new BlowfishPasswordHasher();
+                if($passwordHasher->check($this->request->data["User"]["password"], $user["User"]["password"])) {
+                    if($user["User"]["idgroup"] == 1) {
+                        $ds = $this->Pago->getDataSource();
+                        $ds->begin();
+                        $this->Pago->Detallepago->id = $iddetallepago;
+                        if($this->Pago->Detallepago->saveField("estado", 2)) {
+                            $detallepago = $this->Pago->Detallepago->read();
+                            $this->Pago->id = $detallepago["Pago"]["idpago"];
+                            if($this->Pago->saveField("deuda", ($detallepago["Pago"]["deuda"] + $detallepago["Detallepago"]["monto"]))) {
+                                $ds->commit();
+                                $this->Session->setFlash("El Pago ha sido cancelado.", "flash_bootstrap");
+                                $user = $this->Auth->user();
+                                if($user["idgroup"] == 1)
+                                    return $this->redirect(array("action" => "index"));
+                                else
+                                    return $this->redirect (array("action" => "index_pagos"));
+                            }
+                        }
+                        $this->Session->setFlash("No fue posible cancelar el Pago.", "flash_bootstrap");
+                    } else {
+                        $this->Session->setFlash("El usuario no tiene permisos de Administrador.", "flash_bootstrap");
+                    }
+                } else {
+                    $this->Session->setFlash("El password no coincide con el nombre de usuario.", "flash_bootstrap");
+                }
+            } else {
+                $this->Session->setFlash("No hay un Usuario registrado con ese nombre de usuario.", "flash_bootstrap");
+            }
+        }
     }
 }
