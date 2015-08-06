@@ -9,7 +9,10 @@ class Detallepago extends AppModel {
     
     public $belongsTo = array(
         "Pago" => array(
-            'foreignKey' => 'idpago'
+            "foreignKey" => "idpago"
+        ),
+        "User" => array(
+            "foreignKey" => "iduser"
         )
     );
     

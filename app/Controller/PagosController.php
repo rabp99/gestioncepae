@@ -292,7 +292,12 @@ class PagosController extends AppController {
                         $ds = $this->Pago->getDataSource();
                         $ds->begin();
                         $this->Pago->Detallepago->id = $iddetallepago;
-                        if($this->Pago->Detallepago->saveField("estado", 2)) {
+                        $detallepago = $this->Pago->Detallepago->read();
+                        $detallepago["Detallepago"]["estado"] = 2;
+                        unset($detallepago["Detallepago"]["iddetallepago"]);
+                        unset($detallepago["Detallepago"]["created"]);
+                        $this->Pago->Detallepago->create();
+                        if($this->Pago->Detallepago->save($detallepago)) {
                             $detallepago = $this->Pago->Detallepago->read();
                             $this->Pago->id = $detallepago["Pago"]["idpago"];
                             if($this->Pago->saveField("deuda", ($detallepago["Pago"]["deuda"] + $detallepago["Detallepago"]["monto"]))) {

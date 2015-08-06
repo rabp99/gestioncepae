@@ -7,7 +7,7 @@
 class ReportesController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow("pagos", "pagos_post");
+        $this->Auth->allow("pagos", "pagos_post", "pagos_admin", "pagos_admin_post", "morosos", "morosos_post");
     }
 
     public $uses = array("User", "Alumno", "Matricula", "Bimestre", "Nota", "Curso", "Area", "Asignacion", "Padre", "Detallepago");
@@ -232,7 +232,20 @@ class ReportesController extends AppController {
         $this->layout = "pagos";    
         
         $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
-            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "fields" => array("Aniolectivo.descripcion", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
+        $this->set("meses", array("1" => "Enero", "2" => "Febrero", "3" => "Marzo", "4" => "Abril", "5" => "Mayo", "6" => "Junio",
+            "7" => "Julio", "8" => "Agosto", "9" => "Setiembre", "10" => "Octubre", "11" => "Noviembre", "12" => "Diciembre"
+        ));
+    }   
+    
+    public function pagos_admin() {
+        $this->layout = "admin";    
+        
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.descripcion", "Aniolectivo.descripcion"),
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
         
@@ -246,28 +259,180 @@ class ReportesController extends AppController {
         $this->layout = 'pdf'; //this will use the pdf.ctp layout
 
         $this->set("fpdf", new FPDF("P","mm","A4"));
+        // Comprobar
         
+        if(!isset($this->request->data["Reporte"]["tipo"])) {
+            $this->Session->setFlash(__("Selecciona un tipo de Reporte."), "flash_bootstrap");
+            return $this->redirect(array("action" => "pagos"));
+        }
         // Inicialización de variables
         $tipo = $this->request->data["Reporte"]["tipo"];
-        $iduser = $this->Auth->user()["iduser"];
+        $usuario = $this->Auth->user();
         // Recuperación de información
         switch($tipo) {
             case 1:
+                if($this->request->data["Reporte"]["fechadia"] == "") {
+                    $this->Session->setFlash(__("Especifique la fecha."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "pagos"));
+                }
                 $fechadia = $this->request->data["Reporte"]["fechadia"];
                 $detallepagos = $this->Detallepago->find("all", array(
-                    "conditions" => array("Detallepago.iduser" => $iduser, "Detallepago.created" => $fechadia)
+                    "conditions" => array("Detallepago.iduser" => $usuario["iduser"], "Detallepago.created" => $fechadia)
                 ));
-                debug(date("Y-m-d"));
-
-                debug($detallepagos);
+                $filtro = "Pagos del día: " . $fechadia;
+            break;
+            case 2:
+                if($this->request->data["Reporte"]["anio1"] == "" || $this->request->data["Reporte"]["mes"] == "") {
+                    $this->Session->setFlash(__("Especifique la fecha."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "pagos"));
+                }
+                $anio = $this->request->data["Reporte"]["anio1"];
+                $mes = $this->request->data["Reporte"]["mes"];
+                $detallepagos = $this->Detallepago->find("all", array(
+                    "conditions" => array("Detallepago.iduser" => $usuario["iduser"], "MONTH(Detallepago.created)" => $mes, "YEAR(Detallepago.created)" => $anio)
+                ));
+                $filtro = "Pagos del mes: " . $mes . "/" . $anio;
+            break;
+            case 3:
+                if($this->request->data["Reporte"]["anio2"] == "") {
+                    $this->Session->setFlash(__("Especifique la fecha."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "pagos"));
+                }
+                $anio = $this->request->data["Reporte"]["anio2"];
+                $detallepagos = $this->Detallepago->find("all", array(
+                    "conditions" => array("Detallepago.iduser" => $usuario["iduser"], "YEAR(Detallepago.created)" => $anio)
+                ));
+                $filtro = "Pagos del año: " . $anio;
             break;
         }
         
         // Salida de la Información
-        $this->set(compact("matricula"));
-        $this->set(compact("bimestre"));
-        $this->set(compact("areas"));
+        $this->set(compact("detallepagos"));
+        $this->set(compact("usuario"));
+        $this->set(compact("filtro"));
         
-        //$this->response->type("application/pdf");
+        $this->response->type("application/pdf");
+    }
+    
+    public function pagos_admin_post() {
+        App::import("Vendor", "Fpdf", array("file" => "fpdf/fpdf.php"));
+        $this->layout = 'pdf'; //this will use the pdf.ctp layout
+
+        $this->set("fpdf", new FPDF("P","mm","A4"));
+        // Comprobar
+        
+        if(!isset($this->request->data["Reporte"]["tipo"])) {
+            $this->Session->setFlash(__("Selecciona un tipo de Reporte."), "flash_bootstrap");
+            return $this->redirect(array("action" => "pagos_admin"));
+        }
+        // Inicialización de variables
+        $tipo = $this->request->data["Reporte"]["tipo"];
+        $usuario = $this->Auth->user();
+        // Recuperación de información
+        switch($tipo) {
+            case 1:
+                if($this->request->data["Reporte"]["fechadia"] == "") {
+                    $this->Session->setFlash(__("Especifique la fecha."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "pagos_admin"));
+                }
+                $fechadia = $this->request->data["Reporte"]["fechadia"];
+                $detallepagos = $this->Detallepago->find("all", array(
+                    "conditions" => array("Detallepago.created" => $fechadia)
+                ));
+                $filtro = "Pagos del día: " . $fechadia;
+            break;
+            case 2:
+                if($this->request->data["Reporte"]["anio1"] == "" || $this->request->data["Reporte"]["mes"] == "") {
+                    $this->Session->setFlash(__("Especifique la fecha."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "pagos_admin"));
+                }
+                $anio = $this->request->data["Reporte"]["anio1"];
+                $mes = $this->request->data["Reporte"]["mes"];
+                $detallepagos = $this->Detallepago->find("all", array(
+                    "conditions" => array("MONTH(Detallepago.created)" => $mes, "YEAR(Detallepago.created)" => $anio)
+                ));
+                $filtro = "Pagos del mes: " . $mes . "/" . $anio;
+            break;
+            case 3:
+                if($this->request->data["Reporte"]["anio2"] == "") {
+                    $this->Session->setFlash(__("Especifique la fecha."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "pagos_admin"));
+                }
+                $anio = $this->request->data["Reporte"]["anio2"];
+                $detallepagos = $this->Detallepago->find("all", array(
+                    "conditions" => array("YEAR(Detallepago.created)" => $anio)
+                ));
+                $filtro = "Pagos del año: " . $anio;
+            break;
+        }
+        
+        // Salida de la Información
+        $this->set(compact("detallepagos"));
+        $this->set(compact("usuario"));
+        $this->set(compact("filtro"));
+        
+        $this->response->type("application/pdf");
+    }
+    
+    public function morosos() {
+        $this->layout = "admin";
+        
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+    }
+    
+    public function morosos_post() {
+        App::import("Vendor", "Fpdf", array("file" => "fpdf/fpdf.php"));
+        $this->layout = "pdf"; //this will use the pdf.ctp layout
+
+        $this->set("fpdf", new FPDF("P","mm","A4"));
+        // Comprobar
+        if($this->request->data["Reporte"]["anio"] == "") {
+            $this->Session->setFlash(__("Selecciona un año lectivo."), "flash_bootstrap");
+            return $this->redirect(array("action" => "morosos"));
+        }
+        // Inicialización de variables
+        $idanio = $this->request->data["Reporte"]["anio"];
+        $idaniolectivoactual = $this->Asignacion->Seccion->Aniolectivo->getAniolectivoActual();
+        $dia = date("Y-m-d");
+        $anio = $this->Asignacion->Seccion->Aniolectivo->findByIdaniolectivo($idanio);
+        
+        // Recuperación de información
+        $deudatotal = 0;
+        if($idanio == $idaniolectivoactual) {
+            $matriculas = $this->Matricula->find("all", array(
+               "conditions" => array("Seccion.idaniolectivo" => $idanio) 
+            ));
+            foreach($matriculas as $k_matricula => $matricula) {
+                $pagos = $matricula["Pago"];
+                $matriculas[$k_matricula]["deuda"] = 0;
+                foreach($pagos as $pago) {
+                    if($pago["fechalimite"] < $dia) {
+                        $deudatotal = $pago["deuda"];
+                        $matriculas[$k_matricula]["deuda"] += $pago["deuda"];
+                    }
+                }
+            }
+        } else {
+            $matriculas = $this->Matricula->find("all", array(
+               "conditions" => array("Seccion.idaniolectivo" => $idanio) 
+            ));
+            foreach($matriculas as $k_matricula => $matricula) {
+                $pagos = $matricula["Pago"];
+                $matriculas[$k_matricula]["deuda"] = 0;
+                foreach($pagos as $pago) {
+                    $deudatotal = $pago["deuda"];
+                    $matriculas[$k_matricula]["deuda"] += $pago["deuda"];
+                }
+            }
+        }
+        // Salida de la Información
+        $this->set(compact("deudatotal"));
+        $this->set(compact("matriculas"));
+        $this->set(compact("anio"));
+        
+        $this->response->type("application/pdf");
     }
 }

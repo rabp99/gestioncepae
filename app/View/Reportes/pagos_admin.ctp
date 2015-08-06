@@ -1,4 +1,4 @@
-<!-- File: /app/View/Reportes/pagos.ctp -->
+<!-- File: /app/View/Reportes/pagos_admin.ctp -->
 <?php 
     $this->extend("/Common/view");
     $this->assign("titulo", "Reporte de Pagos");  
@@ -12,7 +12,7 @@
     echo $this->Html->script("datepicker-es", array("inline" => false));
 ?>
 <?php
-    echo $this->Form->create("Reporte", array("class" => "form-horizontal", "action" => "pagos_post"));
+    echo $this->Form->create("Reporte", array("class" => "form-horizontal", "action" => "pagos_admin_post"));
 ?>
 <table>
     <tr>

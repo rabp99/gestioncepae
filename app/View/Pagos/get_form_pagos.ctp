@@ -19,9 +19,9 @@
     foreach ($pago["Detallepago"] as $detallepago) {
         echo $this->Html->tableCells(
             array(
-                $detallepago["monto"],
+                $detallepago["estado"] == 2 ? "-" . $detallepago["monto"] : $detallepago["monto"],
                 $detallepago["created"], 
-                $this->Html->link("<i class='icon-remove'></i>", array("action" => "cancelar", $detallepago["iddetallepago"]), array("escape" => false, "title" => "Cancelar", "rel" => "tooltip"))
+                $detallepago["estado"] == 1 ? $this->Html->link("<i class='icon-remove'></i>", array("action" => "cancelar", $detallepago["iddetallepago"]), array("escape" => false, "title" => "Cancelar", "rel" => "tooltip")) : ""
             ), array(
                 "class" => "odd"
             ), array(

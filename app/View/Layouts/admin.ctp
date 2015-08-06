@@ -95,7 +95,7 @@
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="icon-list icon-white icon-margin"></i> Configuración <span class="caret"></span>
+                                <i class="icon-list icon-white icon-margin"></i> <span class="caret"></span>
                             </a>
                             <ul id="yw3" class="dropdown-menu">
                                 <li>
@@ -190,6 +190,31 @@
                                 <span class="modernpics icons16 icons-white">R</span>
                                 Asignaciones
                             </a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="icon-list icon-white icon-margin"></i> Reportes <span class="caret"></span>
+                            </a>
+                            <ul id="yw3" class="dropdown-menu">
+                                <li>
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Reportes", "action" => "pagos_admin")) ?>">
+                                        <span class="modernpics icons16">#</span>
+                                        Reporte de Pagos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Reportes", "action" => "morosos")) ?>">
+                                        <i class="icon-th-list"></i>
+                                        Reporte de Morosos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Grados")) ?>">
+                                        <i class="icon-folder-close"></i>
+                                        Reporte de Matriculas
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
       
