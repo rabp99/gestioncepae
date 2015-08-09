@@ -161,7 +161,6 @@ class SeccionesController extends AppController {
     
     public function getByIdgrado() {
         $this->layout = "ajax";
-        
         if(isset($this->request->data["Aniolectivo"]["idaniolectivo"]))
             $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
         if(isset($this->request->data["Grado"]["idgrado"]))

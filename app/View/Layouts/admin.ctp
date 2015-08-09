@@ -209,7 +209,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Grados")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Reportes", "action" => "Matriculas")) ?>">
                                         <i class="icon-folder-close"></i>
                                         Reporte de Matriculas
                                     </a>

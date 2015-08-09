@@ -68,7 +68,6 @@
     </tbody>
 </table>
 
-
 <?php
     $this->Js->get('#NivelIdnivel')->event('change', 
         "$('#MatriculaIdseccion').html('<option value>Selecciona uno</option>');"

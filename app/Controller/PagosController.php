@@ -7,11 +7,6 @@
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class PagosController extends AppController {
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("index_alumno", "index_apoderado", "index_pagos", "view_pagos", "registrar_pagos", "cancelar");
-    }
-
     public $uses = array("Pago", "Matricula", "Aniolectivo", "Padre", "User");
 
     public $components = array("Paginator");

@@ -5,11 +5,6 @@
  * @author admin
  */
 class ReportesController extends AppController {
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow("pagos", "pagos_post", "pagos_admin", "pagos_admin_post", "morosos", "morosos_post");
-    }
-
     public $uses = array("User", "Alumno", "Matricula", "Bimestre", "Nota", "Curso", "Area", "Asignacion", "Padre", "Detallepago");
         
     public function notas_alumno() {
@@ -433,6 +428,49 @@ class ReportesController extends AppController {
         $this->set(compact("matriculas"));
         $this->set(compact("anio"));
         
+        $this->response->type("application/pdf");
+    }
+    
+    public function matriculas() {
+        $this->layout = "admin";
+        
+        $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
+        $this->set("niveles", $this->Matricula->Seccion->Grado->Nivel->find("list", array(
+            "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
+            "conditions" => array("Nivel.estado" => 1)
+        )));
+    }  
+    
+    public function matriculas_post() {
+        App::import("Vendor", "Fpdf", array("file" => "fpdf/fpdf.php"));
+        $this->layout = "pdf"; //this will use the pdf.ctp layout
+
+        $this->set("fpdf", new FPDF("P","mm","A4"));
+        // Comprobar
+        if($this->request->data["Aniolectivo"]["idaniolectivo"] == "") {
+            $this->Session->setFlash(__("Selecciona un Año Lectivo."), "flash_bootstrap");
+            return $this->redirect(array("action" => "matriculas"));
+        }
+        
+        // Inicialización de variables
+        $idseccion = $this->request->data["Reporte"]["idseccion"];
+        
+        // Recuperación de información
+        $matriculas = $this->Matricula->find("all", array(
+           "conditions" => array("Matricula.idseccion" => $idseccion, "Matricula.estado" => 1) 
+        ));
+        
+        $this->Matricula->Seccion->recursive = 2;
+        $seccion = $this->Matricula->Seccion->findByIdseccion($idseccion);
+        
+        // Salida de la Información
+        $this->set(compact("matriculas"));
+        $this->set(compact("seccion"));
+                
         $this->response->type("application/pdf");
     }
 }
