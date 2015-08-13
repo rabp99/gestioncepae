@@ -119,6 +119,7 @@ class NotasController extends AppController {
         $this->Asignacion->Seccion->recursive = 2;
         $seccion = $this->Asignacion->Seccion->findByIdseccion($asignacion["Asignacion"]["idseccion"]);
         
+        if(empty($this->request->data["Nota"]["idbimestre"])) die();
         $this->set("matriculas", $seccion["Matricula"]);
         $this->set(compact("notas"));
     }

@@ -8,7 +8,7 @@
         </tr>
         <tr>
             <?php foreach($notas as $nota) { ?>
-            <th><?php echo $nota["Nota"]["descripcion"]; ?></th>
+            <th><?php echo $nota["Nota"]["descripcion"] . " (" . $nota["Nota"]["peso"] . ")"; ?></th>
             <?php } ?>
         </tr>
     </thead>
