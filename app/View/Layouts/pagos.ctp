@@ -139,16 +139,14 @@
                 <div class="aqua-container">
                     <div class="span1 offset1">
                         <ul id="yw7" class="nav">
-                            <li class="first">Teléfonos</li>
-                            <li>99</li>
-                            <li>99</li>
-                            <li class="last">99</li>
+                            <li class="first">Teléfono</li>
+                            <li class="last">044345448</li>
                         </ul>                  
                     </div>
                     <div class="span1 offset3">
                         <ul id="yw9" class="nav">
                             <li class="first">Dirección</li>
-                            <address>dsasa</address>
+                            <address>Calle Oro Nro 327 Urb San Isidro</address>
                         </ul>                       
                     </div>
                     <div class="span5 offset1">
