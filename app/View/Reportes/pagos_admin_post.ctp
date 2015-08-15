@@ -62,7 +62,7 @@
           
         if($detallepago["Detallepago"]["estado"] == 1) {
             $total_pago += $detallepago["Detallepago"]["monto"];
-        } else {
+        } elseif($detallepago["Detallepago"]["estado"] == 2) {
             $total_devolucion += $detallepago["Detallepago"]["monto"];
         }
         

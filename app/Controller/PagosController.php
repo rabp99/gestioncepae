@@ -288,26 +288,29 @@ class PagosController extends AppController {
                         $ds->begin();
                         $this->Pago->Detallepago->id = $iddetallepago;
                         $detallepago = $this->Pago->Detallepago->read();
-                        $detallepago["Detallepago"]["estado"] = 2;
-                        unset($detallepago["Detallepago"]["iddetallepago"]);
-                        unset($detallepago["Detallepago"]["created"]);
-                        $this->Pago->Detallepago->create();
+                        $detallepago["Detallepago"]["estado"] = 3;
                         if($this->Pago->Detallepago->save($detallepago)) {
-                            $detallepago = $this->Pago->Detallepago->read();
-                            $this->Pago->id = $detallepago["Pago"]["idpago"];
-                            if($this->Pago->saveField("deuda", ($detallepago["Pago"]["deuda"] + $detallepago["Detallepago"]["monto"]))) {
-                                $ds->commit();
-                                $this->Session->setFlash("El Pago ha sido cancelado.", "flash_bootstrap");
-                                $user = $this->Auth->user();
-                                if($user["idgroup"] == 1)
-                                    return $this->redirect(array("action" => "index"));
-                                else
-                                    return $this->redirect (array("action" => "index_pagos"));
+                            $detallepago["Detallepago"]["estado"] = 2;
+                            unset($detallepago["Detallepago"]["iddetallepago"]);
+                            unset($detallepago["Detallepago"]["created"]);
+                            $this->Pago->Detallepago->create();
+                            if($this->Pago->Detallepago->save($detallepago)) {
+                                $detallepago = $this->Pago->Detallepago->read();
+                                $this->Pago->id = $detallepago["Pago"]["idpago"];
+                                if($this->Pago->saveField("deuda", ($detallepago["Pago"]["deuda"] + $detallepago["Detallepago"]["monto"]))) {
+                                    $ds->commit();
+                                    $this->Session->setFlash("El Pago ha sido cancelado.", "flash_bootstrap");
+                                    $user = $this->Auth->user();
+                                    if($user["idgroup"] == 1)
+                                        return $this->redirect(array("action" => "index"));
+                                    else
+                                        return $this->redirect (array("action" => "index_pagos"));
+                                }
                             }
+                            $this->Session->setFlash("No fue posible cancelar el Pago.", "flash_bootstrap");
+                        } else {
+                            $this->Session->setFlash("El usuario no tiene permisos de Administrador.", "flash_bootstrap");
                         }
-                        $this->Session->setFlash("No fue posible cancelar el Pago.", "flash_bootstrap");
-                    } else {
-                        $this->Session->setFlash("El usuario no tiene permisos de Administrador.", "flash_bootstrap");
                     }
                 } else {
                     $this->Session->setFlash("El password no coincide con el nombre de usuario.", "flash_bootstrap");
