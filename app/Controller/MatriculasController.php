@@ -76,18 +76,16 @@ class MatriculasController extends AppController {
         $idaniolectivo = $this->Matricula->Seccion->Aniolectivo->getAniolectivoActual();
         $this->set(compact("idaniolectivo"));
         if ($this->request->is(array("post", "put"))) {
-            // Si no hay cupos disponibles
+            
             $grado = $this->Matricula->Seccion->Grado->findByIdgrado($this->request->data["Grado"]["idgrado"]);
             $n_capacidad = $grado["Grado"]["capacidad"];
             $n_matriculados = $this->Matricula->find("count", array(
                "conditions" => array("Matricula.estado" => 1, "Matricula.idseccion" => $this->request->data["Matricula"]["idseccion"]) 
             ));
-            // si numero_matriculas == numero_cupos mensjae y return
             if($n_matriculados == $n_capacidad) {
                 $this->Session->setFlash(__("Ya se ha alcanzado el limite máximo de capacidad para esta sección."), "flash_bootstrap");
                 return;
             }
-            
             $ds = $this->Matricula->getDataSource();
             $ds->begin();
             $this->Matricula->create();
