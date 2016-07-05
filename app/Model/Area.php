@@ -19,12 +19,6 @@ class Area extends AppModel {
                 "rule" => "notEmpty",
                 "message" => "No puede estar vacio"
             )
-        ),
-        "importancia" => array(
-            "numeric" => array(
-                "rule" => "numeric",
-                "message" => "No puede estar vacio"
-            )
         )
     );
 }

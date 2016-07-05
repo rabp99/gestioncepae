@@ -11,10 +11,10 @@
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
         <li>
-            <a data-toggle="tab" href="#yw0_tab_4"><span class="modernpics">#</span> Pagos</a>
+            <a id="tabPagos" data-toggle="tab" href="#yw0_tab_4"><span class="modernpics">#</span> Pagos</a>
         </li>
         <li class="active">
-            <a data-toggle="tab" href="#yw0_tab_5"><span class="modernpics">Z</span> Datos de Matrícula</a>
+            <a id="tabDatosMatricular" data-toggle="tab" href="#yw0_tab_5"><span class="modernpics">Z</span> Datos de Matrícula</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -62,8 +62,17 @@
 
                 </div>
             </div>
-        <?php   
-            echo $this->Form->button("Matricular", array("class" => "btn btn-primary btn-large"));
+        <?php
+            echo $this->Form->button("Siguiente", array(
+                "id" => "btnNext", 
+                "type" => "button", 
+                "class" => "btn btn-primary btn-large"
+            ));
+            echo $this->Form->button("Matricular", array(
+                "id" => "btnMatricula", 
+                "type" => "submit", 
+                "class" => "btn btn-primary btn-large"
+            ));
             echo $this->Form->end();
         ?>
     </div>
@@ -156,3 +165,28 @@
         "if(confirm('No olvides de definir los Pagos a realizar. ¿Estás seguro de continuar?')) return true; else return false;"
     );
 ?>
+
+<script>
+    function eventFire(el, etype){
+        if (el.fireEvent) {
+            el.fireEvent('on' + etype);
+        } else {
+            var evObj = document.createEvent('Events');
+            evObj.initEvent(etype, true, false);
+            el.dispatchEvent(evObj);
+        }
+    }
+    $(document).ready(function() {
+        $("#btnMatricula").hide();
+        $("#btnNext").click(function() {
+            eventFire(document.getElementById('tabPagos'), 'click');
+            $(this).hide();
+            $("#btnMatricula").show();
+        });
+        
+        $("#tabDatosMatricular").click(function() {
+            $("#btnNext").show();
+            $("#btnMatricula").hide();
+        });
+    });
+</script>

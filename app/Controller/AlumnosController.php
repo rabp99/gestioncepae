@@ -4,6 +4,8 @@
  * CakePHP AlumnosController
  * @author admin
  */
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
+
 class AlumnosController extends AppController {
     public $uses = array("Alumno", "Padre");
     
@@ -479,8 +481,15 @@ class AlumnosController extends AppController {
                         }
                     }
                 }
+                
+                $passwordHasher = new BlowfishPasswordHasher();
+                $passwordHasher = $passwordHasher->hash( $this->request->data["Alumno"]["idalumno"]);
+                $this->Alumno->User->save(array(
+                    "username" => $this->request->data["Alumno"]["idalumno"],
+                    "password" => $passwordHasher
+                ));
             }
-            $this->Session->setFlash(__("No fue posible registrar el alumno."), "flash_bootstrap");
+            $this->Session->setFlash(__("No fue posible registrar el alumno." . implode(",", $this->Alumno->validationErrors)), "flash_bootstrap");
         }
     }
 

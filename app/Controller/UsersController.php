@@ -128,6 +128,8 @@ class UsersController extends AppController {
 
         if ($this->request->is(array("post", "put"))) {
             $this->User->create();
+            $this->request->data["User"]["password"] = $this->request->data["User"]["pswd"];
+            unset($this->request->data["User"]["pswd"]);
             if ($this->User->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__('El usuario ha sido registrado correctamente'));
                 return $this->redirect(array('action' => 'index'));

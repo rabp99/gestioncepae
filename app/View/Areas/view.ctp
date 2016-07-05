@@ -17,6 +17,4 @@
     <dd><?php echo $area["Area"]["idarea"]; ?></dd>
     <dt>Descripción</dt>
     <dd><?php echo $area["Area"]["descripcion"]; ?></dd>
-    <dt>Importancia</dt>
-    <dd><?php echo $area["Area"]["importancia"]; ?></dd>
 </dl>

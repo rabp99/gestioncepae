@@ -18,9 +18,6 @@
     echo $this->Form->input("descripcion", array(
         "label" => "Descripción",
         "autofocus" => "autofocus"
-    ));    
-    echo $this->Form->input("importancia", array(
-        "label" => "Importancia"
     ));
     echo $this->Form->button("Editar", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();

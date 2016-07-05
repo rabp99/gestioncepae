@@ -12,8 +12,7 @@
         <tr>
             <th id="user-grid_c0"><?php echo $this->Paginator->sort("idarea", "Cödigo <span class='caret'></span>", array("escape" => false)); ?></th>
             <th id="user-grid_c1"><?php echo $this->Paginator->sort("descripcion", "Descripción <span class='caret'></span>", array("escape" => false)); ?></th>
-            <th id="user-grid_c2"><?php echo $this->Paginator->sort("importancia", "Importancia <span class='caret'></span>", array("escape" => false)); ?></th>
-            <th id="user-grid_c3">Acciones</th>
+            <th id="user-grid_c2">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +21,6 @@
             array(
                 $area["Area"]["idarea"],
                 $area["Area"]["descripcion"],
-                $area["Area"]["importancia"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $area["Area"]["idarea"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .
                 $this->Html->link("<i class='icon-pencil'></i>", array("action" => "edit", $area["Area"]["idarea"]), array("escape" => false, "title" => "Editar", "rel" => "tooltip")) . " " .
                 $this->Form->postLink("<i class='icon-trash'></i>", array("action" => "delete", $area["Area"]["idarea"]), array("confirm" => "¿Estás seguro?", "escape" => false, "title" => "Deshabilitar"))

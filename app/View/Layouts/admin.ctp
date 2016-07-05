@@ -99,56 +99,56 @@
                             </a>
                             <ul id="yw3" class="dropdown-menu">
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Aniolectivos")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Aniolectivos", "action" => "index")) ?>">
                                         <i class="icon-calendar"></i>
                                         Años Lectivos
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Niveles")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Niveles", "action" => "index")) ?>">
                                         <i class="icon-th-list"></i>
                                         Niveles
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Grados")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Grados", "action" => "index")) ?>">
                                         <i class="icon-road"></i>
                                         Grados
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Areas")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Areas", "action" => "index")) ?>">
                                         <i class="icon-tasks"></i>
                                         Áreas
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Turnos")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Turnos", "action" => "index")) ?>">
                                         <i class="icon-time"></i>
                                         Turnos
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Users")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Users", "action" => "index")) ?>">
                                         <i class="icon-user"></i>
                                         Usuarios
                                     </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Conceptos")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Conceptos", "action" => "index")) ?>">
                                         <span class="modernpics icons16">#</span>
                                         Conceptos de Pagos
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Secciones")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Secciones", "action" => "index")) ?>">
                                         <span class="modernpics icons16">v</span> 
                                         Apertura de Grados
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->Html->url(array("controller" => "Bimestres")) ?>">
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Bimestres", "action" => "index")) ?>">
                                         <i class="icon-bold"></i>
                                         Bimestres
                                     </a>
@@ -156,19 +156,19 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Matriculas")) ?>">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Matriculas", "action" => "index")) ?>">
                                 <i class="icon-white icon-folder-close"></i>
                                 Matrículas
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Alumnos")) ?>">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Alumnos", "action" => "index")) ?>">
                                 <i class="icon-white icon-user"></i>
                                 Alumnos
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Cursos")) ?>">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Cursos", "action" => "index")) ?>">
                                 <span class="modernpics icons16 icons-white">a</span>
                                 Cursos
                             </a>
@@ -180,13 +180,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Docentes")) ?>">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Docentes", "action" => "index")) ?>">
                                 <span class="modernpics icons16 icons-white">f</span>
                                 Docentes
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Asignaciones")) ?>">
+                            <a href="<?php echo $this->Html->url(array("controller" => "Asignaciones", "action" => "index")) ?>">
                                 <span class="modernpics icons16 icons-white">R</span>
                                 Asignaciones
                             </a>

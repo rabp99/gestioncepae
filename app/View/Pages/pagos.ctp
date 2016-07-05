@@ -13,6 +13,8 @@
             </div>
             <div class="aqua-panel-content">
                 <h2>Bienvenido Usuario Pagos</h2>
+                <hr>
+                <br><br><br><br><br><br><br><br><br><br>
             </div>
         </div>
     </div>

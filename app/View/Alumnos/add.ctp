@@ -16,19 +16,19 @@
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
         <li>
-            <a data-toggle="tab" href="#yw0_tab_1"><span class="modernpics">g</span> Padres de Familia</a>
+            <a id="lnkPadresFamilia" data-toggle="tab" href="#yw0_tab_1"><span class="modernpics">g</span> Padres de Familia</a>
         </li>
         <li>
-            <a data-toggle="tab" href="#yw0_tab_2"><span class="modernpics">~</span> Otros</a>
+            <a id="lnkOtros"  data-toggle="tab" href="#yw0_tab_2"><span class="modernpics">~</span> Otros</a>
         </li>
         <li>
-            <a data-toggle="tab" href="#yw0_tab_3"><span class="modernpics">j</span> Salud</a>
+            <a id="lnkSalud"  data-toggle="tab" href="#yw0_tab_3"><span class="modernpics">j</span> Salud</a>
         </li>
         <li>
-            <a data-toggle="tab" href="#yw0_tab_4"><span class="modernpics">c</span> Dirección y Contacto</a>
+            <a id="lnkDireccionContacto"  data-toggle="tab" href="#yw0_tab_4"><span class="modernpics">c</span> Dirección y Contacto</a>
         </li>
         <li class="active">
-            <a data-toggle="tab" href="#yw0_tab_5"><span class="modernpics">Z</span> Información General</a>
+            <a id="lnkInformacionGeneral"  data-toggle="tab" href="#yw0_tab_5"><span class="modernpics">Z</span> Información General</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -129,10 +129,12 @@
                         "class" => "span4"
                     ));
                     echo $this->Form->input("User.username", array(
-                        "label" => "Nombre de Usuario"
+                        "label" => "Nombre de Usuario",
+                        "type" => "hidden"
                     ));
                     echo $this->Form->input("User.password", array(
-                        "label" => "Password"
+                        "label" => "Password",
+                        "type" => "hidden"
                     ));
                     echo $this->Form->input("User.idgroup", array(
                         "label" => "Password",
@@ -256,8 +258,17 @@
                     </fieldset>
                 </div>
             </div> 
-        <?php   
-            echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
+        <?php    
+            echo $this->Form->button("Siguiente", array(
+                "id" => "btnNext", 
+                "type" => "button", 
+                "class" => "btn btn-primary btn-large"
+            ));
+            echo $this->Form->button("Crear", array(
+                "id" => "btnCrear", 
+                "type" => "submit", 
+                "class" => "btn btn-primary btn-large"
+            ));
             echo $this->Form->end();
         ?>
     </div>
@@ -551,3 +562,58 @@
         });
     });
 <?php echo $this->Html->scriptEnd(); ?>
+<script>
+    function eventFire(el, etype){
+        if (el.fireEvent) {
+            el.fireEvent('on' + etype);
+        } else {
+            var evObj = document.createEvent('Events');
+            evObj.initEvent(etype, true, false);
+            el.dispatchEvent(evObj);
+        }
+    }
+    $(document).ready(function() {
+        $("#btnCrear").hide();
+        
+        $("#btnNext").click(function() {
+            var tab_active = $("#yw1 li.active a").attr("id");
+            var tab_next = "";
+            switch (tab_active) {
+                case "lnkInformacionGeneral":
+                    tab_next = "lnkDireccionContacto";
+                    break;
+                case "lnkDireccionContacto":
+                    tab_next = "lnkSalud";
+                    break;
+                case "lnkSalud":
+                    tab_next = "lnkOtros";
+                    break;
+                case "lnkOtros":
+                    tab_next = "lnkPadresFamilia";
+                    $(this).hide();
+                    $("#btnCrear").show();
+                    break;
+            }
+            if (tab_next) {
+                eventFire(document.getElementById(tab_next), 'click');
+            }
+        });
+        
+        $("#yw1 li a").click(function() {
+            var tab_active = $(this).attr("id");
+            switch (tab_active) {
+                case "lnkInformacionGeneral":
+                case "lnkDireccionContacto":
+                case "lnkSalud":
+                case "lnkOtros":
+                    $("#btnNext").show();
+                    $("#btnCrear").hide();
+                    break;
+                case "lnkPadresFamilia":
+                    $("#btnNext").hide();
+                    $("#btnCrear").show();
+                    break;
+            }
+        })
+    });
+</script>
