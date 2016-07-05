@@ -36,7 +36,9 @@ class AlumnosController extends AppController {
             $ds = $this->Alumno->getDataSource();
             $ds->begin();
             $this->Alumno->User->create();
+            $this->request->data["User"]["username"] = str_shuffle($this->request->data["Alumno"]["nombres"]);
             if($this->Alumno->User->save($this->request->data["User"])) {
+                $iduser = $this->Alumno->User->getLastInsertID();
                 $this->request->data["Alumno"]["iduser"] = $this->Alumno->User->id;
                 $this->Alumno->create();  
                 if($this->Alumno->save($this->request->data["Alumno"])) {
@@ -482,14 +484,18 @@ class AlumnosController extends AppController {
                     }
                 }
                 
-                $passwordHasher = new BlowfishPasswordHasher();
-                $passwordHasher = $passwordHasher->hash( $this->request->data["Alumno"]["idalumno"]);
-                $this->Alumno->User->save(array(
-                    "username" => $this->request->data["Alumno"]["idalumno"],
-                    "password" => $passwordHasher
-                ));
+                
             }
-            $this->Session->setFlash(__("No fue posible registrar el alumno." . implode(",", $this->Alumno->validationErrors)), "flash_bootstrap");
+            $passwordHasher = new BlowfishPasswordHasher();
+            $passwordHasher = $passwordHasher->hash($this->request->data["Alumno"]["idalumno"]);
+
+            $this->Alumno->User->updateAll(array(
+                "username" => $this->request->data["Alumno"]["idalumno"],
+                "password" => $passwordHasher
+            ), array(
+                "iduser" => $iduser
+            ));
+            $this->Session->setFlash(__("No fue posible registrar el alumno."), "flash_bootstrap");
         }
     }
 
