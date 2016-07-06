@@ -34,6 +34,7 @@
 <?php
     echo $this->Form->input("Detallepago.monto", array(
         "label" => "Monto a pagar",
+        "value" => $pago["Pago"]["deuda"],
         "min" => 0,
         "max" => $pago["Pago"]["deuda"]
     ));

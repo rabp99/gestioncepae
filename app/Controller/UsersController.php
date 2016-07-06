@@ -93,7 +93,7 @@ class UsersController extends AppController {
         ),
         "conditions" => array(
             "User.estado" => 1,
-            "User.idgroup" => array(1, 5)
+            "User.idgroup" => array(1, 3, 5)
         )
     );
     
@@ -142,13 +142,13 @@ class UsersController extends AppController {
         $this->layout = "admin";
 
         $this->set("groups", $this->User->Group->find("list", array(
-            "fields" => array("id", "descripcion")
+            "fields" => array("idgroup", "descripcion")
         )));
         
         if (!$id) {
             throw new NotFoundException(__("Usuario inválida"));
         }
-        $user = $this->User->findById($id);
+        $user = $this->User->findByIduser($id);
         if (!$user) {
             throw new NotFoundException(__("Usuario inválida"));
         }
