@@ -172,12 +172,13 @@ class PagosController extends AppController {
         if (!$id) {
             throw new NotFoundException(__("Matrícula inválida"));
         }
-        $this->Matricula->recursive = 3; 
-        $matricula = $this->Matricula->findByIdmatricula($id);
-        if (!$matricula) {
-            throw new NotFoundException(__("Matrícula inválido"));
-        } 
-        $this->set(compact("matricula"));
+        $detallepagos = $this->Pago->Detallepago->find("all", array(
+            "conditions" => array("Pago.idmatricula" => $id)
+        ));
+        $pagos = $this->Pago->find("all", array(
+            "conditions" => array("Pago.idmatricula" => $id)
+        ));
+        $this->set(compact("detallepagos", "pagos"));
     }
     
     public function view_pagos($id = null) {
@@ -186,12 +187,13 @@ class PagosController extends AppController {
         if (!$id) {
             throw new NotFoundException(__("Matrícula inválida"));
         }
-        $this->Matricula->recursive = 3; 
-        $matricula = $this->Matricula->findByIdmatricula($id);
-        if (!$matricula) {
-            throw new NotFoundException(__("Matrícula inválido"));
-        } 
-        $this->set(compact("matricula"));
+        $detallepagos = $this->Pago->Detallepago->find("all", array(
+            "conditions" => array("Pago.idmatricula" => $id)
+        ));
+        $pagos = $this->Pago->find("all", array(
+            "conditions" => array("Pago.idmatricula" => $id)
+        ));
+        $this->set(compact("detallepagos", "pagos"));
     }
     
     public function index_alumno() {

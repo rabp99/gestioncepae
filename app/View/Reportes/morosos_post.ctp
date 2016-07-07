@@ -47,18 +47,41 @@
     
     $fpdf->SetLineWidth(0.4);
     
+    $fpdf->SetFont("Arial", "B", 11);
     $fpdf->Cell(50, 6, utf8_decode("Alumno"), "LRBT", 0, "C");
-    $fpdf->Cell(50, 6, utf8_decode("Deuda"), "LRBT", 0, "C");
-    
+    $fpdf->Cell(50, 6, utf8_decode("Concepto"), "LRBT", 0, "C");
+    $fpdf->Cell(50, 6, utf8_decode("Valor"), "LRBT", 0, "C");
+    $fpdf->SetFont("Arial", "", 11);
     $fpdf->ln();
     
     $fpdf->SetLineWidth(0.2);
     
-    foreach($matriculas as $matricula) {
-        if($matricula["deuda"] > 0) {
-            $fpdf->Cell(50, 6, utf8_decode($matricula["Alumno"]["nombreCompleto"]), "LRBT", 0, "C");
-            $fpdf->Cell(50, 6, utf8_decode($matricula["deuda"]), "LRBT", 0, "C");
-            $fpdf->ln();
+    foreach ($matriculas as $matricula) {
+        if ($matricula["deuda"] > 0) {
+            foreach ($matricula["Pago"] as $k_pago => $v_pago) {
+                if ($k_pago == 0) {
+                    $fpdf->SetFont("Arial", "B", 11);
+                    $fpdf->Cell(50, 6, utf8_decode($matricula["Alumno"]["nombreCompleto"]), "LRBT", 0, "L");
+                    $fpdf->Cell(50, 6, utf8_decode("Deuda Total"), "LRBT", 0, "L");
+                    $fpdf->Cell(50, 6, utf8_decode($matricula["deuda"]), "LRBT", 0, "C");
+                    $fpdf->ln();
+                    
+                    $fpdf->SetFont("Arial", "", 11);
+                    
+                    $fpdf->Cell(50, 6, utf8_decode(""), "LR", 0, "L");
+                    $fpdf->Cell(50, 6, utf8_decode($v_pago["Concepto"]["descripcion"]), "LR", 0, "L");
+                    $fpdf->Cell(50, 6, utf8_decode($v_pago["deuda"]), "LR", 0, "C");
+                } elseif ($k_pago == (sizeof($matricula["Pago"]) - 1)) {
+                    $fpdf->Cell(50, 6, utf8_decode(""), "LRB", 0, "L");
+                    $fpdf->Cell(50, 6, utf8_decode($v_pago["Concepto"]["descripcion"]), "LRB", 0, "L");
+                    $fpdf->Cell(50, 6, utf8_decode($v_pago["deuda"]), "LRB", 0, "C");
+                } else {
+                    $fpdf->Cell(50, 6, utf8_decode(""), "LR", 0, "L");
+                    $fpdf->Cell(50, 6, utf8_decode($v_pago["Concepto"]["descripcion"]), "LR", 0, "L");
+                    $fpdf->Cell(50, 6, utf8_decode($v_pago["deuda"]), "LR", 0, "C");
+                }
+                $fpdf->ln();
+            }
         }
     }
     $fpdf->Output("Reporte_de_Morosos.pdf", "D");

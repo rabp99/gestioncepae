@@ -402,6 +402,7 @@ class ReportesController extends AppController {
         // Recuperación de información
         $deudatotal = 0;
         if($idanio == $idaniolectivoactual) {
+            $this->Matricula->recursive = 2;
             $matriculas = $this->Matricula->find("all", array(
                "conditions" => array("Seccion.idaniolectivo" => $idanio) 
             ));
@@ -410,12 +411,13 @@ class ReportesController extends AppController {
                 $matriculas[$k_matricula]["deuda"] = 0;
                 foreach($pagos as $pago) {
                     if($pago["fechalimite"] < $dia) {
-                        $deudatotal = $pago["deuda"];
+                        $deudatotal += $pago["deuda"];
                         $matriculas[$k_matricula]["deuda"] += $pago["deuda"];
                     }
                 }
             }
         } else {
+            $this->Matricula->recursive = 2;
             $matriculas = $this->Matricula->find("all", array(
                "conditions" => array("Seccion.idaniolectivo" => $idanio) 
             ));
@@ -423,7 +425,7 @@ class ReportesController extends AppController {
                 $pagos = $matricula["Pago"];
                 $matriculas[$k_matricula]["deuda"] = 0;
                 foreach($pagos as $pago) {
-                    $deudatotal = $pago["deuda"];
+                    $deudatotal += $pago["deuda"];
                     $matriculas[$k_matricula]["deuda"] += $pago["deuda"];
                 }
             }
