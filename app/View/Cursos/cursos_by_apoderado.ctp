@@ -32,27 +32,43 @@
     <thead>
         <tr>
             <th id="user-grid_c0">Curso</th>
-            <th id="user-grid_c1">Área</th>
-            <th id="user-grid_c2">Nivel</th>
-            <th id="user-grid_c3">Grado</th>
+            <th id="user-grid_c1">Profesor</th>
+            <th id="user-grid_c2">Celular</th>
+            <th id="user-grid_c3">Correo</th>
             <th id="user-grid_c5">Acciones</th>
         </tr>
     </thead>
     <tbody>
     <?php foreach ($cursos as $curso) {
-        echo $this->Html->tableCells(
-            array(
-                $curso["Curso"]["descripcion"],
-                $curso["Area"]["descripcion"],
-                $curso["Grado"]["Nivel"]["descripcion"],
-                $curso["Grado"]["descripcion"],
-                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view_apoderado", $curso["Curso"]["idcurso"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip"))
-            ), array(
-                "class" => "odd"
-            ), array(
-                "class" => "even"
-            )
-        );
+        if (isset($curso["Asignacion"][0])) {
+            echo $this->Html->tableCells(
+                array(
+                    $curso["Curso"]["descripcion"],
+                    $curso["Asignacion"][0]["Docente"]["nombreCompleto"],
+                    $curso["Asignacion"][0]["Docente"]["telefono1"] . " / " . $curso["Asignacion"][0]["Docente"]["telefono2"],
+                    $curso["Asignacion"][0]["Docente"]["direccion"],
+                    $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view_alumno", $curso["Curso"]["idcurso"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip"))
+                ), array(
+                    "class" => "odd"
+                ), array(
+                    "class" => "even"
+                )
+            );
+        } else {
+            echo $this->Html->tableCells(
+                array(
+                    $curso["Curso"]["descripcion"],
+                    "Sin asignar",
+                    "Sin asignar",
+                    "Sin asignar",
+                    $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view_alumno", $curso["Curso"]["idcurso"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip"))
+                ), array(
+                    "class" => "odd"
+                ), array(
+                    "class" => "even"
+                )
+            );
+        }
     } ?>
     </tbody>
 </table>

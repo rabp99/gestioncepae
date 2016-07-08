@@ -36,8 +36,8 @@
                 $asignacion["Seccion"]["Grado"]["Nivel"]["descripcion"],
                 $asignacion["Seccion"]["Grado"]["descripcion"],
                 $asignacion["Seccion"]["descripcion"],
-                $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "administrar", $asignacion["Asignacion"]["idasignacion"]), array("escape" => false, "title" => "Administrar", "rel" => "tooltip")) . " " .
-                $this->Html->link("<i class='icon-pencil'></i>", array("action" => "registrar", $asignacion["Asignacion"]["idasignacion"]), array("escape" => false, "title" => "Registrar", "rel" => "tooltip"))
+                $this->Html->link("Criterio de Evaluación", array("action" => "administrar", $asignacion["Asignacion"]["idasignacion"]), array("escape" => false, "title" => "Administrar", "rel" => "tooltip")) . " | " .
+                $this->Html->link("Ingresar Notas", array("action" => "registrar", $asignacion["Asignacion"]["idasignacion"]), array("escape" => false, "title" => "Registrar", "rel" => "tooltip"))
             ), array(
                 "class" => "odd"
             ), array(
