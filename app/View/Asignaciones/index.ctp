@@ -37,15 +37,34 @@
     <thead>
         <tr>
             <th id="user-grid_c0">Curso</th>
-            <th id="user-grid_c0">Área</th>
-            <th id="user-grid_c1">Docente</th>
-            <th id="user-grid_c3">Seccion</th>
+            <th id="user-grid_c1">Área</th>
+            <th id="user-grid_c2">Docente</th>
+            <th id="user-grid_c3">Nivel</th>
             <th id="user-grid_c4">Grado</th>
-            <th id="user-grid_c5">Nivel</th>
+            <th id="user-grid_c5">Seccion</th>
             <th id="user-grid_c6">Acciones</th>
         </tr>
     </thead>
     <tbody>
+        <?php foreach ($asignaciones as $asignacion) { ?>
+        <tr>
+            <td><?php echo $asignacion["Curso"]["descripcion"]; ?></td>
+            <td><?php echo $asignacion["Curso"]["Area"]["descripcion"]; ?></td>
+            <td><?php echo $asignacion["Docente"]["nombreCompleto"]; ?></td>
+            <td><?php echo $asignacion["Seccion"]["Grado"]["Nivel"]["descripcion"]; ?></td>
+            <td><?php echo $asignacion["Seccion"]["Grado"]["descripcion"]; ?></td>
+            <td><?php echo $asignacion["Seccion"]["descripcion"]; ?></td>
+            <td><?php echo $this->Html->link("<i class='icon-eye-open'></i>", array(
+                "action" => "view", 
+                $asignacion["Curso"]["idcurso"], $asignacion["Seccion"]["idseccion"]
+            ), array(
+                "escape" => false, 
+                "title" => "Detalle", 
+                "rel" => "tooltip"
+            )) ?>
+            </td>
+        </tr>
+        <?php } ?>
     </tbody>
 </table>
 <?php 

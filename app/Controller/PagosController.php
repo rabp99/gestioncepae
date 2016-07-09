@@ -207,26 +207,29 @@ class PagosController extends AppController {
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
         
-        $cursos = array();
-        $matricula_seleccionada = null;
-        
-        $idaniolectivo = 0;
-        if($this->request->is(array("post", "put"))) {
-            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) 
-                $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];    
-        } else {
-            $idaniolectivo = $this->Aniolectivo->getAniolectivoActual();
+        $idaniolectivo = $this->Aniolectivo->getAniolectivoActual();
+        if ($this->request->is(array("post", "put"))) {
+            $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
         }
         
-        $this->Matricula->recursive = 3;
         $matriculas = $this->Matricula->find("all", array(
            "conditions" => array("Matricula.idalumno" => $alumno["Alumno"]["idalumno"]) 
         ));
+        $matricula_seleccionada = 0;
         foreach($matriculas as $matricula) {
             if($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo)
-                $this->set("matricula", $matricula);
+                $matricula_seleccionada = $matricula;
         }
-        $this->set(compact("idaniolectivo"));
+        
+        $detallepagos = $this->Pago->Detallepago->find("all", array(
+            "conditions" => array("Pago.idmatricula" => $matricula_seleccionada["Matricula"]["idmatricula"])
+        ));
+        
+        $pagos = $this->Pago->find("all", array(
+            "conditions" => array("Pago.idmatricula" => $matricula_seleccionada["Matricula"]["idmatricula"])
+        ));
+        
+        $this->set(compact("detallepagos", "pagos", "idaniolectivo"));
     }
     
     public function index_apoderado() {
@@ -242,28 +245,31 @@ class PagosController extends AppController {
         )));
         $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
         
-        $cursos = array();
-        $matricula_seleccionada = null;
-        
-        $idaniolectivo = 0;
-        if($this->request->is(array("post", "put"))) {
-            if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"])) {
-                $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];    
-        
-                $this->Matricula->recursive = 3;
-                $matriculas = $this->Matricula->find("all", array(
-                   "conditions" => array("Matricula.idalumno" => $this->request->data["Alumno"]["idalumno"]) 
-                ));
-                foreach($matriculas as $matricula) {
-                    if($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo)
-                        $this->set("matricula", $matricula);
-                }
+        $detallepagos = array();
+        $pagos = array();
+        $idaniolectivo = $this->Aniolectivo->getAniolectivoActual();
+        if ($this->request->is(array("post", "put"))) {
+            $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
+            $idalumno = $this->request->data["Alumno"]["idalumno"]; 
+            $matriculas = $this->Matricula->find("all", array(
+                "conditions" => array("Matricula.idalumno" => $idalumno) 
+            ));
+            $matricula_seleccionada = 0;
+            foreach($matriculas as $matricula) {
+                if($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo)
+                    $matricula_seleccionada = $matricula;
             }
-        } else {
-            $idaniolectivo = $this->Aniolectivo->getAniolectivoActual();
+
+            $detallepagos = $this->Pago->Detallepago->find("all", array(
+                "conditions" => array("Pago.idmatricula" => $matricula_seleccionada["Matricula"]["idmatricula"])
+            ));
+
+            $pagos = $this->Pago->find("all", array(
+                "conditions" => array("Pago.idmatricula" => $matricula_seleccionada["Matricula"]["idmatricula"])
+            ));
+
         }
-        
-        $this->set(compact("idaniolectivo"));
+        $this->set(compact("detallepagos", "pagos", "idaniolectivo"));
     }
     
     public function getFormPagos() {

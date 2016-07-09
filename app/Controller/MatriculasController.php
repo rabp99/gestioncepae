@@ -33,7 +33,6 @@ class MatriculasController extends AppController {
             "conditions" => array("Nivel.estado" => 1)
         )));
         
-        $this->Paginator->paginate();
         $matriculas = array();
         
         $idaniolectivo = 0;
@@ -51,11 +50,13 @@ class MatriculasController extends AppController {
                 $idseccion = $this->request->data["Matricula"]["idseccion"];
                 $this->paginate["conditions"]["Matricula.idseccion"] = $idseccion;
             }
-            $this->Paginator->settings = $this->paginate;
-            $matriculas = $this->Paginator->paginate();
         } else {
             $idaniolectivo = $this->Matricula->Seccion->Aniolectivo->getAniolectivoActual();
         }
+        
+        $this->Paginator->settings = $this->paginate;
+        $matriculas = $this->Paginator->paginate();
+        
         $this->set(compact("idaniolectivo"));
         $this->set(compact("matriculas"));
     }

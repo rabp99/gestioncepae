@@ -22,6 +22,13 @@ class AsignacionesController extends AppController {
             "fields" => array("Nivel.idnivel", "Nivel.descripcion"),
             "conditions" => array("Nivel.estado" => 1)
         )));
+        
+        $this->Asignacion->recursive = 3;
+        $asignaciones = $this->Asignacion->find("all", array(
+            "conditions" => array("Seccion.idaniolectivo" => $idaniolectivo)
+        ));
+        
+        $this->set(compact("asignaciones"));
     }
     
     public function registrar($idcurso = null, $idseccion = null) {

@@ -42,7 +42,8 @@
         <thead>
             <tr>
                 <th>Concepto</th>
-                <th>Monto Pagadao</th>
+                <th>Monto a Pagar</th>
+                <th>Monto Pagado</th>
                 <th>Deuda Pendiente</th>
                 <th>Fecha Limite</th>
             </tr>
@@ -55,6 +56,7 @@
             <tr>
                 <td><?php echo $pago["Pago"]["descripcion"]; ?></td>
                 <td><?php echo $pago["Pago"]["monto"]; ?></td>
+                <td><?php echo $pago["Pago"]["monto"] - $pago["Pago"]["deuda"]; ?></td>
                 <td><?php echo $pago["Pago"]["deuda"]; ?></td>
                 <td><?php echo $pago["Pago"]["fechalimite"]; ?></td>
             </tr>
