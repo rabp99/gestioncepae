@@ -10,7 +10,7 @@ class ReportesController extends AppController {
         $this->Auth->allow("matriculas", "matriculas_post");
     }
 
-        public $uses = array("User", "Alumno", "Matricula", "Bimestre", "Nota", "Curso", "Area", "Asignacion", "Padre", "Detallepago");
+    public $uses = array("User", "Alumno", "Matricula", "Bimestre", "Nota", "Curso", "Area", "Asignacion", "Padre", "Detallepago");
         
     public function notas_alumno() {
         $this->layout = "alumno";
