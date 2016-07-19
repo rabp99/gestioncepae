@@ -59,7 +59,7 @@
                         "empty" => "Seleccionar uno"
                     ));
                     echo $this->Form->input("fechaNac", array(
-                        "label" => "Fecha de Nacimiento",
+                        "label" => "Fecha de Nacimiento <span style='color: #999'>(AAAA-MM-DD)</span>",
                         "type" => "text"
                     ));
                     echo $this->Form->input("lugarNac", array(

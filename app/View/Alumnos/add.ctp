@@ -56,7 +56,7 @@
                         "empty" => "Seleccionar uno"
                     ));
                     echo $this->Form->input("fechaNac", array(
-                        "label" => "Fecha de Nacimiento",
+                        "label" => "Fecha de Nacimiento <span style='color: #999'>(AAAA-MM-DD)</span>",
                         "type" => "text"
                     ));
                     echo $this->Form->input("lugarNac", array(
@@ -177,7 +177,7 @@
                                 "label" => "Teléfono 2"
                             ));
                             echo $this->Form->input("Padre.0.fechaNac", array(
-                                "label" => "Fecha de Nacimiento",
+                                "label" => "Fecha de Nacimiento <span style='color: #999'>(AAAA-MM-DD)</span>",
                                 "type" => "text"
                             ));
                             echo $this->Form->input("Padre.0.email", array(
@@ -226,7 +226,7 @@
                                 "label" => "Teléfono 2"
                             ));
                             echo $this->Form->input("Padre.1.fechaNac", array(
-                                "label" => "Fecha de Nacimiento",
+                                "label" => "Fecha de Nacimiento <span style='color: #999'>(AAAA-MM-DD)</span>",
                                 "type" => "text"
                             ));
                             echo $this->Form->input("Padre.1.email", array(
@@ -303,7 +303,7 @@
             "label" => "Teléfono 2"
         )) .
         $this->Form->input("Padre.2.fechaNac", array(
-            "label" => "Fecha de Nacimiento",
+            "label" => "Fecha de Nacimiento <span style='color: #999'>(AAAA-MM-DD)</span>",
             "type" => "text"
         )) .
         $this->Form->input("Padre.2.email", array(

@@ -7,6 +7,12 @@
     $this->Html->addCrumb("Usuarios", "/Usuarios");
     $this->Html->addCrumb('Adiministrar', '/Usuarios/index');
 ?>
+<?php echo $this->Form->create(false, array('class' => 'form-inline')); ?>
+<div class="form-group">
+    <?php echo $this->Form->input('search', array('label' => false, 'div' => false, 'class' => 'form-control', 'placeholder' => 'Buscar')); ?>
+    <button type="submit" class="btn btn-primary"><span class="icon-search icon-white"></span></button>
+</div>
+<?php echo $this->Form->end(); ?>
 <table class="items table table-striped table-bordered table-condensed">
     <thead>
         <tr>

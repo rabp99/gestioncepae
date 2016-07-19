@@ -23,19 +23,17 @@
                 <th>Concepto</th>
                 <th>Fecha</th>
                 <th>Monto Pagado</th>
-                <th>Total a Pagar</th>
             </tr>
         </thead>
         <tbody>
             <?php if (sizeof($detallepagos) == 0) { ?>
-            <tr><td colspan="4"><p style="text-align: center">No hay ningún pago registrado</p></td></tr>
+            <tr><td colspan="3"><p style="text-align: center">No hay ningún pago registrado</p></td></tr>
             <?php } else {
                 foreach ($detallepagos as $detallepago) { ?>
             <tr>
                 <td><?php echo $detallepago["Pago"]["descripcion"]; ?></td>
                 <td><?php echo $detallepago["Detallepago"]["created"]; ?></td>
                 <td><?php echo $detallepago["Detallepago"]["monto"]; ?></td>
-                <td><?php echo $detallepago["Pago"]["monto"]; ?></td>
             </tr>
             <?php
                 } 

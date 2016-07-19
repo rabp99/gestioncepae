@@ -46,7 +46,7 @@
         "label" => "Teléfono 2"
     ));
     echo $this->Form->input("fecha", array(
-        "label" => "Fecha",
+        "label" => "Fecha <span style='color: #999'>(AAAA-MM-DD)</span>",
         "type" => "text"
     ));
     echo $this->Form->input("User.idgroup", array(

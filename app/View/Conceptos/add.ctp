@@ -32,7 +32,7 @@
         "label" => "Monto"
     ));
     echo $this->Form->input("fechalimite", array(
-        "label" => "Fecha Limite",
+        "label" => "Fecha Limite <span style='color: #999'>(AAAA-MM-DD)</span>",
         "type" => "text"
     ));
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));

@@ -22,11 +22,11 @@
         "autofocus" => "autofocus"
     ));
     echo $this->Form->input("fechainicio", array(
-        "label" => "Fecha de Inicio",
+        "label" => "Fecha de Inicio <span style='color: #999'>(AAAA-MM-DD)</span>",
         "type" => "text"
     ));
     echo $this->Form->input("fechafin", array(
-        "label" => "Fecha Final",
+        "label" => "Fecha Final <span style='color: #999'>(AAAA-MM-DD)</span>",
         "type" => "text"
     ));  
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));

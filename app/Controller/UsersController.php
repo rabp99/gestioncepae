@@ -99,9 +99,17 @@ class UsersController extends AppController {
     
     public function index() {
         $this->layout = "admin";
+
+        if ($this->request->is('post')) {
+            $search = $this->request->data["search"];
+            $this->paginate['conditions']["User.username LIKE"] = '%'. $search . '%';
+            $this->Paginator->settings = $this->paginate;
+            $users = $this->Paginator->paginate();
+        } else {
+            $this->Paginator->settings = $this->paginate;
+            $users = $this->Paginator->paginate();
+        }
         
-        $this->Paginator->settings = $this->paginate;
-        $users = $this->Paginator->paginate();
         $this->set(compact("users"));
     }
 
