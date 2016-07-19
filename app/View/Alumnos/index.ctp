@@ -20,7 +20,7 @@
     <?php foreach ($alumnos as $alumno) {
         echo $this->Html->tableCells(
             array(
-                $alumno["Alumno"]["idalumno"],
+                'A' . str_pad($alumno["Alumno"]["idalumno"],  5, '0', STR_PAD_LEFT),
                 $alumno["Alumno"]["nombreCompleto"],
                 $alumno["Alumno"]["fechaNac"],
                 $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view", $alumno["Alumno"]["idalumno"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip")) . " " .

@@ -29,8 +29,7 @@
             <th id="user-grid_c0">Curso</th>
             <th id="user-grid_c1">Profesor</th>
             <th id="user-grid_c2">Celular</th>
-            <th id="user-grid_c3">Correo</th>
-            <th id="user-grid_c5">Acciones</th>
+            <th id="user-grid_c3">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -41,7 +40,6 @@
                     $curso["Curso"]["descripcion"],
                     $curso["Asignacion"][0]["Docente"]["nombreCompleto"],
                     $curso["Asignacion"][0]["Docente"]["telefono1"] . " / " . $curso["Asignacion"][0]["Docente"]["telefono2"],
-                    $curso["Asignacion"][0]["Docente"]["direccion"],
                     $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view_alumno", $curso["Curso"]["idcurso"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip"))
                 ), array(
                     "class" => "odd"
@@ -53,9 +51,7 @@
             echo $this->Html->tableCells(
                 array(
                     $curso["Curso"]["descripcion"],
-                    "Sin asignar",
-                    "Sin asignar",
-                    "Sin asignar",
+                    array('Sin asignar', 'colspan=2'),
                     $this->Html->link("<i class='icon-eye-open'></i>", array("action" => "view_alumno", $curso["Curso"]["idcurso"]), array("escape" => false, "title" => "Detalle", "rel" => "tooltip"))
                 ), array(
                     "class" => "odd"

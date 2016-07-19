@@ -3820,3 +3820,14 @@ h2 span {
         background:#0b242f url('../app/webroot/img/images/aqua-header-bg.png');
 }
 
+.has-error {
+    color: #b94a48 !important;
+    border-color: #ee5f5b !important;
+}
+
+.has-error:focus {
+    border-color: #e9322d !important;
+    -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+    -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+    box-shadow: 0 0 6px #f8b9b7 !important;
+}   

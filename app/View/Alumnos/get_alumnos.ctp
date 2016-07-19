@@ -11,7 +11,7 @@
         <tbody>
             <?php foreach ($alumnos as $alumno) { ?>
             <tr>
-                <td class="tdIdalumno"><?php echo $alumno["Alumno"]["idalumno"]; ?></td>
+                <td class="tdIdalumno"><?php echo 'A' . str_pad($alumno["Alumno"]["idalumno"],  5, '0', STR_PAD_LEFT); ?></td>
                 <td class="tdNombreCompleto"><?php echo $alumno["Alumno"]["nombreCompleto"]; ?></td>
                 <td><?php echo $this->Form->button($this->Html->tag("i", "", array("class" => "icon-ok")) . "", array("class" => "btn btn-default seleccionarAlumno", "type" => "button")); ?></td>
             </tr>

@@ -39,8 +39,10 @@ class AlumnosController extends AppController {
             $next_idAlumno = $this->Alumno->find('count', array(
                 'conditions' => array('Alumno.estado' => 1) 
             ));
-            $this->request->data["User"]["username"] = $next_idAlumno + 1;
-            $this->request->data["User"]["password"] = $next_idAlumno + 1;
+            
+            $username_password = 'A' . str_pad(($next_idAlumno + 1),  5, '0', STR_PAD_LEFT);
+            $this->request->data["User"]["username"] = $username_password;
+            $this->request->data["User"]["password"] = $username_password;
             
             if($this->Alumno->User->save($this->request->data["User"])) {
                 $iduser = $this->Alumno->User->getLastInsertID();

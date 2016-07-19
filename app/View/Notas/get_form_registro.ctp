@@ -30,6 +30,7 @@
                 $detallenota = $this->Form->input("Detallenota." . $n . ".valor", array(
                     "div" => false, 
                     "label" => false, 
+                    "class" => "txtNota",
                     "style" => "width: 54px", 
                     "min" => 0, 
                     "max" => 20,
@@ -39,9 +40,16 @@
                 $detallenota .= $this->Form->input("Detallenota." . $n . ".idnota", array("type" => "hidden", "value" => $nota["Nota"]["idnota"]));
                 $detallenota .= $this->Form->input("Detallenota." . $n . ".idmatricula", array("type" => "hidden", "value" => $matricula["idmatricula"]));
                 array_push($tr, $detallenota);
-                $suma += $nota["Detallenota"][$k_matricula]["valor"] * $nota["Nota"]["peso"];
+                $suma += @$nota["Detallenota"][$k_matricula]["valor"] * $nota["Nota"]["peso"];
             }
-            array_push($tr, $suma / $peso_total);
+            if($peso_total != 0) {
+                $promedio = number_format($suma / $peso_total, 2, '.', ',');
+                if ($promedio < 11) {
+                    array_push($tr, '<span style="color: red; font-weight: bold;">' . $promedio . '</span>');
+                } else {
+                    array_push($tr, '<span style="font-weight: bold;">' . $promedio . '</span>');
+                }
+            } 
             echo $this->Html->tableCells(
                 $tr,
                 array(
@@ -56,3 +64,22 @@
 <?php
     echo $this->Form->button("Registrar Notas", array("class" => "btn btn-primary btn-large"));
 ?>
+<script>
+    $(document).ready(function() {
+        $(".txtNota").each(function() {
+            var nota = $(this).val();
+            if (nota < 11) {
+                $(this).addClass('has-error');
+            }
+        });
+        
+        $(".txtNota").change(function() {
+            var nota = $(this).val();
+            if (nota < 11) {
+                $(this).addClass('has-error');
+            } else {
+                $(this).removeClass('has-error');
+            }
+        })
+    })
+</script>
