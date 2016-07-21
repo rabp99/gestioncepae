@@ -19,6 +19,11 @@
         "label" => "Descripción",
         "autofocus" => "autofocus"
     ));
+    echo $this->Form->input("idaniolectivo", array(
+        "label" => "Año Lectivo",
+        "options" => $aniolectivos,
+        "empty" => "Selecciona uno"
+    ));
     echo $this->Form->input("idarea", array(
         "label" => "Área",
         "options" => $areas,

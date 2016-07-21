@@ -5,7 +5,7 @@
  * @author Roberto
  */
 class CursosController extends AppController { 
-    public $uses = array("Curso", "Asignacion", "Docente", "Alumno", "Matricula", "Padre");
+    public $uses = array("Curso", "Asignacion", "Docente", "Alumno", "Matricula", "Padre", 'Aniolectivo');
 
     public $components = array("Paginator");
 
@@ -39,6 +39,11 @@ class CursosController extends AppController {
         $this->set("areas", $this->Curso->Area->find("list", array(
             "fields" => array("Area.idarea", "Area.descripcion"),
             "conditions" => array("Area.estado" => 1)
+        )));
+        
+        $this->set("aniolectivos", $this->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
         )));
         
         if ($this->request->is(array("post", "put"))) {
@@ -81,9 +86,15 @@ class CursosController extends AppController {
             "conditions" => array("Area.estado" => 1)
         )));
         
+        $this->set("aniolectivos", $this->Aniolectivo->find("list", array(
+            "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
+            "conditions" => array("Aniolectivo.estado" => 1)
+        )));
+        
         $this->Curso->recursive = 2;
         $curso = $this->Curso->findByIdcurso($id);
         $grado = $this->Curso->Grado->findByIdgrado($curso["Curso"]["idgrado"]);
+        
         $this->set("grados", $this->Curso->Grado->find("list", array(
             "fields" => array("Grado.idgrado", "Grado.descripcion"),
             "conditions" => array("Grado.idnivel" => $grado["Nivel"]["idnivel"])
@@ -138,6 +149,7 @@ class CursosController extends AppController {
         } else {
             $idaniolectivo = $this->Asignacion->Seccion->Aniolectivo->getAniolectivoActual();
         }
+        
         $conditions["Seccion.idaniolectivo"] = $idaniolectivo;
         $conditions["Asignacion.estado"] = 1;
         $conditions["Asignacion.iddocente"] = $docente["Docente"]["iddocente"];    

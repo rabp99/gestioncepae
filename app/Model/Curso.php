@@ -13,6 +13,9 @@ class Curso extends AppModel {
         ),
         "Area" => array(
             'foreignKey' => 'idarea'
+        ),
+        'Aniolectivo' => array(
+            'foreignKey' => 'idaniolectivo'
         )
     );
     
@@ -24,6 +27,12 @@ class Curso extends AppModel {
         
     public $validate = array(
         "descripcion" => array(
+            "notEmpty" => array(
+                "rule" => "notEmpty",
+                "message" => "No puede estar vacio"
+            )
+        ),
+        "idaniolectivo" => array(
             "notEmpty" => array(
                 "rule" => "notEmpty",
                 "message" => "No puede estar vacio"
