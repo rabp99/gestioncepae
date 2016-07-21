@@ -75,11 +75,11 @@ class ReportesController extends AppController {
         
         $bimestre = $this->Bimestre->findByIdbimestre($idbimestre);
         
-        if(!isset($matricula["Seccion"])) {
+       /* if(!isset($matricula["Seccion"])) {
             $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
             return $this->redirect(array("action" => "notas_alumno"));
         }
-        
+        */
         $this->Curso->recursive = -1;
         $cursos = $this->Curso->find("all", array(
             "conditions" => array("Curso.idgrado" => $matricula["Seccion"]["Grado"]["idgrado"])
@@ -104,16 +104,18 @@ class ReportesController extends AppController {
                             "Asignacion.idcurso" => $curso["Curso"]["idcurso"]
                         )
                     ));
-                    if(!isset($asignacion["Asignacion"])) {
+                    /*if(!isset($asignacion["Asignacion"])) {
                         $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
                         return $this->redirect(array("action" => "notas_alumno"));
+                    }*/
+                    if(isset($asignacion["Asignacion"])) {
+                        $notas = $this->Nota->Detallenota->find("all", array(
+                            "conditions" => array(
+                                "Nota.idasignacion" => $asignacion["Asignacion"]["idasignacion"],
+                                "Nota.idbimestre" => $bimestre["Bimestre"]["idbimestre"]
+                            )
+                        ));
                     }
-                    $notas = $this->Nota->Detallenota->find("all", array(
-                        "conditions" => array(
-                            "Nota.idasignacion" => $asignacion["Asignacion"]["idasignacion"],
-                            "Nota.idbimestre" => $bimestre["Bimestre"]["idbimestre"]
-                        )
-                    ));
                     $curso["Curso"]["promedio"] = $this->promedio($notas);
                     array_push($areas[$k_area]["Curso"], $curso["Curso"]);
                 }
@@ -147,12 +149,12 @@ class ReportesController extends AppController {
         ));
         
         $bimestre = $this->Bimestre->findByIdbimestre($idbimestre);
-        
+        /*
         if(!isset($matricula["Seccion"])) {
             $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
             return $this->redirect(array("action" => "notas_apoderado"));
         }
-        
+        */
         $this->Curso->recursive = -1;
         $cursos = $this->Curso->find("all", array(
             "conditions" => array("Curso.idgrado" => $matricula["Seccion"]["Grado"]["idgrado"])
@@ -177,16 +179,20 @@ class ReportesController extends AppController {
                             "Asignacion.idcurso" => $curso["Curso"]["idcurso"]
                         )
                     ));
+                    /*
                     if(!isset($asignacion["Asignacion"])) {
                         $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
                         return $this->redirect(array("action" => "notas_apoderado"));
                     }
-                    $notas = $this->Nota->Detallenota->find("all", array(
-                        "conditions" => array(
-                            "Nota.idasignacion" => $asignacion["Asignacion"]["idasignacion"],
-                            "Nota.idbimestre" => $bimestre["Bimestre"]["idbimestre"]
-                        )
-                    ));
+                    */
+                    if (!isset($asignacion["Asignacion"])) {
+                        $notas = $this->Nota->Detallenota->find("all", array(
+                            "conditions" => array(
+                                "Nota.idasignacion" => $asignacion["Asignacion"]["idasignacion"],
+                                "Nota.idbimestre" => $bimestre["Bimestre"]["idbimestre"]
+                            )
+                        ));
+                    }
                     $curso["Curso"]["promedio"] = $this->promedio($notas);
                     array_push($areas[$k_area]["Curso"], $curso["Curso"]);
                 }

@@ -85,7 +85,7 @@ class NotasController extends AppController {
             if($this->Detallenota->saveMany($this->request->data["Detallenota"])) {
                 $this->Session->setFlash(__("Las Notas han sido registradas correctamente."), "flash_bootstrap");
                 $ds->commit();
-                return $this->redirect(array("action" => "index"));
+                return $this->redirect(array("action" => "registrar", $idasignacion));
             }   
             $this->Session->setFlash(__("Las Notas no han sido registradas correctamente."), "flash_bootstrap");
         }
