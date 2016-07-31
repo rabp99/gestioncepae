@@ -202,20 +202,33 @@ class NotasController extends AppController {
         $this->layout = "apoderado";
 
         $user = $this->Auth->user();
-        $this->Padre->recursive = 2;
+        $this->Padre->recursive = 4;
         $padre = $this->Padre->findByIduser($user["iduser"]);
                 
         $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
-        $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
+        //$this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
         
         $cursos = array();
         $matricula_seleccionada = null;
         
         if($this->request->is(array("post", "put"))) {
             $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
+             
+            $alumnos_aux = $padre["AlumnosPadre"];
+            $alumnos = array();
+            foreach ($alumnos_aux as $alumno_aux) {
+                foreach ($alumno_aux["Alumno"]["Matricula"] as $matricula) {
+                    if ($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo) {
+                        $alumnos[$alumno_aux["Alumno"]["idalumno"]] = $alumno_aux["Alumno"]["nombreCompleto"];
+                        break;
+                    }
+                }
+            }
+            $this->set("alumnos", $alumnos);
+
             if(!empty($this->request->data["Aniolectivo"]["idaniolectivo"]) && !empty($this->request->data["Alumno"]["idalumno"])) {
                 $this->Matricula->recursive = 3;
                 $matriculas = $this->Matricula->find("all", array(
@@ -232,8 +245,22 @@ class NotasController extends AppController {
                     }
                 }
             }
-        } else
+        } else {
             $idaniolectivo = $this->Asignacion->Seccion->Aniolectivo->getAniolectivoActual();
+            
+            $alumnos_aux = $padre["AlumnosPadre"];
+            $alumnos = array();
+            foreach ($alumnos_aux as $alumno_aux) {
+                foreach ($alumno_aux["Alumno"]["Matricula"] as $matricula) {
+                    if ($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo) {
+                        $alumnos[$alumno_aux["Alumno"]["idalumno"]] = $alumno_aux["Alumno"]["nombreCompleto"];
+                        break;
+                    }
+                }
+            }
+            $this->set("alumnos", $alumnos);
+
+        }
         $this->set(compact("idaniolectivo"));
         $this->set(compact("matricula_seleccionada"));
         $this->set(compact("cursos"));

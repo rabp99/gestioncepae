@@ -236,20 +236,46 @@ class PagosController extends AppController {
         $this->layout = "apoderado";
         
         $user = $this->Auth->user();
-        $this->Padre->recursive = 2;
+        $this->Padre->recursive = 4;
         $padre = $this->Padre->findByIduser($user["iduser"]);
-                
+        
         $this->set("aniolectivos", $this->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
-        $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
+        // $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
         
         $detallepagos = array();
         $pagos = array();
         $idaniolectivo = $this->Aniolectivo->getAniolectivoActual();
+        
+        $alumnos_aux = $padre["AlumnosPadre"];
+        $alumnos = array();
+        foreach ($alumnos_aux as $alumno_aux) {
+            foreach ($alumno_aux["Alumno"]["Matricula"] as $matricula) {
+                if ($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo) {
+                    $alumnos[$alumno_aux["Alumno"]["idalumno"]] = $alumno_aux["Alumno"]["nombreCompleto"];
+                    break;
+                }
+            }
+        }
+        $this->set("alumnos", $alumnos);
+        
         if ($this->request->is(array("post", "put"))) {
             $idaniolectivo = $this->request->data["Aniolectivo"]["idaniolectivo"];
+            
+            $alumnos_aux = $padre["AlumnosPadre"];
+            $alumnos = array();
+            foreach ($alumnos_aux as $alumno_aux) {
+                foreach ($alumno_aux["Alumno"]["Matricula"] as $matricula) {
+                    if ($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo) {
+                        $alumnos[$alumno_aux["Alumno"]["idalumno"]] = $alumno_aux["Alumno"]["nombreCompleto"];
+                        break;
+                    }
+                }
+            }
+            $this->set("alumnos", $alumnos);
+
             $idalumno = $this->request->data["Alumno"]["idalumno"]; 
             $matriculas = $this->Matricula->find("all", array(
                 "conditions" => array("Matricula.idalumno" => $idalumno) 

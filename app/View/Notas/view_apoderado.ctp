@@ -19,15 +19,45 @@
     <dt>Nivel</dt>
     <dd><?php echo $curso["Grado"]["Nivel"]["descripcion"]; ?></dd>
 </dl>
-<?php foreach($bimestres as $bimestre) { ?>
-<h4><?php echo $bimestre["Bimestre"]["descripcion"]; ?></h4>
-<dl class="dl-horizontal">
-<?php   foreach($detallenotas as $detallenota) { ?>
-<?php       if($detallenota["Nota"]["idbimestre"] == $bimestre["Bimestre"]["idbimestre"]) { ?>
-    <dt><?php echo $detallenota["Nota"]["descripcion"]; ?></dt>
-    <dd><?php echo $detallenota["Detallenota"]["valor"]; ?></dd>
-<?php       } ?>
-<?php   } ?>
-</dl>
+
+<?php foreach ($bimestres as $bimestre) { ?>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="3"><?php echo $bimestre["Bimestre"]["descripcion"]; ?></th>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <th>Peso</th>
+                <th>Nota</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $suma = 0;
+            $con = 0;
+            foreach ($detallenotas as $detallenota) {
+                if ($detallenota["Nota"]["idbimestre"] == $bimestre["Bimestre"]["idbimestre"]) {
+                    $suma += $detallenota['Detallenota']['valor'];
+                    $con++;
+            ?>
+            <tr>
+                <td><?php echo $detallenota["Nota"]["descripcion"]; ?></td>
+                <td><?php echo $detallenota["Nota"]["peso"]; ?></td>
+                <td><?php echo $detallenota["Detallenota"]["valor"]; ?></td>
+            </tr>
+            <?php
+                }
+            }
+            ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" style="text-align: right;">Promedio</td>
+                <td><?php if ($con) echo number_format($suma / $con, 2, '.', ','); ?></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 <?php } ?>
-<?php echo $this->Html->link("Regresar", array("action" => "index_apoderado")); ?>

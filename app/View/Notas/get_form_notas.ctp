@@ -42,5 +42,5 @@
          "class" => "span4"
     ));
     echo "<br/>";
-    echo $this->Form->button("Registrar Nota", array("class" => "btn btn-primary btn-large"));
+    echo $this->Form->button("Registrar Criterio", array("class" => "btn btn-primary btn-large"));
 ?>

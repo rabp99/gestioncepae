@@ -6,7 +6,7 @@
     $this->Html->addCrumb("Boleta de Notas", "/Reportes/notas");
 ?>
 <?php
-    echo $this->Form->create("Reporte", array("class" => "form-horizontal", "action" => "notas_apoderado_post"));
+    echo $this->Form->create("Reporte", array("class" => "form-horizontal"));
     echo $this->Form->input("idaniolectivo", array(
         "label" => "Año Lectivo",
         "options" => $aniolectivos,
@@ -23,6 +23,18 @@
         "options" => $bimestres,
         "empty" => "Selecciona uno"
     ));
-    echo $this->Form->button("Reporte", array("class" => "btn btn-primary btn-large"));
+    echo $this->Form->button("Reporte", array("class" => "btn btn-primary btn-large", "id" => "btnReporte"));
     echo $this->Form->end();
 ?>
+<?php
+    $submit = "$('#ReporteNotasApoderadoForm').submit();";
+    $this->Js->get('#ReporteIdaniolectivo')->event('change', $submit);
+?>
+<script>
+    $(document).ready(function() {
+        $("#btnReporte").click(function() {
+            $('#ReporteNotasApoderadoForm').attr("action", "/gestioncepae/Reportes/notas_apoderado_post");
+            <?php echo $submit; ?>
+        });
+    })
+</script>

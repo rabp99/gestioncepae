@@ -34,16 +34,28 @@ class ReportesController extends AppController {
         $this->layout = "apoderado";
         
         $user = $this->Auth->user();
-        $this->Padre->recursive = 2;
+        $this->Padre->recursive = 4;
         $padre = $this->Padre->findByIduser($user["iduser"]);
                 
         $this->set("aniolectivos", $this->Asignacion->Seccion->Aniolectivo->find("list", array(
             "fields" => array("Aniolectivo.idaniolectivo", "Aniolectivo.descripcion"),
             "conditions" => array("Aniolectivo.estado" => 1)
         )));
-        $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
+        // $this->set("alumnos", Set::combine($padre["AlumnosPadre"], "{n}.idalumno", "{n}.Alumno.nombreCompleto"));
         
         $idaniolectivo = $this->Matricula->Seccion->Aniolectivo->getAniolectivoActual();
+         
+        $alumnos_aux = $padre["AlumnosPadre"];
+        $alumnos = array();
+        foreach ($alumnos_aux as $alumno_aux) {
+            foreach ($alumno_aux["Alumno"]["Matricula"] as $matricula) {
+                if ($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo) {
+                    $alumnos[$alumno_aux["Alumno"]["idalumno"]] = $alumno_aux["Alumno"]["nombreCompleto"];
+                    break;
+                }
+            }
+        }
+        $this->set("alumnos", $alumnos);
         
         $this->set(compact("idaniolectivo"));
         
@@ -51,6 +63,23 @@ class ReportesController extends AppController {
             "fields" => array("Bimestre.idbimestre", "Bimestre.descripcion"),
             "conditions" => array("Bimestre.estado" => 1)
         )));
+        
+        if ($this->request->is(array("post", "put"))) {
+            $idaniolectivo = $this->request->data["Reporte"]["idaniolectivo"];
+            
+            $alumnos_aux = $padre["AlumnosPadre"];
+            $alumnos = array();
+            foreach ($alumnos_aux as $alumno_aux) {
+                foreach ($alumno_aux["Alumno"]["Matricula"] as $matricula) {
+                    if ($matricula["Seccion"]["idaniolectivo"] == $idaniolectivo) {
+                        $alumnos[$alumno_aux["Alumno"]["idalumno"]] = $alumno_aux["Alumno"]["nombreCompleto"];
+                        break;
+                    }
+                }
+            }
+            $this->set("alumnos", $alumnos);
+            $this->set(compact("idaniolectivo"));
+        }
     }
     
     public function notas_alumno_post() {
@@ -86,7 +115,7 @@ class ReportesController extends AppController {
         ));
         
         $idareas = Set::format($cursos, "{0}", array("{n}.Curso.idarea"));
-        $iareas = array_unique($idareas);
+        $idareas = array_unique($idareas);
         
         $areas = $this->Area->find("all", array(
            "conditions" => array("Area.idarea" => $idareas) 
@@ -115,8 +144,10 @@ class ReportesController extends AppController {
                                 "Nota.idbimestre" => $bimestre["Bimestre"]["idbimestre"]
                             )
                         ));
+                        $curso["Curso"]["promedio"] = $this->promedio($notas);
+                    } else {
+                        $curso["Curso"]["promedio"] = 0;
                     }
-                    $curso["Curso"]["promedio"] = $this->promedio($notas);
                     array_push($areas[$k_area]["Curso"], $curso["Curso"]);
                 }
             }
@@ -141,7 +172,6 @@ class ReportesController extends AppController {
         $idaniolectivo = $this->request->data["Reporte"]["idaniolectivo"];
         
         $idbimestre = $this->request->data["Reporte"]["idbimestre"];
-        
         // Recuperación de información
         $this->Matricula->recursive = 3;
         $matricula = $this->Matricula->find("first", array(
@@ -149,6 +179,7 @@ class ReportesController extends AppController {
         ));
         
         $bimestre = $this->Bimestre->findByIdbimestre($idbimestre);
+        
         /*
         if(!isset($matricula["Seccion"])) {
             $this->Session->setFlash(__("Aún no es posible generar la Boleta de Notas."), "flash_bootstrap");
@@ -161,12 +192,11 @@ class ReportesController extends AppController {
         ));
         
         $idareas = Set::format($cursos, "{0}", array("{n}.Curso.idarea"));
-        $iareas = array_unique($idareas);
+        $idareas = array_unique($idareas);
         
         $areas = $this->Area->find("all", array(
            "conditions" => array("Area.idarea" => $idareas) 
         ));
-              
         foreach($areas as $k_area => $area) {
             $areas[$k_area]["Curso"] = array();
             foreach($cursos as $k_curso => $curso) {
@@ -185,15 +215,17 @@ class ReportesController extends AppController {
                         return $this->redirect(array("action" => "notas_apoderado"));
                     }
                     */
-                    if (!isset($asignacion["Asignacion"])) {
+                    if (isset($asignacion["Asignacion"])) {
                         $notas = $this->Nota->Detallenota->find("all", array(
                             "conditions" => array(
                                 "Nota.idasignacion" => $asignacion["Asignacion"]["idasignacion"],
                                 "Nota.idbimestre" => $bimestre["Bimestre"]["idbimestre"]
                             )
                         ));
+                        $curso["Curso"]["promedio"] = $this->promedio($notas);
+                    } else {
+                        $curso["Curso"]["promedio"] = 0;
                     }
-                    $curso["Curso"]["promedio"] = $this->promedio($notas);
                     array_push($areas[$k_area]["Curso"], $curso["Curso"]);
                 }
             }
