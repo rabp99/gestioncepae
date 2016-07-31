@@ -24,14 +24,14 @@
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
-            <tr>
-                <th colspan="3"><?php echo $bimestre["Bimestre"]["descripcion"]; ?></th>
-            </tr>
-            <tr>
-                <th>Descripción</th>
-                <th>Peso</th>
-                <th>Nota</th>
-            </tr>
+            <caption><?php echo $bimestre["Bimestre"]["descripcion"]; ?></caption>
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Peso</th>
+                    <th>Nota</th>
+                </tr>
+            </thead>
         </thead>
         <tbody>
             <?php
@@ -39,8 +39,8 @@
             $con = 0;
             foreach ($detallenotas as $detallenota) {
                 if ($detallenota["Nota"]["idbimestre"] == $bimestre["Bimestre"]["idbimestre"]) {
-                    $suma += $detallenota['Detallenota']['valor'];
-                    $con++;
+                    $suma += ($detallenota['Detallenota']['valor'] * $detallenota["Nota"]["peso"]);
+                    $con += $detallenota["Nota"]["peso"];
             ?>
             <tr>
                 <td><?php echo $detallenota["Nota"]["descripcion"]; ?></td>
@@ -54,8 +54,8 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2" style="text-align: right;">Promedio</td>
-                <td><?php if ($con) echo number_format($suma / $con, 2, '.', ','); ?></td>
+                <td colspan="2" style="text-align: right; font-weight: bold;">Promedio</td>
+                <td style="font-weight: bold;"><?php if ($con) echo number_format($suma / $con, 2, '.', ','); ?></td>
             </tr>
         </tfoot>
     </table>

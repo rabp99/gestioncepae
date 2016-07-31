@@ -129,6 +129,12 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Alumnos", "action" => "index")) ?>">
+                                        <i class="icon-user"></i>
+                                        Alumnos
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="<?php echo $this->Html->url(array("controller" => "Users", "action" => "index")) ?>">
                                         <i class="icon-user"></i>
                                         Usuarios
@@ -162,9 +168,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array("controller" => "Alumnos", "action" => "index")) ?>">
-                                <i class="icon-white icon-user"></i>
-                                Alumnos
+                            <a href="<?php echo $this->Html->url(array("controller" => "Notas", "action" => "index_admin")) ?>">
+                                <span class="modernpics icons16 icons-white">V</span>
+                                Notas
                             </a>
                         </li>
                         <li>
