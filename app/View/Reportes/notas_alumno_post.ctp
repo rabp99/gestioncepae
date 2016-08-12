@@ -62,30 +62,67 @@
     
     $fpdf->ln();
     
+    // buscar nota de simulacro
+    foreach ($areas as $area) {
+        if ($area["Area"]["descripcion"] == "Simulacro") {
+            $nota_simulacro = $area["Curso"][0]["promedio"];
+        }
+    }
     foreach($areas as $area) {
         if($area["Area"]["idarea"] != 1) {
-            $fpdf->Cell(112, 6, utf8_decode($area["Area"]["descripcion"]), "LRB", 0, "L");
-            $fpdf->Cell(25, 6, "", "LRB", 0, "C");
-            $fpdf->Cell(25, 6, "", "LRB", 0, "C");
-            $fpdf->Cell(26, 6, utf8_decode($area["Area"]["promediofinal"]), "LRB", 0, "C");
-
-            $fpdf->ln();
-
-            $i = 0;
-            foreach($area["Curso"] as $curso) {
-                $fpdf->Cell(22, 6, "", ($i == 0 ? ($i + 1 == sizeof($area["Curso"]) ? "LRBT" : "LRT") : ($i + 1 == sizeof($area["Curso"]) ? "LRB" : "LR")), 0, "C");
-                $fpdf->Cell(90, 6, utf8_decode($curso["descripcion"]), "LRB", 0, "L");
-                $fpdf->Cell(25, 6, utf8_decode($curso["promedio"]), "LRB", 0, "C");
-                $fpdf->Cell(25, 6, "", "LR", 0, "C");
-                $fpdf->Cell(26, 6, "", "LR", 0, "C");
+            if ($area["Area"]["descripcion"] != "Simulacro") {
+                
+                $fpdf->SetFont("Arial", "B", 11);
+                $fpdf->Cell(112, 6, utf8_decode($area["Area"]["descripcion"]), "LRB", 0, "L");
+                
+                if ($area["Area"]["promediofinal"] < 11) {
+                    $fpdf->SetTextColor(255, 0, 0);
+                } else {
+                    $fpdf->SetTextColor(0, 0, 0);
+                }
+                $fpdf->Cell(25, 6, utf8_decode($area["Area"]["promediofinal"]), "LRB", 0, "C");
+                
+                if ($nota_simulacro < 11) {
+                    $fpdf->SetTextColor(255, 0, 0);
+                } else {
+                    $fpdf->SetTextColor(0, 0, 0);
+                }
+                $fpdf->Cell(25, 6, utf8_decode($nota_simulacro), "LRB", 0, "C");
+                
+                $nota_promediada_simulacro = ($area["Area"]["promediofinal"] + $nota_simulacro) / 2;
+                if ($nota_promediada_simulacro < 11) {
+                    $fpdf->SetTextColor(255, 0, 0);
+                } else {
+                    $fpdf->SetTextColor(0, 0, 0);
+                }
+                $fpdf->Cell(26, 6, utf8_decode($nota_promediada_simulacro), "LRB", 0, "C");
 
                 $fpdf->ln();
-                $i++;
+
+                $i = 0;
+                
+                $fpdf->SetFont("Arial", "", 11);
+                foreach($area["Curso"] as $curso) {
+                    $fpdf->Cell(22, 6, "", ($i == 0 ? ($i + 1 == sizeof($area["Curso"]) ? "LRBT" : "LRT") : ($i + 1 == sizeof($area["Curso"]) ? "LRB" : "LR")), 0, "C");
+                    $fpdf->Cell(90, 6, utf8_decode($curso["descripcion"]), "LRB", 0, "L");
+                  
+                    if ($curso["promedio"] < 11) {
+                        $fpdf->SetTextColor(255, 0, 0);
+                    } else {
+                        $fpdf->SetTextColor(0, 0, 0);
+                    }
+                    $fpdf->Cell(25, 6, utf8_decode($curso["promedio"]), "LRB", 0, "C");
+                    $fpdf->Cell(25, 6, "", "LR", 0, "C");
+                    $fpdf->Cell(26, 6, "", "LR", 0, "C");
+
+                    $fpdf->ln();
+                    $i++;
+                }
+                $fpdf->Cell(137, 6, "", "LRB", 0, "L");
+                $fpdf->Cell(25, 6, "", "LRB", 0, "L");
+                $fpdf->Cell(26, 6, "", "LRB", 0, "L");
+                $fpdf->ln();
             }
-            $fpdf->Cell(137, 6, "", "LRB", 0, "L");
-            $fpdf->Cell(25, 6, "", "LRB", 0, "L");
-            $fpdf->Cell(26, 6, "", "LRB", 0, "L");
-            $fpdf->ln();
         }
     }
        
