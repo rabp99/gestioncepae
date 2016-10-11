@@ -36,6 +36,9 @@
         "type" => "select",
         "empty" => "Selecciona uno"
     ));
+?>
+
+<?php
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();
 ?>

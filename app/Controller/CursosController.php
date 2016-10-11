@@ -48,12 +48,13 @@ class CursosController extends AppController {
         
         if ($this->request->is(array("post", "put"))) {
             $this->Curso->create();
+            debug($this->request->data);/*
             if ($this->Curso->save($this->request->data)) {
                 $this->Session->setFlash(__("El curso ha sido registrada correctamente."), "flash_bootstrap");
                 return $this->redirect(array("action" => "index"));
             }
             $this->Session->setFlash(__("No fue posible registrar el curso."), "flash_bootstrap");
-        }
+*/        }
     }
 
     public function view($id = null) {
