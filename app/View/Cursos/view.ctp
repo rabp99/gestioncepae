@@ -23,4 +23,6 @@
     <dd><?php echo $curso["Grado"]["descripcion"]; ?></dd>
     <dt>Nivel</dt>
     <dd><?php echo $curso["Grado"]["Nivel"]["descripcion"]; ?></dd>
+    <dt>Capacidades</dt>
+    <dd><?php echo $curso["Curso"]["capacidades"]; ?></dd>
 </dl>

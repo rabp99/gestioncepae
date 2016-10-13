@@ -22,9 +22,6 @@ class Curso extends AppModel {
     public $hasMany = array(
         "Asignacion" => array(
             "foreignKey" => "idcurso"
-        ),
-        "Capacidad" => array(
-            "foreignKey" => "idcurso"
         )
     );
         

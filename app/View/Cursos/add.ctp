@@ -1,13 +1,23 @@
 <!-- File: /app/View/Cursos/add.ctp -->
 <?php 
+    echo $this->Html->script("../bower_components/tinymce/tinymce.js");
+            
     $this->extend("/Common/add");
     $this->assign("titulo", "Crear Curso");
     $this->assign("accion", "Administrar Cursos");
     
     $this->Html->addCrumb('Cursos', '/Cursos');
     $this->Html->addCrumb('Crear', '/Cursos/add');
-    
-?>
+?>        
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        width: '550px',
+        toolbar: false,
+        menubar: false,
+        statusbar: false
+    });
+</script>
 <?php 
     echo $this->Form->create("Curso", array("class" => "form-vertical"));
     $this->Form->inputDefaults(array("class" => "span4"));
@@ -36,9 +46,10 @@
         "type" => "select",
         "empty" => "Selecciona uno"
     ));
-?>
-
-<?php
+    echo $this->Form->input('capacidades', array(
+        "label" => "Capacidades",
+        "type" => "textarea"
+    ));
     echo $this->Form->button("Crear", array("class" => "btn btn-primary btn-large"));
     echo $this->Form->end();
 ?>
