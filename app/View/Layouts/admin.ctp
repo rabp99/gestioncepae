@@ -129,6 +129,12 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="<?php echo $this->Html->url(array("controller" => "Aseguradoras", "action" => "index")) ?>">
+                                        <i class="icon-heart"></i>
+                                        Aseguradoras
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="<?php echo $this->Html->url(array("controller" => "Alumnos", "action" => "index")) ?>">
                                         <i class="icon-user"></i>
                                         Alumnos
