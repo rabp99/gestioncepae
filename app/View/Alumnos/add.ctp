@@ -346,7 +346,7 @@
 ?>
 
 <?php
-    $alumnoSeguroChange = "if($('#AlumnoSeguro').prop('checked')) $('#AlumnoAseguradora').attr({disabled: false});" .
+    $alumnoSeguroChange = "if($('#AlumnoSeguro_').prop('checked')) $('#AlumnoAseguradora').attr({disabled: false});" .
         "else {" .
         "   $('#AlumnoAseguradora').val('');" .
         "   $('#AlumnoAseguradora').attr({disabled: true});" .
@@ -573,6 +573,13 @@
         }
     }
     $(document).ready(function() {
+        if ($('#AlumnoSeguro_').prop('checked')) {
+            $('#AlumnoAseguradora').attr({disabled: false});
+        }
+        else {
+            $('#AlumnoAseguradora').val('');
+            $('#AlumnoAseguradora').attr({disabled: true});
+        }
         $("#btnCrear").hide();
         
         $("#btnNext").click(function() {
