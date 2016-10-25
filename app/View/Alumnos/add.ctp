@@ -97,9 +97,11 @@
                         </div>
                     </div>
                 <?php 
-                    echo $this->Form->input("aseguradora", array(
+                    echo $this->Form->input("idaseguradora", array(
                         "label" => "Aseguradora",
-                        "disabled" => true
+                        "disabled" => true,
+                        "options" => $aseguradoras,
+                        "empty" => "Selecciona una Aseguradora"
                     ));
                     echo $this->Form->input("lugarAten", array(
                         "label" => "Lugar de Atención"
@@ -573,13 +575,14 @@
         }
     }
     $(document).ready(function() {
-        if ($('#AlumnoSeguro_').prop('checked')) {
-            $('#AlumnoAseguradora').attr({disabled: false});
-        }
-        else {
-            $('#AlumnoAseguradora').val('');
-            $('#AlumnoAseguradora').attr({disabled: true});
-        }
+        $('#AlumnoSeguro').change(function() {
+            if ($('#AlumnoSeguro').prop('checked')) {
+                $('#AlumnoIdaseguradora').prop('disabled', false);
+            } else {
+                $('#AlumnoIdaseguradora').prop('disabled', true);
+            }
+        });
+        
         $("#btnCrear").hide();
         
         $("#btnNext").click(function() {
