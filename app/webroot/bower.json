@@ -1,0 +1,22 @@
+{
+  "name": "gestioncepae",
+  "homepage": "https://github.com/Rabp9/gestioncepae",
+  "authors": [
+    "Roberto André Bocanegra Palacios <rabp_91@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "select2": "^4.0.3",
+    "tinymce": "^4.4.3"
+  }
+}

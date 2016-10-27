@@ -7,7 +7,7 @@
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class AlumnosController extends AppController {
-    public $uses = array("Alumno", "Padre", "Aseguradora");
+    public $uses = array("Alumno", "Padre", "Aseguradora", "Cobertura");
     
     public $components = array("Paginator");
     
@@ -34,6 +34,9 @@ class AlumnosController extends AppController {
         
         $aseguradoras = $this->Aseguradora->find('list', array(
             'fields' => array('idaseguradora', 'descripcion')
+        ));
+        $coberturas = $this->Cobertura->find('list', array(
+            'fields' => array('idcobertura', 'descripcion')
         ));
         if ($this->request->is(array("post", "put"))) {
             $ds = $this->Alumno->getDataSource();
@@ -496,7 +499,7 @@ class AlumnosController extends AppController {
             }
             $this->Session->setFlash(__("No fue posible registrar el alumno."), "flash_bootstrap");
         }
-        $this->set(compact("aseguradoras"));
+        $this->set(compact("aseguradoras", "coberturas"));
     }
 
     public function view($id = null) {

@@ -10,8 +10,10 @@
     echo $this->Html->css("jquery-ui.min");
     echo $this->Html->css("jquery-ui.structure.min");
     echo $this->Html->css("jquery-ui.theme.min");
+    echo $this->Html->css("../bower_components/select2/dist/css/select2.min");
     echo $this->Html->script("jquery-ui.min", array("inline" => false));
     echo $this->Html->script("datepicker-es", array("inline" => false));
+    echo $this->Html->script("../bower_components/select2/dist/js/select2.min");
 ?>
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
@@ -102,6 +104,11 @@
                         "disabled" => true,
                         "options" => $aseguradoras,
                         "empty" => "Selecciona una Aseguradora"
+                    ));
+                    echo $this->Form->input("coberturas", array(
+                        "label" => "Coberturas",
+                        "options" => $coberturas,
+                        "multiple" => "multiple"
                     ));
                     echo $this->Form->input("lugarAten", array(
                         "label" => "Lugar de Atención"
@@ -305,7 +312,7 @@
             "label" => "Teléfono 2"
         )) .
         $this->Form->input("Padre.2.fechaNac", array(
-            "label" => "Fecha de Nacimiento <span style='color: #999'>(AAAA-MM-DD)</span>",
+            "label" => "Fecha de Nacimiento <span style=\"color: #999\">(AAAA-MM-DD)</span>",
             "type" => "text"
         )) .
         $this->Form->input("Padre.2.email", array(
@@ -575,6 +582,9 @@
         }
     }
     $(document).ready(function() {
+        
+        $("#AlumnoCoberturas").select2();
+        
         $('#AlumnoSeguro').change(function() {
             if ($('#AlumnoSeguro').prop('checked')) {
                 $('#AlumnoIdaseguradora').prop('disabled', false);

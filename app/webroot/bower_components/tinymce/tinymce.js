@@ -6,6 +6,7 @@
 
 /*jshint smarttabs:true, undef:true, latedef:true, curly:true, bitwise:true, camelcase:true */
 /*globals $code */
+
 (function(exports, undefined) {
 	"use strict";
 
