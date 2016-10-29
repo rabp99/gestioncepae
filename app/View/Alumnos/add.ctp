@@ -105,9 +105,10 @@
                         "options" => $aseguradoras,
                         "empty" => "Selecciona una Aseguradora"
                     ));
-                    echo $this->Form->input("coberturas", array(
+                    echo $this->Form->input("AlumnosCobertura.idcobertura", array(
                         "label" => "Coberturas",
                         "options" => $coberturas,
+                        "disabled" => true,
                         "multiple" => "multiple"
                     ));
                     echo $this->Form->input("lugarAten", array(
@@ -583,13 +584,22 @@
     }
     $(document).ready(function() {
         
-        $("#AlumnoCoberturas").select2();
+        $("#AlumnosCoberturaIdcobertura").select2({
+            placeholder: 'Selecciona las coberturas',
+            "language": {
+                "noResults": function(){
+                    return "Sin resultados";
+                }
+            },
+        });
         
         $('#AlumnoSeguro').change(function() {
             if ($('#AlumnoSeguro').prop('checked')) {
                 $('#AlumnoIdaseguradora').prop('disabled', false);
+                $('#AlumnosCoberturaIdcobertura').prop('disabled', false);
             } else {
                 $('#AlumnoIdaseguradora').prop('disabled', true);
+                $('#AlumnosCoberturaIdcobertura').prop('disabled', true);
             }
         });
         

@@ -13,8 +13,10 @@
     echo $this->Html->css("jquery-ui.min");
     echo $this->Html->css("jquery-ui.structure.min");
     echo $this->Html->css("jquery-ui.theme.min");
+    echo $this->Html->css("../bower_components/select2/dist/css/select2.min");
     echo $this->Html->script("jquery-ui.min", array("inline" => false));
     echo $this->Html->script("datepicker-es", array("inline" => false));
+    echo $this->Html->script("../bower_components/select2/dist/js/select2.min");
 ?>
 <div class="inpanel tabs-above" id="yw0">
     <ul id="yw1" class="nav nav-tabs">
@@ -100,8 +102,17 @@
                         </div>
                     </div>
                 <?php 
-                    echo $this->Form->input("aseguradora", array(
-                        "label" => "Aseguradora"
+                    echo $this->Form->input("idaseguradora", array(
+                        "label" => "Aseguradora",
+                        "disabled" => true,
+                        "options" => $aseguradoras,
+                        "empty" => "Selecciona una Aseguradora"
+                    ));
+                    echo $this->Form->input("AlumnosCobertura.idcobertura", array(
+                        "label" => "Coberturas",
+                        "options" => $coberturas,
+                        "disabled" => true,
+                        "multiple" => "multiple"
                     ));
                     echo $this->Form->input("lugarAten", array(
                         "label" => "Lugar de Atención"
@@ -152,3 +163,41 @@
         });
     });
 <?php echo $this->Html->scriptEnd(); ?>
+<script>
+$(document).ready(function() {
+    $("#AlumnosCoberturaIdcobertura").select2({
+        placeholder: 'Selecciona las coberturas',
+        "language": {
+            "noResults": function(){
+                return "Sin resultados";
+            }
+        },
+    });
+
+    $('#AlumnoSeguro').change(function() {
+        if ($('#AlumnoSeguro').prop('checked')) {
+            $('#AlumnoIdaseguradora').prop('disabled', false);
+            $('#AlumnosCoberturaIdcobertura').prop('disabled', false);
+        } else {
+            $('#AlumnoIdaseguradora').prop('disabled', true);
+            $('#AlumnosCoberturaIdcobertura').prop('disabled', true);
+        }
+    }); 
+    
+    if ($('#AlumnoSeguro').prop('checked')) {
+        $('#AlumnoIdaseguradora').prop('disabled', false);
+        $('#AlumnosCoberturaIdcobertura').prop('disabled', false);
+    } else {
+        $('#AlumnoIdaseguradora').prop('disabled', true);
+        $('#AlumnosCoberturaIdcobertura').prop('disabled', true);
+    }
+    
+    var coberturas = [];
+    coberturas[0] = [];
+    <?php foreach ($this->request->data["AlumnosCobertura"] as $cobertura) { ?>
+        coberturas[0].push(<?php echo $cobertura["idcobertura"]; ?>);
+    <?php } ?>
+    
+    $("#AlumnosCoberturaIdcobertura").select2('val', coberturas);
+});
+</script>

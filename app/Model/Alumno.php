@@ -14,6 +14,9 @@ class Alumno extends AppModel {
     public $belongsTo = array(
         "User" => array(
             "foreignKey" => "iduser"
+        ),
+        "Aseguradora" => array(
+            "foreignKey" => "idaseguradora"
         )
     );
     
@@ -24,6 +27,9 @@ class Alumno extends AppModel {
         ),
         "AlumnosPadre" => array(
             "foreignKey" => "idalumno"
+        ),
+        'AlumnosCobertura' => array(
+            'foreignKey' => 'idalumno'
         )
     );
     

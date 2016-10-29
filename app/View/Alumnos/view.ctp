@@ -64,7 +64,13 @@
                     <dt>Seguro</dt>
                     <dd><?php echo $alumno["Alumno"]["seguro"] ? "Sí" : "No"; ?></dd>
                     <dt>Aseguradora</dt>
-                    <dd><?php echo $alumno["Alumno"]["aseguradora"]; ?></dd>
+                    <dd><?php echo $alumno["Aseguradora"]["descripcion"]; ?></dd>
+                    <dt>Coberturas</dt>
+                    <dd>
+                        <?php foreach ($alumno["AlumnosCobertura"] as $cobertura) { ?>
+                        <p><li><?php echo $cobertura["Cobertura"]["descripcion"]; ?></li></p>
+                        <?php } ?>
+                    </dd>
                     <dt>Lugar de Atención</dt>
                     <dd><?php echo $alumno["Alumno"]["lugarAten"]; ?></dd>
                     <dt>Alergias</dt>

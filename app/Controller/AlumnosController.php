@@ -56,6 +56,16 @@ class AlumnosController extends AppController {
                 $this->Alumno->create();  
                 if($this->Alumno->save($this->request->data["Alumno"])) {
                     $this->request->data["Alumno"]["idalumno"] = $this->Alumno->id;
+                    if (!empty($this->request->data['AlumnosCobertura']['idcobertura'])) {
+                        $alumnosCoberturas = array();
+                        foreach ($this->request->data['AlumnosCobertura']['idcobertura'] as $idcobertura) {
+                            $alumnosCoberturas[] = array(
+                                "idcobertura" => $idcobertura,
+                                "idalumno" => $this->request->data["Alumno"]["idalumno"]
+                            );
+                        }
+                        $this->Alumno->AlumnosCobertura->saveAll($alumnosCoberturas);
+                    }
                     
                     if(!isset($this->request->data["Padre"][0]["idpadre"]) && !isset($this->request->data["Padre"][1]["idpadre"]) && !isset($this->request->data["Padre"][2]["idpadre"]) ) {
                         debug("primer caso");
@@ -527,6 +537,13 @@ class AlumnosController extends AppController {
             throw new NotFoundException(__("Alumno inválido"));
         }
         
+        $aseguradoras = $this->Aseguradora->find('list', array(
+            'fields' => array('idaseguradora', 'descripcion')
+        ));
+        $coberturas = $this->Cobertura->find('list', array(
+            'fields' => array('idcobertura', 'descripcion')
+        ));
+        
         if ($this->request->is(array("post", "put"))) {      
             
             $this->Alumno->id = $id;
@@ -539,6 +556,7 @@ class AlumnosController extends AppController {
         if (!$this->request->data) {
             $this->request->data = $alumno;
         }
+        $this->set(compact('aseguradoras', 'coberturas'));
     }
     
     public function delete($id) {
