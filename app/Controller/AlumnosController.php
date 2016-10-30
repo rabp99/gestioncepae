@@ -544,12 +544,26 @@ class AlumnosController extends AppController {
             'fields' => array('idcobertura', 'descripcion')
         ));
         
-        if ($this->request->is(array("post", "put"))) {      
-            
+        if ($this->request->is(array("post", "put"))) {
+            if (!$this->request->data['Alumno']['seguro']) {
+                $this->request->data['Alumno']['idaseguradora'] = null;
+            }
             $this->Alumno->id = $id;
-            if ($this->Alumno->save($this->request->data)) {     
-                $this->Session->setFlash(__("El Alumno ha sido actualizado."), "flash_bootstrap");
-                return $this->redirect(array("action" => "index"));
+            if ($this->Alumno->save($this->request->data)) {  
+                if ($this->Alumno->AlumnosCobertura->deleteAll(array('AlumnosCobertura.idalumno' => $id))) {
+                    $alumnosCoberturas = array();
+                    if (!empty($this->request->data["AlumnosCobertura"])) {
+                        foreach ($this->request->data['AlumnosCobertura']['idcobertura'] as $idcobertura) {
+                            $alumnosCoberturas[] = array(
+                                "idcobertura" => $idcobertura,
+                                "idalumno" => $id
+                            );
+                        }
+                    }
+                    $this->Alumno->AlumnosCobertura->saveAll($alumnosCoberturas);
+                    $this->Session->setFlash(__("El Alumno ha sido actualizado."), "flash_bootstrap");
+                    return $this->redirect(array("action" => "index"));
+                }
             }
             $this->Session->setFlash(__("No es posible actualizar el Alumno."), "flash_bootstrap");
         }

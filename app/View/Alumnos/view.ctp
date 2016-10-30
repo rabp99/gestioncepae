@@ -34,7 +34,7 @@
             <div class="info-panel">
                 <dl class="dl-horizontal">
                     <dt>Código</dt>
-                    <dd><?php echo 'A' . str_pad($alumno["Alumno"]["idalumno"],  5, '0', STR_PAD_LEFT); ?></dd>
+                    <dd><?php echo $alumno["Alumno"]["idalumno"]; ?></dd>
                     <dt>Nombre Completo</dt>
                     <dd><?php echo $alumno["Alumno"]["nombreCompleto"]; ?></dd>
                     <dt>Sexo</dt>

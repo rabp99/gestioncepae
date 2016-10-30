@@ -598,6 +598,10 @@
                 $('#AlumnoIdaseguradora').prop('disabled', false);
                 $('#AlumnosCoberturaIdcobertura').prop('disabled', false);
             } else {
+                var vacio = [];
+                vacio[0] = [];
+                $('#AlumnoIdaseguradora').val(null);
+                $('#AlumnosCoberturaIdcobertura').select2('val', vacio);
                 $('#AlumnoIdaseguradora').prop('disabled', true);
                 $('#AlumnosCoberturaIdcobertura').prop('disabled', true);
             }

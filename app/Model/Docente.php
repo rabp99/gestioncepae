@@ -62,4 +62,10 @@ class Docente extends AppModel {
             )
         )
     );
+    
+    public function beforeSave($options = array()) {
+        $next_id = $this->find('count') + 1;
+        $this->data['Docente']['iddocente'] = 'D' . str_pad($next_id, 4, "0", STR_PAD_LEFT);
+        return true;
+    }
 }
